@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-
 <html lang="si">
 
 <head>
 
-```
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Story | කතා අරණ</title>
+    <title>Story | කතා අරණ</title>
 
-<link
-    rel="stylesheet"
-    href="style.css"
->
-```
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
+
 <body>
+
 
 <!-- =====================================
      HEADER
@@ -30,28 +29,28 @@
 
 <header class="header">
 
-```
-<div class="logo">
+    <div class="logo">
 
-    📚
+        📚
 
-    <span>
-        කතා අරණ
-    </span>
+        <span>
+            කතා අරණ
+        </span>
 
-</div>
+    </div>
 
 
-<nav>
+    <nav>
 
-    <a href="index.html">
-        🏠 මුල් පිටුව
-    </a>
+        <a href="index.html">
+            🏠 මුල් පිටුව
+        </a>
 
-</nav>
-```
+    </nav>
 
 </header>
+
+
 
 <!-- =====================================
      MAIN
@@ -59,84 +58,92 @@
 
 <main class="section">
 
-```
-<!-- STORY INFORMATION -->
 
-<div
-    class="story-reader"
-    id="storyInfo"
->
+    <!-- STORY INFORMATION -->
 
-    <p style="
-        color:#888;
-        text-align:center;
-        padding:40px;
-    ">
+    <div
+        class="story-reader"
+        id="storyInfo"
+    >
 
-        ⏳ කතාව load වෙමින්...
+        <p style="
+            color:#888;
+            text-align:center;
+            padding:40px;
+        ">
 
-    </p>
+            ⏳ කතාව load වෙමින්...
 
-</div>
-
-
-
-<!-- CHAPTERS -->
-
-<section
-    id="chapterListSection"
-    style="margin-top:40px;"
->
-
-    <p class="label">
-        CHAPTERS
-    </p>
-
-
-    <h2>
-        📚 පරිච්ඡේද
-    </h2>
-
-
-    <div id="chapterList">
-
-        <p style="color:#888;">
-            ⏳ Chapters load වෙමින්...
         </p>
 
     </div>
 
-</section>
+
+
+    <!-- =====================================
+         CHAPTERS
+    ====================================== -->
+
+    <section
+        id="chapterListSection"
+        style="margin-top:40px;"
+    >
+
+        <p class="label">
+            CHAPTERS
+        </p>
+
+
+        <h2>
+            📚 පරිච්ඡේද
+        </h2>
+
+
+        <div id="chapterList">
+
+            <p style="color:#888;">
+
+                ⏳ Chapters load වෙමින්...
+
+            </p>
+
+        </div>
+
+    </section>
 
 
 
-<!-- READING AREA -->
+    <!-- =====================================
+         READING AREA
+    ====================================== -->
 
-<article
-    class="reading-area"
-    id="chapterArea"
-    style="margin-top:40px;"
->
+    <article
+        class="reading-area"
+        id="chapterArea"
+        style="margin-top:40px;"
+    >
 
-    <p class="label">
-        STORY
-    </p>
-
-
-    <h2>
-        Chapter එකක් තෝරන්න
-    </h2>
+        <p class="label">
+            STORY
+        </p>
 
 
-    <p>
-        ඉහළින් Chapter එකක් තෝරලා
-        කතාව කියවීම ආරම්භ කරන්න. 📖
-    </p>
+        <h2>
+            Chapter එකක් තෝරන්න
+        </h2>
 
-</article>
-```
+
+        <p>
+            ඉහළින් Chapter එකක් තෝරලා
+            කතාව කියවීම ආරම්භ කරන්න. 📖
+        </p>
+
+    </article>
+
 
 </main>
+
+
 
 <!-- =====================================
      FOOTER
@@ -144,26 +151,30 @@
 
 <footer>
 
-```
-<div class="footer-logo">
-    📚 කතා අරණ
-</div>
+    <div class="footer-logo">
+
+        📚 කතා අරණ
+
+    </div>
 
 
-<p>
-    සිංහල කතා කියවන්නට ඔබේම තැන.
-</p>
+    <p>
+
+        සිංහල කතා කියවන්නට ඔබේම තැන.
+
+    </p>
 
 
-<div class="footer-bottom">
+    <div class="footer-bottom">
 
-    © 2026 KATHA ARANA.
-    All Rights Reserved.
+        © 2026 KATHA ARANA.
+        All Rights Reserved.
 
-</div>
-```
+    </div>
 
 </footer>
+
+
 
 <!-- =====================================
      SUPABASE
@@ -173,16 +184,14 @@
 
 <script src="supabase.js"></script>
 
-<!-- =====================================
-     STORY SCRIPT
-===================================== -->
+
 
 <script>
 
 
-// ==========================================
+// =====================================================
 // GET STORY ID
-// ==========================================
+// =====================================================
 
 const params =
     new URLSearchParams(
@@ -194,9 +203,10 @@ const storyId =
     params.get("id");
 
 
-// ==========================================
+
+// =====================================================
 // ELEMENTS
-// ==========================================
+// =====================================================
 
 const storyInfo =
     document.getElementById(
@@ -216,31 +226,82 @@ const chapterArea =
     );
 
 
-// ==========================================
+
+// =====================================================
 // CURRENT STORY
-// ==========================================
+// =====================================================
 
 let currentStory = null;
 
 
-// ==========================================
+
+// =====================================================
 // FONT SIZE
-// ==========================================
+// =====================================================
 
 let readerFontSize = 19;
 
 
-// ==========================================
+
+// =====================================================
+// VISITOR ID
+// =====================================================
+
+function getVisitorId() {
+
+    let visitorId =
+        localStorage.getItem(
+            "kathaVisitorId"
+        );
+
+
+    if (!visitorId) {
+
+        if (
+            window.crypto &&
+            crypto.randomUUID
+        ) {
+
+            visitorId =
+                crypto.randomUUID();
+
+        } else {
+
+            visitorId =
+                "visitor-" +
+                Date.now() +
+                "-" +
+                Math.random()
+                    .toString(36)
+                    .substring(2);
+
+        }
+
+
+        localStorage.setItem(
+            "kathaVisitorId",
+            visitorId
+        );
+
+    }
+
+
+    return visitorId;
+
+}
+
+
+
+// =====================================================
 // LOAD STORY
-// ==========================================
+// =====================================================
 
 async function loadStory() {
 
     try {
 
-        if (
-            !storyId
-        ) {
+
+        if (!storyId) {
 
             showStoryNotFound();
 
@@ -255,25 +316,28 @@ async function loadStory() {
         );
 
 
-        // ----------------------------------
+
+        // =============================================
         // GET STORY
-        // ----------------------------------
+        // =============================================
 
         const {
             data: story,
             error: storyError
-        } = await supabaseClient
+        } =
+            await supabaseClient
 
-            .from("stories")
+                .from("stories")
 
-            .select("*")
+                .select("*")
 
-            .eq(
-                "id",
-                storyId
-            )
+                .eq(
+                    "id",
+                    storyId
+                )
 
-            .single();
+                .single();
+
 
 
         if (storyError) {
@@ -283,11 +347,13 @@ async function loadStory() {
                 storyError
             );
 
+
             showStoryNotFound();
 
             return;
 
         }
+
 
 
         if (!story) {
@@ -299,8 +365,10 @@ async function loadStory() {
         }
 
 
+
         currentStory =
             story;
+
 
 
         console.log(
@@ -309,9 +377,10 @@ async function loadStory() {
         );
 
 
-        // ----------------------------------
+
+        // =============================================
         // PAGE TITLE
-        // ----------------------------------
+        // =============================================
 
         document.title =
             (
@@ -322,22 +391,40 @@ async function loadStory() {
             " | කතා අරණ";
 
 
-        // ----------------------------------
+
+        // =============================================
         // DISPLAY STORY
-        // ----------------------------------
+        // =============================================
 
         displayStory(
             story
         );
 
 
-        // ----------------------------------
+
+        // =============================================
         // LOAD CHAPTERS
-        // ----------------------------------
+        // =============================================
 
         await loadChapters(
             story.id
         );
+
+
+
+        // =============================================
+        // ADD VIEW
+        // =============================================
+
+        await addStoryView();
+
+
+
+        // =============================================
+        // UPDATE STATS
+        // =============================================
+
+        await updateStoryStats();
 
 
     }
@@ -345,7 +432,7 @@ async function loadStory() {
     catch (error) {
 
         console.error(
-            "Unexpected error:",
+            "Unexpected story error:",
             error
         );
 
@@ -357,14 +444,17 @@ async function loadStory() {
 }
 
 
-// ==========================================
+
+// =====================================================
 // DISPLAY STORY
-// ==========================================
+// =====================================================
 
 function displayStory(story) {
 
+
     let coverHTML =
         "📖";
+
 
 
     if (
@@ -381,13 +471,15 @@ function displayStory(story) {
                     story.cover
                 )}"
                 alt="${escapeHTML(
-                    story.title || "Story"
+                    story.title ||
+                    "Story"
                 )}"
             >
 
         `;
 
     }
+
 
 
     storyInfo.innerHTML = `
@@ -397,6 +489,7 @@ function displayStory(story) {
             ${coverHTML}
 
         </div>
+
 
 
         <div class="reader-info">
@@ -410,6 +503,7 @@ function displayStory(story) {
             </p>
 
 
+
             <h1>
 
                 ${escapeHTML(
@@ -418,6 +512,7 @@ function displayStory(story) {
                 )}
 
             </h1>
+
 
 
             <p class="author">
@@ -432,6 +527,7 @@ function displayStory(story) {
             </p>
 
 
+
             <p class="description">
 
                 ${escapeHTML(
@@ -441,7 +537,10 @@ function displayStory(story) {
             </p>
 
 
-            <div class="story-meta">
+
+            <div
+                class="story-meta"
+            >
 
                 <span>
 
@@ -449,6 +548,13 @@ function displayStory(story) {
                     ${Number(
                         story.views || 0
                     )}
+
+                </span>
+
+
+                <span>
+
+                    ❤️ 0
 
                 </span>
 
@@ -463,6 +569,7 @@ function displayStory(story) {
                 </span>
 
             </div>
+
 
 
             <div class="reader-controls">
@@ -531,14 +638,16 @@ function displayStory(story) {
     `;
 
 
+
     updateReaderButtons();
 
 }
 
 
-// ==========================================
+
+// =====================================================
 // LOAD CHAPTERS
-// ==========================================
+// =====================================================
 
 async function loadChapters(
     storyId
@@ -546,32 +655,36 @@ async function loadChapters(
 
     try {
 
+
         console.log(
-            "Loading chapters for story:",
+            "Loading chapters:",
             storyId
         );
+
 
 
         const {
             data,
             error
-        } = await supabaseClient
+        } =
+            await supabaseClient
 
-            .from("chapters")
+                .from("chapters")
 
-            .select("*")
+                .select("*")
 
-            .eq(
-                "story_id",
-                storyId
-            )
+                .eq(
+                    "story_id",
+                    storyId
+                )
 
-            .order(
-                "number",
-                {
-                    ascending: true
-                }
-            );
+                .order(
+                    "number",
+                    {
+                        ascending: true
+                    }
+                );
+
 
 
         if (error) {
@@ -592,13 +705,16 @@ async function loadChapters(
 
             `;
 
+
             return;
 
         }
 
 
+
         const chapters =
             data || [];
+
 
 
         displayChapters(
@@ -610,6 +726,7 @@ async function loadChapters(
     catch (error) {
 
         console.error(
+            "Chapter error:",
             error
         );
 
@@ -629,16 +746,19 @@ async function loadChapters(
 }
 
 
-// ==========================================
+
+// =====================================================
 // DISPLAY CHAPTERS
-// ==========================================
+// =====================================================
 
 function displayChapters(
     chapters
 ) {
 
+
     chapterList.innerHTML =
         "";
+
 
 
     if (
@@ -659,13 +779,16 @@ function displayChapters(
 
         `;
 
+
         return;
 
     }
 
 
+
     chapters.forEach(
         function(chapter) {
+
 
             const button =
                 document.createElement(
@@ -699,6 +822,7 @@ function displayChapters(
             `;
 
 
+
             button.addEventListener(
                 "click",
                 function() {
@@ -712,6 +836,7 @@ function displayChapters(
             );
 
 
+
             chapterList.appendChild(
                 button
             );
@@ -722,14 +847,16 @@ function displayChapters(
 }
 
 
-// ==========================================
+
+// =====================================================
 // OPEN CHAPTER
-// ==========================================
+// =====================================================
 
 function openChapter(
     chapter,
     chapters
 ) {
+
 
     const currentIndex =
         chapters.findIndex(
@@ -747,10 +874,15 @@ function openChapter(
         );
 
 
-    let buttonsHTML = "";
+
+    let buttonsHTML =
+        "";
 
 
-    // Previous
+
+    // =============================================
+    // PREVIOUS
+    // =============================================
 
     if (
         currentIndex > 0
@@ -773,7 +905,10 @@ function openChapter(
     }
 
 
-    // Next
+
+    // =============================================
+    // NEXT
+    // =============================================
 
     if (
         currentIndex <
@@ -797,6 +932,7 @@ function openChapter(
     }
 
 
+
     chapterArea.innerHTML = `
 
         <p class="label">
@@ -809,6 +945,7 @@ function openChapter(
         </p>
 
 
+
         <h2>
 
             ${escapeHTML(
@@ -819,11 +956,13 @@ function openChapter(
         </h2>
 
 
+
         <div class="chapter-content">
 
             ${chapter.content || ""}
 
         </div>
+
 
 
         <div
@@ -843,7 +982,10 @@ function openChapter(
     `;
 
 
-    // Previous button
+
+    // =============================================
+    // PREVIOUS BUTTON
+    // =============================================
 
     const previousButton =
         document.getElementById(
@@ -870,7 +1012,10 @@ function openChapter(
     }
 
 
-    // Next button
+
+    // =============================================
+    // NEXT BUTTON
+    // =============================================
 
     const nextButton =
         document.getElementById(
@@ -897,67 +1042,293 @@ function openChapter(
     }
 
 
+
     applyFontSize();
 
 
+
     chapterArea.scrollIntoView({
-        behavior: "smooth"
+        behavior:"smooth"
     });
 
 }
 
 
-// ==========================================
-// LIKE
-// ==========================================
 
-function toggleLike() {
+// =====================================================
+// ADD STORY VIEW
+// =====================================================
+
+async function addStoryView() {
+
 
     if (!currentStory) {
         return;
     }
 
 
-    const key =
-        "liked_" +
-        currentStory.id;
+
+    try {
 
 
-    const liked =
-        localStorage.getItem(
-            key
-        )
-        ===
-        "true";
+        const visitorId =
+            getVisitorId();
 
 
-    localStorage.setItem(
-        key,
-        String(
-            !liked
-        )
-    );
+
+        const viewKey =
+            "viewed_" +
+            currentStory.id;
 
 
-    updateReaderButtons();
+
+        // One view per visitor
+        // per browser session
+
+        if (
+            sessionStorage.getItem(
+                viewKey
+            )
+        ) {
+
+            return;
+
+        }
+
+
+
+        const {
+            error
+        } =
+            await supabaseClient
+
+                .from("story_views")
+
+                .insert({
+
+                    story_id:
+                        currentStory.id,
+
+                    visitor_id:
+                        visitorId
+
+                });
+
+
+
+        if (error) {
+
+            console.error(
+                "View insert error:",
+                error
+            );
+
+
+            return;
+
+        }
+
+
+
+        sessionStorage.setItem(
+            viewKey,
+            "true"
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "View error:",
+            error
+        );
+
+    }
 
 }
 
 
-// ==========================================
-// BOOKMARK
-// ==========================================
 
-function toggleBookmark() {
+// =====================================================
+// TOGGLE LIKE
+// =====================================================
+
+async function toggleLike() {
+
 
     if (!currentStory) {
         return;
     }
+
+
+
+    try {
+
+
+        const visitorId =
+            getVisitorId();
+
+
+
+        const {
+            data: existingLike,
+            error: checkError
+        } =
+            await supabaseClient
+
+                .from("story_likes")
+
+                .select("id")
+
+                .eq(
+                    "story_id",
+                    currentStory.id
+                )
+
+                .eq(
+                    "visitor_id",
+                    visitorId
+                )
+
+                .maybeSingle();
+
+
+
+        if (checkError) {
+
+            console.error(
+                "Like check error:",
+                checkError
+            );
+
+
+            return;
+
+        }
+
+
+
+        // =========================================
+        // REMOVE LIKE
+        // =========================================
+
+        if (existingLike) {
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+
+                    .from("story_likes")
+
+                    .delete()
+
+                    .eq(
+                        "id",
+                        existingLike.id
+                    );
+
+
+
+            if (error) {
+
+                console.error(
+                    "Unlike error:",
+                    error
+                );
+
+
+                return;
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // ADD LIKE
+        // =========================================
+
+        else {
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+
+                    .from("story_likes")
+
+                    .insert({
+
+                        story_id:
+                            currentStory.id,
+
+                        visitor_id:
+                            visitorId
+
+                    });
+
+
+
+            if (error) {
+
+                console.error(
+                    "Like error:",
+                    error
+                );
+
+
+                return;
+
+            }
+
+        }
+
+
+
+        updateReaderButtons();
+
+
+        await updateStoryStats();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Like error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// =====================================================
+// BOOKMARK
+// =====================================================
+
+function toggleBookmark() {
+
+
+    if (!currentStory) {
+        return;
+    }
+
 
 
     const key =
         "bookmark_" +
         currentStory.id;
+
 
 
     const bookmarked =
@@ -968,6 +1339,7 @@ function toggleBookmark() {
         "true";
 
 
+
     localStorage.setItem(
         key,
         String(
@@ -976,7 +1348,6 @@ function toggleBookmark() {
     );
 
 
-    // Update library
 
     updateLibrary(
         currentStory.id,
@@ -984,21 +1355,25 @@ function toggleBookmark() {
     );
 
 
+
     updateReaderButtons();
 
 }
 
 
-// ==========================================
-// LIBRARY
-// ==========================================
+
+// =====================================================
+// UPDATE LIBRARY
+// =====================================================
 
 function updateLibrary(
     storyId,
     add
 ) {
 
+
     let library = [];
+
 
 
     try {
@@ -1008,7 +1383,8 @@ function updateLibrary(
                 localStorage.getItem(
                     "kathaLibrary"
                 )
-            ) || [];
+            )
+            || [];
 
     }
 
@@ -1017,6 +1393,7 @@ function updateLibrary(
         library = [];
 
     }
+
 
 
     library =
@@ -1031,6 +1408,7 @@ function updateLibrary(
         );
 
 
+
     if (add) {
 
         library.push(
@@ -1038,6 +1416,7 @@ function updateLibrary(
         );
 
     }
+
 
 
     localStorage.setItem(
@@ -1050,15 +1429,18 @@ function updateLibrary(
 }
 
 
-// ==========================================
-// BUTTON STATES
-// ==========================================
 
-function updateReaderButtons() {
+// =====================================================
+// UPDATE BUTTONS
+// =====================================================
+
+async function updateReaderButtons() {
+
 
     if (!currentStory) {
         return;
     }
+
 
 
     const likeButton =
@@ -1073,14 +1455,72 @@ function updateReaderButtons() {
         );
 
 
-    const liked =
-        localStorage.getItem(
-            "liked_" +
-            currentStory.id
-        )
-        ===
-        "true";
 
+    const visitorId =
+        getVisitorId();
+
+
+
+    let liked =
+        false;
+
+
+
+    // =============================================
+    // CHECK DATABASE LIKE
+    // =============================================
+
+    try {
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+
+                .from("story_likes")
+
+                .select("id")
+
+                .eq(
+                    "story_id",
+                    currentStory.id
+                )
+
+                .eq(
+                    "visitor_id",
+                    visitorId
+                )
+
+                .maybeSingle();
+
+
+
+        if (!error) {
+
+            liked =
+                !!data;
+
+        }
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Like state error:",
+            error
+        );
+
+    }
+
+
+
+    // =============================================
+    // BOOKMARK
+    // =============================================
 
     const bookmarked =
         localStorage.getItem(
@@ -1091,6 +1531,11 @@ function updateReaderButtons() {
         "true";
 
 
+
+    // =============================================
+    // BUTTONS
+    // =============================================
+
     if (likeButton) {
 
         likeButton.innerText =
@@ -1099,6 +1544,7 @@ function updateReaderButtons() {
                 : "🤍 Like";
 
     }
+
 
 
     if (bookmarkButton) {
@@ -1113,16 +1559,171 @@ function updateReaderButtons() {
 }
 
 
-// ==========================================
+
+// =====================================================
+// UPDATE STORY STATS
+// =====================================================
+
+async function updateStoryStats() {
+
+
+    if (!currentStory) {
+        return;
+    }
+
+
+
+    try {
+
+
+        // =============================================
+        // VIEW COUNT
+        // =============================================
+
+        const {
+            count: viewCount,
+            error: viewError
+        } =
+            await supabaseClient
+
+                .from("story_views")
+
+                .select(
+                    "*",
+                    {
+                        count:"exact",
+                        head:true
+                    }
+                )
+
+                .eq(
+                    "story_id",
+                    currentStory.id
+                );
+
+
+
+        // =============================================
+        // LIKE COUNT
+        // =============================================
+
+        const {
+            count: likeCount,
+            error: likeError
+        } =
+            await supabaseClient
+
+                .from("story_likes")
+
+                .select(
+                    "*",
+                    {
+                        count:"exact",
+                        head:true
+                    }
+                )
+
+                .eq(
+                    "story_id",
+                    currentStory.id
+                );
+
+
+
+        if (viewError) {
+
+            console.error(
+                "View count error:",
+                viewError
+            );
+
+        }
+
+
+
+        if (likeError) {
+
+            console.error(
+                "Like count error:",
+                likeError
+            );
+
+        }
+
+
+
+        // =============================================
+        // UPDATE DISPLAY
+        // =============================================
+
+        const meta =
+            document.querySelector(
+                ".story-meta"
+            );
+
+
+
+        if (meta) {
+
+            meta.innerHTML = `
+
+                <span>
+
+                    👁️
+                    ${viewCount || 0}
+
+                </span>
+
+
+                <span>
+
+                    ❤️
+                    ${likeCount || 0}
+
+                </span>
+
+
+                <span>
+
+                    ⭐
+                    ${Number(
+                        currentStory.rating || 0
+                    )}
+
+                </span>
+
+            `;
+
+        }
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Stats error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// =====================================================
 // FONT SIZE
-// ==========================================
+// =====================================================
 
 function changeFontSize(
     amount
 ) {
 
+
     readerFontSize +=
         amount;
+
 
 
     if (
@@ -1135,6 +1736,7 @@ function changeFontSize(
     }
 
 
+
     if (
         readerFontSize > 30
     ) {
@@ -1145,16 +1747,19 @@ function changeFontSize(
     }
 
 
+
     applyFontSize();
 
 }
 
 
-// ==========================================
+
+// =====================================================
 // APPLY FONT SIZE
-// ==========================================
+// =====================================================
 
 function applyFontSize() {
+
 
     const content =
         document.querySelector(
@@ -1162,11 +1767,13 @@ function applyFontSize() {
         );
 
 
+
     if (content) {
 
         content.style.fontSize =
             readerFontSize +
             "px";
+
 
         content.style.lineHeight =
             "1.9";
@@ -1176,9 +1783,10 @@ function applyFontSize() {
 }
 
 
-// ==========================================
+
+// =====================================================
 // READING MODE
-// ==========================================
+// =====================================================
 
 function toggleReadingMode() {
 
@@ -1191,11 +1799,13 @@ function toggleReadingMode() {
 }
 
 
-// ==========================================
+
+// =====================================================
 // STORY NOT FOUND
-// ==========================================
+// =====================================================
 
 function showStoryNotFound() {
+
 
     storyInfo.innerHTML = `
 
@@ -1240,6 +1850,7 @@ function showStoryNotFound() {
     `;
 
 
+
     chapterList.innerHTML =
         "";
 
@@ -1250,13 +1861,15 @@ function showStoryNotFound() {
 }
 
 
-// ==========================================
+
+// =====================================================
 // ESCAPE HTML
-// ==========================================
+// =====================================================
 
 function escapeHTML(
     value
 ) {
+
 
     const div =
         document.createElement(
@@ -1264,12 +1877,12 @@ function escapeHTML(
         );
 
 
+
     div.textContent =
         value == null
             ? ""
-            : String(
-                value
-            );
+            : String(value);
+
 
 
     return div.innerHTML;
@@ -1277,9 +1890,10 @@ function escapeHTML(
 }
 
 
-// ==========================================
+
+// =====================================================
 // START
-// ==========================================
+// =====================================================
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1290,9 +1904,10 @@ document.addEventListener(
     }
 );
 
+
 </script>
+
 
 </body>
 
 </html>
-
