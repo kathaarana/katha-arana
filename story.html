@@ -1,0 +1,1028 @@
+```html
+<!DOCTYPE html>
+<html lang="si">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Story | කතා ලෝකය</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header class="header">
+
+    <div class="logo">
+
+        📚
+
+        <span>
+            කතා ලෝකය
+        </span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            🏠 මුල් පිටුව
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =====================================
+     STORY
+===================================== -->
+
+<main class="section">
+
+
+    <!-- STORY INFORMATION -->
+
+    <div
+        class="story-reader"
+        id="storyInfo"
+    ></div>
+
+
+
+    <!-- CHAPTERS -->
+
+    <section
+        id="chapterListSection"
+        style="margin-top:40px;"
+    >
+
+        <p class="label">
+            CHAPTERS
+        </p>
+
+
+        <h2>
+            📚 පරිච්ඡේද
+        </h2>
+
+
+        <div id="chapterList"></div>
+
+    </section>
+
+
+
+    <!-- READING AREA -->
+
+    <article
+        class="reading-area"
+        id="chapterArea"
+        style="margin-top:40px;"
+    >
+
+        <p class="label">
+            STORY
+        </p>
+
+
+        <h2>
+            Chapter එකක් තෝරන්න
+        </h2>
+
+
+        <p>
+            ඉහළින් Chapter එකක් තෝරලා
+            කතාව කියවීම ආරම්භ කරන්න. 📖
+        </p>
+
+    </article>
+
+
+</main>
+
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer>
+
+    <div class="footer-logo">
+        📚 කතා ලෝකය
+    </div>
+
+
+    <p>
+        සිංහල කතා කියවන්නට ඔබේම තැන.
+    </p>
+
+
+    <div class="footer-bottom">
+
+        © 2026 Katha Lokaya.
+        All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+
+<script src="stories/stories.js"></script>
+
+
+
+<script>
+
+
+// ==========================================
+// STORY ID
+// ==========================================
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const storyId =
+    params.get("id");
+
+
+
+// ==========================================
+// ADMIN STORIES
+// ==========================================
+
+let adminStories = [];
+
+try {
+
+    adminStories =
+        JSON.parse(
+            localStorage.getItem(
+                "kathaAdminStories"
+            )
+        ) || [];
+
+} catch (error) {
+
+    adminStories = [];
+
+}
+
+
+
+// ==========================================
+// DEFAULT STORIES
+// ==========================================
+
+let defaultStories = [];
+
+if (
+    typeof stories !== "undefined"
+) {
+
+    defaultStories =
+        stories;
+
+}
+
+
+
+// ==========================================
+// ALL STORIES
+// ==========================================
+
+const allStories = [
+
+    ...defaultStories,
+
+    ...adminStories
+
+];
+
+
+
+// ==========================================
+// FIND STORY
+// ==========================================
+
+const story =
+    allStories.find(
+        function(item) {
+
+            return String(item.id)
+                ===
+                String(storyId);
+
+        }
+    );
+
+
+
+// ==========================================
+// ELEMENTS
+// ==========================================
+
+const storyInfo =
+    document.getElementById(
+        "storyInfo"
+    );
+
+
+const chapterList =
+    document.getElementById(
+        "chapterList"
+    );
+
+
+const chapterArea =
+    document.getElementById(
+        "chapterArea"
+    );
+
+
+
+// ==========================================
+// FONT SIZE
+// ==========================================
+
+let readerFontSize = 19;
+
+
+
+// ==========================================
+// GET CHAPTERS
+// ==========================================
+
+function getChapters() {
+
+    let chapters = [];
+
+    try {
+
+        chapters =
+            JSON.parse(
+                localStorage.getItem(
+                    "kathaChapters"
+                )
+            ) || [];
+
+    } catch (error) {
+
+        chapters = [];
+
+    }
+
+
+    return chapters
+
+        .filter(
+            function(chapter) {
+
+                return String(
+                    chapter.storyId
+                )
+                ===
+                String(storyId);
+
+            }
+        )
+
+        .sort(
+            function(a,b) {
+
+                return Number(a.number)
+                    -
+                    Number(b.number);
+
+            }
+        );
+
+}
+
+
+
+// ==========================================
+// STORY FOUND
+// ==========================================
+
+if (story) {
+
+
+    // ======================================
+    // TITLE
+    // ======================================
+
+    document.title =
+        story.title +
+        " | කතා ලෝකය";
+
+
+
+    // ======================================
+    // COVER
+    // ======================================
+
+    let coverHTML = "";
+
+
+    if (story.cover) {
+
+        coverHTML = `
+
+            <img
+                src="${story.cover}"
+                alt="${story.title}"
+            >
+
+        `;
+
+    } else {
+
+        coverHTML = `
+
+            <span>
+                📖
+            </span>
+
+        `;
+
+    }
+
+
+
+    // ======================================
+    // STORY INFO
+    // ======================================
+
+    storyInfo.innerHTML = `
+
+        <div class="reader-cover cover">
+
+            ${coverHTML}
+
+        </div>
+
+
+        <div class="reader-info">
+
+            <p class="label">
+
+                ${story.category || ""}
+
+            </p>
+
+
+            <h1>
+
+                ${story.title}
+
+            </h1>
+
+
+            <p class="author">
+
+                ✍️
+                ${story.author || "Unknown"}
+
+            </p>
+
+
+            <p class="description">
+
+                ${story.description || ""}
+
+            </p>
+
+
+            <div class="story-meta">
+
+                <span>
+
+                    👁️
+                    ${story.views || 0}
+
+                </span>
+
+
+                <span>
+
+                    ⭐
+                    ${story.rating || 0}
+
+                </span>
+
+            </div>
+
+
+            <div class="reader-controls">
+
+
+                <button
+                    onclick="toggleLike()"
+                    id="likeButton"
+                    type="button"
+                >
+
+                    🤍 Like
+
+                </button>
+
+
+
+                <button
+                    onclick="toggleBookmark()"
+                    id="bookmarkButton"
+                    type="button"
+                >
+
+                    🔖 Bookmark
+
+                </button>
+
+
+
+                <button
+                    onclick="changeFontSize(-1)"
+                    type="button"
+                >
+
+                    A−
+
+                </button>
+
+
+
+                <button
+                    onclick="changeFontSize(1)"
+                    type="button"
+                >
+
+                    A+
+
+                </button>
+
+
+
+                <button
+                    onclick="toggleReadingMode()"
+                    type="button"
+                >
+
+                    🌙 Reading Mode
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+    `;
+
+
+
+    // ======================================
+    // DISPLAY CHAPTERS
+    // ======================================
+
+    function displayChapters() {
+
+        const chapters =
+            getChapters();
+
+
+        chapterList.innerHTML =
+            "";
+
+
+        if (
+            chapters.length === 0
+        ) {
+
+            chapterList.innerHTML = `
+
+                <p
+                    style="
+                        color:#888;
+                        padding:15px 0;
+                    "
+                >
+
+                    තවම Chapter එකක්
+                    publish කරලා නැහැ. 📖
+
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        chapters.forEach(
+            function(chapter) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type =
+                    "button";
+
+
+                button.className =
+                    "chapter-button";
+
+
+                button.innerHTML = `
+
+                    📖 Chapter
+                    ${chapter.number}
+
+                    —
+
+                    ${chapter.title}
+
+                `;
+
+
+                button.onclick =
+                    function() {
+
+                        openChapter(
+                            chapter
+                        );
+
+                    };
+
+
+                chapterList.appendChild(
+                    button
+                );
+
+            }
+        );
+
+    }
+
+
+
+    // ======================================
+    // OPEN CHAPTER
+    // ======================================
+
+    function openChapter(chapter) {
+
+        chapterArea.innerHTML = `
+
+            <p class="label">
+
+                CHAPTER
+                ${chapter.number}
+
+            </p>
+
+
+            <h2>
+
+                ${chapter.title}
+
+            </h2>
+
+
+            <div class="chapter-content">
+
+                ${chapter.content}
+
+            </div>
+
+
+            <div class="chapter-buttons">
+
+
+                <button
+                    type="button"
+                    class="read-btn"
+                    onclick="
+                        previousChapter(
+                            ${chapter.number}
+                        )
+                    "
+                >
+
+                    ← Previous
+
+                </button>
+
+
+
+                <button
+                    type="button"
+                    class="read-btn"
+                    onclick="
+                        nextChapter(
+                            ${chapter.number}
+                        )
+                    "
+                >
+
+                    Next →
+
+                </button>
+
+
+            </div>
+
+        `;
+
+
+        applyFontSize();
+
+
+        chapterArea.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+
+
+
+    // ======================================
+    // PREVIOUS
+    // ======================================
+
+    window.previousChapter =
+        function(number) {
+
+            const chapters =
+                getChapters();
+
+
+            const index =
+                chapters.findIndex(
+                    function(chapter) {
+
+                        return Number(
+                            chapter.number
+                        )
+                        ===
+                        Number(number);
+
+                    }
+                );
+
+
+            if (index > 0) {
+
+                openChapter(
+                    chapters[index - 1]
+                );
+
+            }
+
+        };
+
+
+
+    // ======================================
+    // NEXT
+    // ======================================
+
+    window.nextChapter =
+        function(number) {
+
+            const chapters =
+                getChapters();
+
+
+            const index =
+                chapters.findIndex(
+                    function(chapter) {
+
+                        return Number(
+                            chapter.number
+                        )
+                        ===
+                        Number(number);
+
+                    }
+                );
+
+
+            if (
+                index !== -1
+                &&
+                index <
+                chapters.length - 1
+            ) {
+
+                openChapter(
+                    chapters[index + 1]
+                );
+
+            }
+
+        };
+
+
+
+    // ======================================
+    // LIKE
+    // ======================================
+
+    window.toggleLike =
+        function() {
+
+            const key =
+                "liked_" +
+                storyId;
+
+
+            const liked =
+                localStorage.getItem(
+                    key
+                )
+                ===
+                "true";
+
+
+            localStorage.setItem(
+                key,
+                String(!liked)
+            );
+
+
+            updateReaderButtons();
+
+        };
+
+
+
+    // ======================================
+    // BOOKMARK
+    // ======================================
+
+    window.toggleBookmark =
+        function() {
+
+            const key =
+                "bookmark_" +
+                storyId;
+
+
+            const bookmarked =
+                localStorage.getItem(
+                    key
+                )
+                ===
+                "true";
+
+
+            localStorage.setItem(
+                key,
+                String(!bookmarked)
+            );
+
+
+            updateReaderButtons();
+
+        };
+
+
+
+    // ======================================
+    // FONT SIZE
+    // ======================================
+
+    window.changeFontSize =
+        function(amount) {
+
+            readerFontSize +=
+                amount;
+
+
+            if (
+                readerFontSize < 15
+            ) {
+
+                readerFontSize =
+                    15;
+
+            }
+
+
+            if (
+                readerFontSize > 30
+            ) {
+
+                readerFontSize =
+                    30;
+
+            }
+
+
+            applyFontSize();
+
+        };
+
+
+
+    // ======================================
+    // APPLY FONT
+    // ======================================
+
+    function applyFontSize() {
+
+        const content =
+            document.querySelector(
+                ".chapter-content"
+            );
+
+
+        if (content) {
+
+            content.style.fontSize =
+                readerFontSize +
+                "px";
+
+        }
+
+    }
+
+
+
+    // ======================================
+    // READING MODE
+    // ======================================
+
+    window.toggleReadingMode =
+        function() {
+
+            document.body
+                .classList
+                .toggle(
+                    "reading-mode"
+                );
+
+        };
+
+
+
+    // ======================================
+    // BUTTON STATES
+    // ======================================
+
+    function updateReaderButtons() {
+
+        const likeButton =
+            document.getElementById(
+                "likeButton"
+            );
+
+
+        const bookmarkButton =
+            document.getElementById(
+                "bookmarkButton"
+            );
+
+
+        if (
+            !likeButton
+            ||
+            !bookmarkButton
+        ) {
+
+            return;
+
+        }
+
+
+        const liked =
+            localStorage.getItem(
+                "liked_" +
+                storyId
+            )
+            ===
+            "true";
+
+
+        const bookmarked =
+            localStorage.getItem(
+                "bookmark_" +
+                storyId
+            )
+            ===
+            "true";
+
+
+
+        likeButton.innerText =
+            liked
+                ? "❤️ Liked"
+                : "🤍 Like";
+
+
+        bookmarkButton.innerText =
+            bookmarked
+                ? "🔖 Saved"
+                : "🔖 Bookmark";
+
+    }
+
+
+
+    // ======================================
+    // START
+    // ======================================
+
+    displayChapters();
+
+    updateReaderButtons();
+
+
+
+} else {
+
+
+    // ======================================
+    // STORY NOT FOUND
+    // ======================================
+
+    storyInfo.innerHTML = `
+
+        <div
+            style="
+                width:100%;
+                text-align:center;
+                padding:60px 20px;
+            "
+        >
+
+            <h1>
+                😕 Story එක හම්බ වුණේ නැහැ.
+            </h1>
+
+
+            <p
+                style="
+                    color:#888;
+                    margin:20px 0;
+                "
+            >
+
+                මේ story එක හොයාගන්න බැහැ.
+
+            </p>
+
+
+            <a
+                href="index.html"
+                class="read-btn"
+            >
+
+                ← Home Page
+
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
+```

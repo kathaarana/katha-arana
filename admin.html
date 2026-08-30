@@ -1,0 +1,2594 @@
+```html
+<!DOCTYPE html>
+<html lang="si">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin | කතා ලෝකය</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                "Noto Sans Sinhala",
+                sans-serif;
+
+            background: #08060d;
+
+            color: #f5f1ff;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .admin-header {
+
+            height: 75px;
+
+            padding: 0 6%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: #0d0915;
+
+            border-bottom:
+                1px solid
+                rgba(167,139,250,.18);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+        }
+
+
+        .admin-logo {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+        }
+
+
+        .admin-logo span {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #c084fc,
+                    #8b5cf6
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color:
+                transparent;
+
+        }
+
+
+        .home-btn {
+
+            text-decoration: none;
+
+            color: #c084fc;
+
+            border:
+                1px solid
+                rgba(192,132,252,.3);
+
+            padding: 9px 15px;
+
+            border-radius: 9px;
+
+        }
+
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 45px 0 80px;
+
+        }
+
+
+        .welcome {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .welcome h1 {
+
+            font-size: 32px;
+
+        }
+
+
+        .welcome p {
+
+            color: #8e8498;
+
+            margin-top: 7px;
+
+        }
+
+
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 18px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .stat {
+
+            padding: 23px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #171020,
+                    #0e0a15
+                );
+
+            border:
+                1px solid
+                rgba(167,139,250,.14);
+
+        }
+
+
+        .stat-icon {
+
+            font-size: 27px;
+
+        }
+
+
+        .stat h2 {
+
+            color: #c084fc;
+
+            margin-top: 5px;
+
+        }
+
+
+        .stat p {
+
+            color: #81798e;
+
+            font-size: 13px;
+
+        }
+
+
+
+        /* =========================
+           GRID
+        ========================= */
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1.4fr;
+
+            gap: 24px;
+
+        }
+
+
+        .panel {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #15101e,
+                    #0d0a14
+                );
+
+            border:
+                1px solid
+                rgba(167,139,250,.14);
+
+            border-radius: 20px;
+
+            padding: 27px;
+
+        }
+
+
+        .panel h2 {
+
+            font-size: 21px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .panel-sub {
+
+            color: #81798e;
+
+            font-size: 13px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+
+            margin-bottom: 17px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            font-size: 13px;
+
+            color: #c5bdce;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid
+                rgba(167,139,250,.15);
+
+            background: #09070e;
+
+            color: white;
+
+            outline: none;
+
+            font-size: 14px;
+
+        }
+
+
+        textarea {
+
+            min-height: 180px;
+
+            resize: vertical;
+
+        }
+
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+
+            border-color: #8b5cf6;
+
+        }
+
+
+        .primary {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 11px;
+
+            padding: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #6d28d9
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .primary:hover {
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        .cancel {
+
+            width: 100%;
+
+            margin-top: 8px;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #211b29;
+
+            color: #aaa1b0;
+
+            cursor: pointer;
+
+            display: none;
+
+        }
+
+
+
+        /* =========================
+           IMAGE
+        ========================= */
+
+        .upload {
+
+            border:
+                1px dashed
+                rgba(192,132,252,.35);
+
+            border-radius: 13px;
+
+            padding: 20px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+        }
+
+
+        .upload:hover {
+
+            border-color: #a78bfa;
+
+        }
+
+
+        #imageInput {
+
+            display: none;
+
+        }
+
+
+        #imagePreview {
+
+            width: 100%;
+
+            max-height: 240px;
+
+            object-fit: cover;
+
+            border-radius: 11px;
+
+            margin-top: 13px;
+
+            display: none;
+
+        }
+
+
+
+        /* =========================
+           STORY LIST
+        ========================= */
+
+        .list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 11px;
+
+        }
+
+
+        .story-item {
+
+            display: flex;
+
+            gap: 12px;
+
+            align-items: center;
+
+            padding: 11px;
+
+            border-radius: 12px;
+
+            background: #0b0810;
+
+            border:
+                1px solid
+                rgba(167,139,250,.1);
+
+        }
+
+
+        .story-item img {
+
+            width: 58px;
+
+            height: 70px;
+
+            object-fit: cover;
+
+            border-radius: 7px;
+
+        }
+
+
+        .story-info {
+
+            flex: 1;
+
+        }
+
+
+        .story-info h3 {
+
+            font-size: 15px;
+
+        }
+
+
+        .story-info p {
+
+            color: #81798e;
+
+            font-size: 12px;
+
+            margin-top: 3px;
+
+        }
+
+
+        .actions {
+
+            display: flex;
+
+            gap: 6px;
+
+        }
+
+
+        .edit,
+        .delete {
+
+            border: none;
+
+            padding: 7px 9px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+        }
+
+
+        .edit {
+
+            background:
+                rgba(139,92,246,.15);
+
+            color: #c084fc;
+
+        }
+
+
+        .delete {
+
+            background:
+                rgba(239,68,68,.12);
+
+            color: #fca5a5;
+
+        }
+
+
+
+        /* =========================
+           CHAPTER SECTION
+        ========================= */
+
+        .chapter-section {
+
+            margin-top: 25px;
+
+        }
+
+
+        .chapter-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 20px;
+
+        }
+
+
+        .chapter-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
+
+            margin-top: 12px;
+
+        }
+
+
+        .chapter-item {
+
+            padding: 13px;
+
+            background: #0b0810;
+
+            border:
+                1px solid
+                rgba(167,139,250,.1);
+
+            border-radius: 10px;
+
+        }
+
+
+        .chapter-item strong {
+
+            color: #c084fc;
+
+        }
+
+
+        .chapter-item span {
+
+            display: block;
+
+            color: #918898;
+
+            font-size: 12px;
+
+            margin-top: 3px;
+
+        }
+
+
+        .chapter-actions {
+
+            margin-top: 9px;
+
+            display: flex;
+
+            gap: 6px;
+
+        }
+
+
+        .empty {
+
+            text-align: center;
+
+            color: #706878;
+
+            padding: 30px 10px;
+
+        }
+
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width:850px) {
+
+            .grid,
+            .chapter-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media(max-width:550px) {
+
+            .container {
+
+                width: 92%;
+
+            }
+
+
+            .admin-header {
+
+                padding: 0 4%;
+
+            }
+
+
+            .admin-logo {
+
+                font-size: 16px;
+
+            }
+
+
+            .panel {
+
+                padding: 20px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header class="admin-header">
+
+    <div class="admin-logo">
+
+        📚
+
+        <span>
+            කතා ලෝකය
+        </span>
+
+        — Admin
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="home-btn"
+    >
+
+        🏠 Website
+
+    </a>
+
+</header>
+
+
+
+<main class="container">
+
+
+    <!-- =================================
+         WELCOME
+    ================================= -->
+
+    <div class="welcome">
+
+        <h1>
+            👋 Admin Dashboard
+        </h1>
+
+        <p>
+            Stories සහ Chapters manage කරන්න.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================
+         STATS
+    ================================= -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <h2 id="storyCount">
+                0
+            </h2>
+
+            <p>
+                Total Stories
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                📖
+            </div>
+
+            <h2 id="chapterCount">
+                0
+            </h2>
+
+            <p>
+                Total Chapters
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                👁️
+            </div>
+
+            <h2 id="viewCount">
+                0
+            </h2>
+
+            <p>
+                Total Views
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================
+         STORY MANAGEMENT
+    ================================= -->
+
+    <div class="grid">
+
+
+        <!-- ADD STORY -->
+
+        <section class="panel">
+
+            <h2>
+                ➕ Add Story
+            </h2>
+
+            <p class="panel-sub">
+                අලුත් කතාවක් එකතු කරන්න.
+            </p>
+
+
+            <form id="storyForm">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Story Title
+                    </label>
+
+                    <input
+                        id="storyTitle"
+                        type="text"
+                        placeholder="කතාවේ නම"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Author
+                    </label>
+
+                    <input
+                        id="storyAuthor"
+                        type="text"
+                        placeholder="කර්තෘ"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select
+                        id="storyCategory"
+                        required
+                    >
+
+                        <option value="">
+                            Category තෝරන්න
+                        </option>
+
+                        <option value="Romance">
+                            ❤️ Romance
+                        </option>
+
+                        <option value="Horror">
+                            👻 Horror
+                        </option>
+
+                        <option value="Mystery">
+                            🔎 Mystery
+                        </option>
+
+                        <option value="Fantasy">
+                            🧙 Fantasy
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="storyDescription"
+                        placeholder="කතාව ගැන කෙටි විස්තරයක්..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Cover Image
+                    </label>
+
+
+                    <label
+                        class="upload"
+                        for="imageInput"
+                    >
+
+                        🖼️
+
+                        <br><br>
+
+                        Image එක තෝරන්න
+
+                    </label>
+
+
+                    <input
+                        id="imageInput"
+                        type="file"
+                        accept="image/*"
+                    >
+
+
+                    <img
+                        id="imagePreview"
+                        alt="Preview"
+                    >
+
+                </div>
+
+
+
+                <button
+                    class="primary"
+                    type="submit"
+                >
+
+                    ➕ Story එක Add කරන්න
+
+                </button>
+
+
+                <button
+                    id="cancelStoryEdit"
+                    class="cancel"
+                    type="button"
+                >
+
+                    Cancel Edit
+
+                </button>
+
+
+            </form>
+
+        </section>
+
+
+
+        <!-- MANAGE STORIES -->
+
+        <section class="panel">
+
+            <h2>
+                📚 Manage Stories
+            </h2>
+
+            <p class="panel-sub">
+                Story edit / delete කරන්න.
+            </p>
+
+
+            <div
+                id="storyList"
+                class="list"
+            ></div>
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- =================================
+         CHAPTER MANAGEMENT
+    ================================= -->
+
+    <section
+        class="panel chapter-section"
+    >
+
+        <h2>
+            📖 Chapter Management
+        </h2>
+
+        <p class="panel-sub">
+            Story එකක් තෝරලා Chapters add කරන්න.
+        </p>
+
+
+        <div class="chapter-grid">
+
+
+            <!-- ADD CHAPTER -->
+
+            <div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Story එක
+                    </label>
+
+                    <select
+                        id="chapterStory"
+                    >
+
+                        <option value="">
+                            Story එක තෝරන්න
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Chapter Number
+                    </label>
+
+                    <input
+                        id="chapterNumber"
+                        type="number"
+                        min="1"
+                        placeholder="1"
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Chapter Title
+                    </label>
+
+                    <input
+                        id="chapterTitle"
+                        type="text"
+                        placeholder="උදා: පළමු හමුවීම"
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Chapter Content
+                    </label>
+
+                    <textarea
+                        id="chapterContent"
+                        placeholder="Chapter එකේ කතාව මෙතන ලියන්න..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <button
+                    id="chapterSaveBtn"
+                    class="primary"
+                    type="button"
+                    onclick="saveChapter()"
+                >
+
+                    ➕ Chapter එක Add කරන්න
+
+                </button>
+
+
+                <button
+                    id="cancelChapterEdit"
+                    class="cancel"
+                    type="button"
+                    onclick="cancelChapterEdit()"
+                >
+
+                    Cancel Edit
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- CHAPTER LIST -->
+
+            <div>
+
+                <h3>
+                    📚 Chapters
+                </h3>
+
+
+                <div
+                    id="chapterList"
+                    class="chapter-list"
+                >
+
+                    <div class="empty">
+
+                        Story එකක් තෝරන්න.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+
+// ==========================================
+// STORAGE
+// ==========================================
+
+const STORY_KEY =
+    "kathaAdminStories";
+
+const CHAPTER_KEY =
+    "kathaChapters";
+
+
+
+let stories =
+    JSON.parse(
+        localStorage.getItem(
+            STORY_KEY
+        )
+    ) || [];
+
+
+let chapters =
+    JSON.parse(
+        localStorage.getItem(
+            CHAPTER_KEY
+        )
+    ) || [];
+
+
+
+let selectedImage =
+    "";
+
+let editingStoryId =
+    null;
+
+let editingChapterId =
+    null;
+
+
+
+// ==========================================
+// SAVE
+// ==========================================
+
+function saveStories() {
+
+    localStorage.setItem(
+
+        STORY_KEY,
+
+        JSON.stringify(
+            stories
+        )
+
+    );
+
+}
+
+
+function saveChapters() {
+
+    localStorage.setItem(
+
+        CHAPTER_KEY,
+
+        JSON.stringify(
+            chapters
+        )
+
+    );
+
+}
+
+
+
+// ==========================================
+// IMAGE
+// ==========================================
+
+document
+    .getElementById("imageInput")
+    .addEventListener(
+        "change",
+        function(e) {
+
+            const file =
+                e.target.files[0];
+
+
+            if (!file) {
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(event) {
+
+                    selectedImage =
+                        event.target.result;
+
+
+                    const preview =
+                        document.getElementById(
+                            "imagePreview"
+                        );
+
+
+                    preview.src =
+                        selectedImage;
+
+
+                    preview.style.display =
+                        "block";
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+
+
+// ==========================================
+// ADD / EDIT STORY
+// ==========================================
+
+document
+    .getElementById("storyForm")
+    .addEventListener(
+        "submit",
+        function(e) {
+
+            e.preventDefault();
+
+
+            const title =
+                document
+                .getElementById(
+                    "storyTitle"
+                )
+                .value
+                .trim();
+
+
+            const author =
+                document
+                .getElementById(
+                    "storyAuthor"
+                )
+                .value
+                .trim();
+
+
+            const category =
+                document
+                .getElementById(
+                    "storyCategory"
+                )
+                .value;
+
+
+            const description =
+                document
+                .getElementById(
+                    "storyDescription"
+                )
+                .value
+                .trim();
+
+
+
+            // EDIT
+
+            if (
+                editingStoryId !== null
+            ) {
+
+                const story =
+                    stories.find(
+                        s =>
+                            s.id ===
+                            editingStoryId
+                    );
+
+
+                if (!story) {
+
+                    return;
+
+                }
+
+
+                story.title =
+                    title;
+
+                story.author =
+                    author;
+
+                story.category =
+                    category;
+
+                story.description =
+                    description;
+
+
+                if (selectedImage) {
+
+                    story.cover =
+                        selectedImage;
+
+                }
+
+
+                saveStories();
+
+
+                editingStoryId =
+                    null;
+
+
+                resetStoryForm();
+
+
+                displayStories();
+
+
+                populateStorySelect();
+
+
+                alert(
+                    "✅ Story එක update කළා!"
+                );
+
+
+                return;
+
+            }
+
+
+
+            // NEW STORY
+
+            if (!selectedImage) {
+
+                alert(
+                    "🖼️ Cover Image එකක් තෝරන්න."
+                );
+
+                return;
+
+            }
+
+
+            const newStory = {
+
+                id:
+                    Date.now(),
+
+                title:
+                    title,
+
+                author:
+                    author,
+
+                category:
+                    category,
+
+                description:
+                    description,
+
+                cover:
+                    selectedImage,
+
+                views:
+                    0,
+
+                rating:
+                    0
+
+            };
+
+
+            stories.push(
+                newStory
+            );
+
+
+            saveStories();
+
+
+            resetStoryForm();
+
+
+            displayStories();
+
+
+            populateStorySelect();
+
+
+            alert(
+                "✅ Story එක Add කළා!"
+            );
+
+        }
+    );
+
+
+
+// ==========================================
+// RESET STORY FORM
+// ==========================================
+
+function resetStoryForm() {
+
+    document
+        .getElementById(
+            "storyForm"
+        )
+        .reset();
+
+
+    selectedImage =
+        "";
+
+
+    editingStoryId =
+        null;
+
+
+    document
+        .getElementById(
+            "imagePreview"
+        )
+        .style.display =
+            "none";
+
+
+    document
+        .getElementById(
+            "imagePreview"
+        )
+        .src =
+            "";
+
+
+    document
+        .getElementById(
+            "cancelStoryEdit"
+        )
+        .style.display =
+            "none";
+
+
+    document
+        .querySelector(
+            "#storyForm .primary"
+        )
+        .innerText =
+            "➕ Story එක Add කරන්න";
+
+}
+
+
+
+// ==========================================
+// DISPLAY STORIES
+// ==========================================
+
+function displayStories() {
+
+    const list =
+        document.getElementById(
+            "storyList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (
+        stories.length === 0
+    ) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                📚
+
+                <br><br>
+
+                තවම Stories නැහැ.
+
+            </div>
+
+        `;
+
+        updateStats();
+
+        return;
+
+    }
+
+
+
+    stories.forEach(
+        function(story) {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "story-item";
+
+
+            item.innerHTML = `
+
+                <img
+                    src="${story.cover || ""}"
+                    alt=""
+                >
+
+
+                <div
+                    class="story-info"
+                >
+
+                    <h3>
+                        ${story.title}
+                    </h3>
+
+                    <p>
+                        ${story.category}
+                        ·
+                        ${story.author}
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="actions"
+                >
+
+                    <button
+                        class="edit"
+                        onclick="
+                            editStory(
+                                ${story.id}
+                            )
+                        "
+                    >
+                        ✏️
+                    </button>
+
+
+                    <button
+                        class="delete"
+                        onclick="
+                            deleteStory(
+                                ${story.id}
+                            )
+                        "
+                    >
+                        🗑️
+                    </button>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+
+    updateStats();
+
+}
+
+
+
+// ==========================================
+// EDIT STORY
+// ==========================================
+
+function editStory(id) {
+
+    const story =
+        stories.find(
+            s =>
+                s.id === id
+        );
+
+
+    if (!story) {
+
+        return;
+
+    }
+
+
+    editingStoryId =
+        id;
+
+
+    document
+        .getElementById(
+            "storyTitle"
+        )
+        .value =
+            story.title;
+
+
+    document
+        .getElementById(
+            "storyAuthor"
+        )
+        .value =
+            story.author;
+
+
+    document
+        .getElementById(
+            "storyCategory"
+        )
+        .value =
+            story.category;
+
+
+    document
+        .getElementById(
+            "storyDescription"
+        )
+        .value =
+            story.description;
+
+
+    selectedImage =
+        "";
+
+
+    const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    if (story.cover) {
+
+        preview.src =
+            story.cover;
+
+        preview.style.display =
+            "block";
+
+    }
+
+
+    document
+        .querySelector(
+            "#storyForm .primary"
+        )
+        .innerText =
+            "💾 Story එක Update කරන්න";
+
+
+    document
+        .getElementById(
+            "cancelStoryEdit"
+        )
+        .style.display =
+            "block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+
+// ==========================================
+// CANCEL STORY EDIT
+// ==========================================
+
+document
+    .getElementById(
+        "cancelStoryEdit"
+    )
+    .addEventListener(
+        "click",
+        resetStoryForm
+    );
+
+
+
+// ==========================================
+// DELETE STORY
+// ==========================================
+
+function deleteStory(id) {
+
+    const story =
+        stories.find(
+            s =>
+                s.id === id
+        );
+
+
+    if (!story) {
+
+        return;
+
+    }
+
+
+    if (
+        !confirm(
+            `"${story.title}" delete කරන්නද?`
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    stories =
+        stories.filter(
+            s =>
+                s.id !== id
+        );
+
+
+    // DELETE ITS CHAPTERS TOO
+
+    chapters =
+        chapters.filter(
+            c =>
+                String(
+                    c.storyId
+                )
+                !==
+                String(id)
+        );
+
+
+    saveStories();
+
+    saveChapters();
+
+    displayStories();
+
+    populateStorySelect();
+
+    displayChapters();
+
+
+    alert(
+        "🗑️ Story එක delete කළා."
+    );
+
+}
+
+
+
+// ==========================================
+// STORY SELECT
+// ==========================================
+
+function populateStorySelect() {
+
+    const select =
+        document.getElementById(
+            "chapterStory"
+        );
+
+
+    const current =
+        select.value;
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Story එක තෝරන්න
+        </option>
+
+    `;
+
+
+    stories.forEach(
+        function(story) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                story.id;
+
+
+            option.textContent =
+                story.title;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if (current) {
+
+        select.value =
+            current;
+
+    }
+
+}
+
+
+
+// ==========================================
+// STORY CHANGE
+// ==========================================
+
+document
+    .getElementById(
+        "chapterStory"
+    )
+    .addEventListener(
+        "change",
+        function() {
+
+            editingChapterId =
+                null;
+
+
+            resetChapterForm();
+
+
+            displayChapters();
+
+        }
+    );
+
+
+
+// ==========================================
+// SAVE CHAPTER
+// ==========================================
+
+function saveChapter() {
+
+    const storyId =
+        document
+        .getElementById(
+            "chapterStory"
+        )
+        .value;
+
+
+    const number =
+        document
+        .getElementById(
+            "chapterNumber"
+        )
+        .value;
+
+
+    const title =
+        document
+        .getElementById(
+            "chapterTitle"
+        )
+        .value
+        .trim();
+
+
+    const content =
+        document
+        .getElementById(
+            "chapterContent"
+        )
+        .value
+        .trim();
+
+
+
+    if (!storyId) {
+
+        alert(
+            "📚 Story එක තෝරන්න."
+        );
+
+        return;
+
+    }
+
+
+    if (!number) {
+
+        alert(
+            "🔢 Chapter Number එක දාන්න."
+        );
+
+        return;
+
+    }
+
+
+    if (!title) {
+
+        alert(
+            "📝 Chapter Title එක දාන්න."
+        );
+
+        return;
+
+    }
+
+
+    if (!content) {
+
+        alert(
+            "✍️ Chapter Content එක දාන්න."
+        );
+
+        return;
+
+    }
+
+
+
+    // EDIT CHAPTER
+
+    if (
+        editingChapterId !== null
+    ) {
+
+        const chapter =
+            chapters.find(
+                c =>
+                    c.id ===
+                    editingChapterId
+            );
+
+
+        if (chapter) {
+
+            chapter.storyId =
+                storyId;
+
+            chapter.number =
+                Number(number);
+
+            chapter.title =
+                title;
+
+            chapter.content =
+                content;
+
+        }
+
+
+        saveChapters();
+
+
+        editingChapterId =
+            null;
+
+
+        resetChapterForm();
+
+
+        displayChapters();
+
+
+        updateStats();
+
+
+        alert(
+            "✅ Chapter එක update කළා!"
+        );
+
+
+        return;
+
+    }
+
+
+
+    // NEW CHAPTER
+
+    const newChapter = {
+
+        id:
+            Date.now(),
+
+        storyId:
+            storyId,
+
+        number:
+            Number(number),
+
+        title:
+            title,
+
+        content:
+            content
+
+    };
+
+
+    chapters.push(
+        newChapter
+    );
+
+
+    saveChapters();
+
+
+    resetChapterForm();
+
+
+    displayChapters();
+
+
+    updateStats();
+
+
+    alert(
+        "📖 Chapter එක Add කළා!"
+    );
+
+}
+
+
+
+// ==========================================
+// RESET CHAPTER FORM
+// ==========================================
+
+function resetChapterForm() {
+
+    document
+        .getElementById(
+            "chapterNumber"
+        )
+        .value =
+            "";
+
+
+    document
+        .getElementById(
+            "chapterTitle"
+        )
+        .value =
+            "";
+
+
+    document
+        .getElementById(
+            "chapterContent"
+        )
+        .value =
+            "";
+
+
+    document
+        .getElementById(
+            "chapterSaveBtn"
+        )
+        .innerText =
+            "➕ Chapter එක Add කරන්න";
+
+
+    document
+        .getElementById(
+            "cancelChapterEdit"
+        )
+        .style.display =
+            "none";
+
+}
+
+
+
+// ==========================================
+// DISPLAY CHAPTERS
+// ==========================================
+
+function displayChapters() {
+
+    const storyId =
+        document
+        .getElementById(
+            "chapterStory"
+        )
+        .value;
+
+
+    const list =
+        document.getElementById(
+            "chapterList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    if (!storyId) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                Story එකක් තෝරන්න.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    const storyChapters =
+        chapters
+        .filter(
+            c =>
+                String(
+                    c.storyId
+                )
+                ===
+                String(storyId)
+        )
+        .sort(
+            (a,b) =>
+                Number(a.number)
+                -
+                Number(b.number)
+        );
+
+
+
+    if (
+        storyChapters.length === 0
+    ) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                📖
+
+                <br><br>
+
+                මේ Story එකට Chapters නැහැ.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    storyChapters.forEach(
+        function(chapter) {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "chapter-item";
+
+
+            item.innerHTML = `
+
+                <strong>
+                    Chapter ${chapter.number}
+                </strong>
+
+
+                <span>
+                    ${chapter.title}
+                </span>
+
+
+                <div
+                    class="chapter-actions"
+                >
+
+                    <button
+                        class="edit"
+                        onclick="
+                            editChapter(
+                                ${chapter.id}
+                            )
+                        "
+                    >
+
+                        ✏️ Edit
+
+                    </button>
+
+
+                    <button
+                        class="delete"
+                        onclick="
+                            deleteChapter(
+                                ${chapter.id}
+                            )
+                        "
+                    >
+
+                        🗑️ Delete
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+
+// ==========================================
+// EDIT CHAPTER
+// ==========================================
+
+function editChapter(id) {
+
+    const chapter =
+        chapters.find(
+            c =>
+                c.id === id
+        );
+
+
+    if (!chapter) {
+
+        return;
+
+    }
+
+
+    editingChapterId =
+        id;
+
+
+    document
+        .getElementById(
+            "chapterStory"
+        )
+        .value =
+            chapter.storyId;
+
+
+    document
+        .getElementById(
+            "chapterNumber"
+        )
+        .value =
+            chapter.number;
+
+
+    document
+        .getElementById(
+            "chapterTitle"
+        )
+        .value =
+            chapter.title;
+
+
+    document
+        .getElementById(
+            "chapterContent"
+        )
+        .value =
+            chapter.content;
+
+
+    document
+        .getElementById(
+            "chapterSaveBtn"
+        )
+        .innerText =
+            "💾 Chapter එක Update කරන්න";
+
+
+    document
+        .getElementById(
+            "cancelChapterEdit"
+        )
+        .style.display =
+            "block";
+
+
+    document
+        .querySelector(
+            ".chapter-section"
+        )
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+
+// ==========================================
+// CANCEL CHAPTER EDIT
+// ==========================================
+
+function cancelChapterEdit() {
+
+    editingChapterId =
+        null;
+
+
+    resetChapterForm();
+
+}
+
+
+
+// ==========================================
+// DELETE CHAPTER
+// ==========================================
+
+function deleteChapter(id) {
+
+    const chapter =
+        chapters.find(
+            c =>
+                c.id === id
+        );
+
+
+    if (!chapter) {
+
+        return;
+
+    }
+
+
+    if (
+        !confirm(
+            `"${chapter.title}" delete කරන්නද?`
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    chapters =
+        chapters.filter(
+            c =>
+                c.id !== id
+        );
+
+
+    saveChapters();
+
+
+    displayChapters();
+
+
+    updateStats();
+
+
+    alert(
+        "🗑️ Chapter එක delete කළා."
+    );
+
+}
+
+
+
+// ==========================================
+// STATISTICS
+// ==========================================
+
+function updateStats() {
+
+    document
+        .getElementById(
+            "storyCount"
+        )
+        .innerText =
+            stories.length;
+
+
+    document
+        .getElementById(
+            "chapterCount"
+        )
+        .innerText =
+            chapters.length;
+
+
+    const views =
+        stories.reduce(
+            (total, story) => {
+
+                return total +
+                    (
+                        Number(
+                            story.views
+                        ) || 0
+                    );
+
+            },
+            0
+        );
+
+
+    document
+        .getElementById(
+            "viewCount"
+        )
+        .innerText =
+            views;
+
+}
+
+
+
+// ==========================================
+// START
+// ==========================================
+
+displayStories();
+
+populateStorySelect();
+
+updateStats();
+
+</script>
+
+
+</body>
+
+</html>
+```
