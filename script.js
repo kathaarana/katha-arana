@@ -1,195 +1,15 @@
 // =========================================
-// KATHA LOKAYA
+// KATHA ARANA
 // MAIN WEBSITE SCRIPT
+// SUPABASE VERSION
 // =========================================
 
 
 // =========================================
-// STORY DATA
+// STORIES
 // =========================================
 
-const stories = [
-
-    {
-        id: 1,
-        title: "අපේ කතාව",
-        category: "Romance",
-        author: "කතා ලෝකය",
-        description:
-            "ආදරය, මතකයන් සහ නොකියූ හැඟීම් අතර ගොඩනැගෙන සුන්දර කතාවක්.",
-        views: 1250,
-        rating: 4.8,
-        cover: "",
-
-        chapters: [
-
-            {
-                number: 1,
-                title: "පළමු හමුවීම",
-
-                content: `
-                    <p>
-                        සමහර හමුවීම් අපේ ජීවිතය
-                        සම්පූර්ණයෙන්ම වෙනස් කරනවා.
-                    </p>
-
-                    <p>
-                        ඒ දවසත් එවැනිම දවසක් වුණා.
-                        ඔහු ඇයව පළමු වරට දැක්කේ
-                        වැස්සෙන් පිරුණු සවසකදීය.
-                    </p>
-
-                    <p>
-                        ඒ හමුවීමෙන් පස්සේ ඔවුන්ගේ ජීවිතය
-                        කිසිදා පෙර තිබූ ආකාරයට තිබුණේ නැහැ...
-                    </p>
-                `
-            },
-
-            {
-                number: 2,
-                title: "අලුත් හැඟීමක්",
-
-                content: `
-                    <p>
-                        දින කිහිපයක් ගත වුණා.
-                        නමුත් ඒ හමුවීම ඔහුගේ සිතෙන්
-                        ඉවත් කරගන්න බැරි වුණා.
-                    </p>
-
-                    <p>
-                        ඇය ගැන සිතන සෑම මොහොතකම
-                        ඔහුගේ මුහුණේ නොදැනුවත්වම
-                        සිනහවක් ඇති වුණා.
-                    </p>
-                `
-            }
-
-        ]
-    },
-
-
-    {
-        id: 2,
-        title: "අඳුරු රාත්‍රිය",
-        category: "Horror",
-        author: "කතා ලෝකය",
-        description:
-            "කිසිවෙකු නොදන්නා රහසක් සොයා යන තරුණයෙකුගේ භයානක අත්දැකීමක්.",
-        views: 980,
-        rating: 4.6,
-        cover: "",
-
-        chapters: [
-
-            {
-                number: 1,
-                title: "අඳුරු නිවස",
-
-                content: `
-                    <p>
-                        රාත්‍රී දොළහ පසු වී තිබුණි.
-                        පාර පුරාම තිබුණේ නිහඬතාවයකි.
-                    </p>
-
-                    <p>
-                        ඔහු ඉදිරියේ තිබූ පැරණි නිවස දෙස
-                        බලාගෙන සිටියේය.
-                    </p>
-
-                    <p>
-                        කිසිවෙකු අවුරුදු ගණනාවකින්
-                        එම නිවසට ගොස් තිබුණේ නැත.
-                        නමුත් එදින රාත්‍රියේ
-                        එහි ජනේලයක් ඇතුළෙන් ආලෝකයක් පෙනුණි...
-                    </p>
-                `
-            }
-
-        ]
-    },
-
-
-    {
-        id: 3,
-        title: "අභිරහස් ලිපිය",
-        category: "Mystery",
-        author: "කතා ලෝකය",
-        description:
-            "අවුරුදු ගණනාවක් පැරණි ලිපියක් පිටුපස සැඟවුණු අභිරහසක්.",
-        views: 760,
-        rating: 4.7,
-        cover: "",
-
-        chapters: [
-
-            {
-                number: 1,
-                title: "ලිපිය",
-
-                content: `
-                    <p>
-                        උදෑසන තැපැල් පෙට්ටිය විවෘත කළ විට
-                        ඔහුට ලැබුණේ සාමාන්‍ය ලිපියක් නොවේ.
-                    </p>
-
-                    <p>
-                        ලියුම් කවරයේ නමක්වත් ලිපිනයක්වත්
-                        තිබුණේ නැත.
-                    </p>
-
-                    <p>
-                        නමුත් එහි ඇතුළත තිබූ වචන කිහිපය
-                        ඔහුගේ ජීවිතය සම්පූර්ණයෙන්ම වෙනස් කළේය...
-                    </p>
-                `
-            }
-
-        ]
-    },
-
-
-    {
-        id: 4,
-        title: "මායා ලෝකය",
-        category: "Fantasy",
-        author: "කතා ලෝකය",
-        description:
-            "සාමාන්‍ය ලෝකයෙන් ඔබ්බට සැඟවුණු අපූරු මායා ලෝකයකට යන ගමනක්.",
-        views: 540,
-        rating: 4.5,
-        cover: "",
-
-        chapters: [
-
-            {
-                number: 1,
-                title: "රහස් දොරටුව",
-
-                content: `
-                    <p>
-                        ඔහු කවදාවත් දැක නොතිබුණු
-                        පැරණි දොරටුවක් කැලය මැද තිබුණි.
-                    </p>
-
-                    <p>
-                        දොර විවෘත කළ මොහොතේම
-                        ඔහු ඉදිරියේ දිස් වූයේ
-                        සම්පූර්ණයෙන්ම වෙනස් ලෝකයකි.
-                    </p>
-
-                    <p>
-                        එතැනින් ආරම්භ වූයේ
-                        ඔහු කිසිදා සිතා නොතිබූ ගමනකි...
-                    </p>
-                `
-            }
-
-        ]
-    }
-
-];
-
+let stories = [];
 
 
 // =========================================
@@ -203,6 +23,114 @@ function getStories() {
 }
 
 
+// =========================================
+// LOAD STORIES FROM SUPABASE
+// =========================================
+
+async function loadStories() {
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("stories")
+
+            .select("*")
+
+            .order(
+                "id",
+                {
+                    ascending: false
+                }
+            );
+
+
+        if (error) {
+
+            console.error(
+                "Supabase error:",
+                error
+            );
+
+            showLoadingError();
+
+            return;
+
+        }
+
+
+        stories =
+            data || [];
+
+
+        displayHomeStories();
+
+        displayLatest();
+
+        displayLibrary();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Load stories error:",
+            error
+        );
+
+        showLoadingError();
+
+    }
+
+}
+
+
+// =========================================
+// LOADING ERROR
+// =========================================
+
+function showLoadingError() {
+
+    const grids = [
+
+        document.getElementById("storyGrid"),
+
+        document.getElementById("latestGrid"),
+
+        document.getElementById("libraryGrid")
+
+    ];
+
+
+    grids.forEach(
+        function(grid) {
+
+            if (!grid) {
+                return;
+            }
+
+
+            grid.innerHTML = `
+
+                <p style="
+                    color:#888;
+                    padding:20px;
+                ">
+
+                    කතා load කරන්න බැරි වුණා. 😔
+
+                </p>
+
+            `;
+
+        }
+    );
+
+}
+
 
 // =========================================
 // CREATE STORY CARD
@@ -211,21 +139,26 @@ function getStories() {
 function createStoryCard(story) {
 
     const card =
-        document.createElement("article");
+        document.createElement(
+            "article"
+        );
+
 
     card.className =
         "story-card";
 
 
-    let coverHTML = "";
+    let coverHTML =
+        "📖";
 
 
     if (story.cover) {
 
         coverHTML = `
+
             <img
-                src="${story.cover}"
-                alt="${story.title}"
+                src="${escapeHTML(story.cover)}"
+                alt="${escapeHTML(story.title)}"
                 style="
                     width:100%;
                     height:100%;
@@ -233,13 +166,18 @@ function createStoryCard(story) {
                     display:block;
                 "
             >
+
         `;
 
-    } else {
-
-        coverHTML = "📖";
-
     }
+
+
+    const views =
+        Number(story.views || 0);
+
+
+    const rating =
+        Number(story.rating || 0);
 
 
     card.innerHTML = `
@@ -249,7 +187,11 @@ function createStoryCard(story) {
             ${coverHTML}
 
             <div class="cover-label">
-                ${story.category}
+
+                ${escapeHTML(
+                    story.category || "Story"
+                )}
+
             </div>
 
         </div>
@@ -258,22 +200,40 @@ function createStoryCard(story) {
         <div class="story-info">
 
             <p class="label">
-                ${story.category}
+
+                ${escapeHTML(
+                    story.category || ""
+                )}
+
             </p>
 
 
             <h3>
-                ${story.title}
+
+                ${escapeHTML(
+                    story.title || "Untitled"
+                )}
+
             </h3>
 
 
             <p>
-                ✍️ ${story.author}
+
+                ✍️
+
+                ${escapeHTML(
+                    story.author || "කතා අරණ"
+                )}
+
             </p>
 
 
             <p>
-                ${story.description}
+
+                ${escapeHTML(
+                    story.description || ""
+                )}
+
             </p>
 
 
@@ -288,11 +248,12 @@ function createStoryCard(story) {
             >
 
                 <span>
-                    👁️ ${story.views}
+                    👁️ ${views}
                 </span>
 
+
                 <span>
-                    ⭐ ${story.rating}
+                    ⭐ ${rating}
                 </span>
 
             </div>
@@ -301,7 +262,7 @@ function createStoryCard(story) {
             <button
                 class="read-btn"
                 type="button"
-                onclick="openStory(${story.id})"
+                onclick="openStory('${story.id}')"
             >
 
                 කියවන්න →
@@ -318,6 +279,28 @@ function createStoryCard(story) {
 }
 
 
+// =========================================
+// ESCAPE HTML
+// =========================================
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        value == null
+            ? ""
+            : String(value);
+
+
+    return div.innerHTML;
+
+}
+
 
 // =========================================
 // DISPLAY STORIES
@@ -333,10 +316,14 @@ function displayStories(
     }
 
 
-    element.innerHTML = "";
+    element.innerHTML =
+        "";
 
 
-    if (storyList.length === 0) {
+    if (
+        !storyList ||
+        storyList.length === 0
+    ) {
 
         element.innerHTML = `
 
@@ -369,7 +356,6 @@ function displayStories(
 }
 
 
-
 // =========================================
 // OPEN STORY
 // =========================================
@@ -377,14 +363,14 @@ function displayStories(
 function openStory(id) {
 
     window.location.href =
-        "story.html?id=" + id;
+        "story.html?id=" +
+        encodeURIComponent(id);
 
 }
 
 
-
 // =========================================
-// DISPLAY STORIES ON HOME
+// DISPLAY HOME STORIES
 // =========================================
 
 function displayHomeStories() {
@@ -408,7 +394,6 @@ function displayHomeStories() {
 }
 
 
-
 // =========================================
 // LATEST STORIES
 // =========================================
@@ -428,8 +413,7 @@ function displayLatest() {
 
     const latest =
         [...getStories()]
-        .reverse()
-        .slice(0, 4);
+            .slice(0, 4);
 
 
     displayStories(
@@ -438,7 +422,6 @@ function displayLatest() {
     );
 
 }
-
 
 
 // =========================================
@@ -456,10 +439,17 @@ function showCategory(category) {
             function(story) {
 
                 return (
-                    story.category
-                        .toLowerCase()
+
+                    String(
+                        story.category || ""
+                    )
+                    .toLowerCase()
+
                     ===
-                    category.toLowerCase()
+
+                    String(category)
+                    .toLowerCase()
+
                 );
 
             }
@@ -484,13 +474,20 @@ function showCategory(category) {
         );
 
 
-    if (!results || !title || !grid) {
+    if (
+        !results ||
+        !title ||
+        !grid
+    ) {
+
         return;
+
     }
 
 
     title.innerText =
-        category + " කතා";
+        category +
+        " කතා";
 
 
     displayStories(
@@ -508,7 +505,6 @@ function showCategory(category) {
     });
 
 }
-
 
 
 // =========================================
@@ -545,8 +541,10 @@ function showAllStories() {
 
     }
 
-}
 
+    displayHomeStories();
+
+}
 
 
 // =========================================
@@ -598,21 +596,35 @@ function searchStories() {
 
                 return (
 
-                    (story.title || "")
-                        .toLowerCase()
-                        .includes(text)
+                    String(
+                        story.title || ""
+                    )
+                    .toLowerCase()
+                    .includes(text)
 
                     ||
 
-                    (story.author || "")
-                        .toLowerCase()
-                        .includes(text)
+                    String(
+                        story.author || ""
+                    )
+                    .toLowerCase()
+                    .includes(text)
 
                     ||
 
-                    (story.category || "")
-                        .toLowerCase()
-                        .includes(text)
+                    String(
+                        story.category || ""
+                    )
+                    .toLowerCase()
+                    .includes(text)
+
+                    ||
+
+                    String(
+                        story.description || ""
+                    )
+                    .toLowerCase()
+                    .includes(text)
 
                 );
 
@@ -643,7 +655,6 @@ function searchStories() {
 }
 
 
-
 // =========================================
 // SEARCH WHILE TYPING
 // =========================================
@@ -662,7 +673,6 @@ if (searchBox) {
     );
 
 }
-
 
 
 // =========================================
@@ -710,13 +720,19 @@ function displayLibrary() {
 }
 
 
-
 // =========================================
 // START WEBSITE
 // =========================================
+
+// First show empty state
 
 displayHomeStories();
 
 displayLatest();
 
 displayLibrary();
+
+
+// Then load from Supabase
+
+loadStories();
