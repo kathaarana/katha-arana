@@ -80,9 +80,7 @@
 
 
 
-    <!-- =====================================
-         CHAPTERS
-    ====================================== -->
+    <!-- CHAPTERS -->
 
     <section
         id="chapterListSection"
@@ -113,9 +111,7 @@
 
 
 
-    <!-- =====================================
-         READING AREA
-    ====================================== -->
+    <!-- READING AREA -->
 
     <article
         class="reading-area"
@@ -189,9 +185,9 @@
 <script>
 
 
-// =====================================================
+// ==========================================
 // GET STORY ID
-// =====================================================
+// ==========================================
 
 const params =
     new URLSearchParams(
@@ -204,9 +200,9 @@ const storyId =
 
 
 
-// =====================================================
+// ==========================================
 // ELEMENTS
-// =====================================================
+// ==========================================
 
 const storyInfo =
     document.getElementById(
@@ -227,79 +223,37 @@ const chapterArea =
 
 
 
-// =====================================================
+// ==========================================
 // CURRENT STORY
-// =====================================================
+// ==========================================
 
 let currentStory = null;
 
 
 
-// =====================================================
+// ==========================================
+// CURRENT CHAPTERS
+// ==========================================
+
+let currentChapters = [];
+
+
+
+// ==========================================
 // FONT SIZE
-// =====================================================
+// ==========================================
 
 let readerFontSize = 19;
 
 
 
-// =====================================================
-// VISITOR ID
-// =====================================================
-
-function getVisitorId() {
-
-    let visitorId =
-        localStorage.getItem(
-            "kathaVisitorId"
-        );
-
-
-    if (!visitorId) {
-
-        if (
-            window.crypto &&
-            crypto.randomUUID
-        ) {
-
-            visitorId =
-                crypto.randomUUID();
-
-        } else {
-
-            visitorId =
-                "visitor-" +
-                Date.now() +
-                "-" +
-                Math.random()
-                    .toString(36)
-                    .substring(2);
-
-        }
-
-
-        localStorage.setItem(
-            "kathaVisitorId",
-            visitorId
-        );
-
-    }
-
-
-    return visitorId;
-
-}
-
-
-
-// =====================================================
+// ==========================================
 // LOAD STORY
-// =====================================================
+// ==========================================
 
 async function loadStory() {
 
     try {
-
 
         if (!storyId) {
 
@@ -317,9 +271,9 @@ async function loadStory() {
 
 
 
-        // =============================================
-        // GET STORY
-        // =============================================
+        // ==================================
+        // GET STORY FROM SUPABASE
+        // ==================================
 
         const {
             data: story,
@@ -346,7 +300,6 @@ async function loadStory() {
                 "Story load error:",
                 storyError
             );
-
 
             showStoryNotFound();
 
@@ -378,9 +331,9 @@ async function loadStory() {
 
 
 
-        // =============================================
+        // ==================================
         // PAGE TITLE
-        // =============================================
+        // ==================================
 
         document.title =
             (
@@ -392,9 +345,9 @@ async function loadStory() {
 
 
 
-        // =============================================
+        // ==================================
         // DISPLAY STORY
-        // =============================================
+        // ==================================
 
         displayStory(
             story
@@ -402,40 +355,75 @@ async function loadStory() {
 
 
 
-        // =============================================
+        // ==================================
+        // INCREMENT VIEW
+        // ==================================
+
+        const {
+            data: newViews,
+            error: viewError
+        } =
+            await supabaseClient.rpc(
+                "increment_story_views",
+                {
+                    p_story_id:
+                        story.id
+                }
+            );
+
+
+
+        if (viewError) {
+
+            console.error(
+                "View count error:",
+                viewError
+            );
+
+        } else {
+
+            console.log(
+                "New views:",
+                newViews
+            );
+
+
+            // Update displayed views
+
+            const viewsElement =
+                document.getElementById(
+                    "storyViews"
+                );
+
+
+            if (viewsElement) {
+
+                viewsElement.innerText =
+                    "👁️ " +
+                    newViews;
+
+            }
+
+        }
+
+
+
+        // ==================================
         // LOAD CHAPTERS
-        // =============================================
+        // ==================================
 
         await loadChapters(
             story.id
         );
-
-
-
-        // =============================================
-        // ADD VIEW
-        // =============================================
-
-        await addStoryView();
-
-
-
-        // =============================================
-        // UPDATE STATS
-        // =============================================
-
-        await updateStoryStats();
-
 
     }
 
     catch (error) {
 
         console.error(
-            "Unexpected story error:",
+            "Unexpected error:",
             error
         );
-
 
         showStoryNotFound();
 
@@ -445,11 +433,13 @@ async function loadStory() {
 
 
 
-// =====================================================
+// ==========================================
 // DISPLAY STORY
-// =====================================================
+// ==========================================
 
-function displayStory(story) {
+function displayStory(
+    story
+) {
 
 
     let coverHTML =
@@ -482,6 +472,20 @@ function displayStory(story) {
 
 
 
+    const views =
+        Number(
+            story.views || 0
+        );
+
+
+
+    const rating =
+        Number(
+            story.rating || 0
+        );
+
+
+
     storyInfo.innerHTML = `
 
         <div class="reader-cover cover">
@@ -491,17 +495,16 @@ function displayStory(story) {
         </div>
 
 
-
         <div class="reader-info">
 
             <p class="label">
 
                 ${escapeHTML(
-                    story.category || ""
+                    story.category ||
+                    ""
                 )}
 
             </p>
-
 
 
             <h1>
@@ -512,7 +515,6 @@ function displayStory(story) {
                 )}
 
             </h1>
-
 
 
             <p class="author">
@@ -527,46 +529,32 @@ function displayStory(story) {
             </p>
 
 
-
             <p class="description">
 
                 ${escapeHTML(
-                    story.description || ""
+                    story.description ||
+                    ""
                 )}
 
             </p>
 
 
+            <div class="story-meta">
 
-            <div
-                class="story-meta"
-            >
 
-                <span>
+                <span id="storyViews">
 
-                    👁️
-                    ${Number(
-                        story.views || 0
-                    )}
+                    👁️ ${views}
 
                 </span>
 
 
                 <span>
 
-                    ❤️ 0
+                    ⭐ ${rating}
 
                 </span>
 
-
-                <span>
-
-                    ⭐
-                    ${Number(
-                        story.rating || 0
-                    )}
-
-                </span>
 
             </div>
 
@@ -645,9 +633,9 @@ function displayStory(story) {
 
 
 
-// =====================================================
+// ==========================================
 // LOAD CHAPTERS
-// =====================================================
+// ==========================================
 
 async function loadChapters(
     storyId
@@ -655,9 +643,8 @@ async function loadChapters(
 
     try {
 
-
         console.log(
-            "Loading chapters:",
+            "Loading chapters for story:",
             storyId
         );
 
@@ -697,14 +684,17 @@ async function loadChapters(
 
             chapterList.innerHTML = `
 
-                <p style="color:#888;">
+                <p style="
+                    color:#888;
+                    padding:15px 0;
+                ">
 
-                    Chapters load කරන්න බැරි වුණා. 😔
+                    Chapters load කරන්න
+                    බැරි වුණා. 😔
 
                 </p>
 
             `;
-
 
             return;
 
@@ -712,13 +702,13 @@ async function loadChapters(
 
 
 
-        const chapters =
+        currentChapters =
             data || [];
 
 
 
         displayChapters(
-            chapters
+            currentChapters
         );
 
     }
@@ -733,9 +723,13 @@ async function loadChapters(
 
         chapterList.innerHTML = `
 
-            <p style="color:#888;">
+            <p style="
+                color:#888;
+                padding:15px 0;
+            ">
 
-                Chapters load කරන්න බැරි වුණා. 😔
+                Chapters load කරන්න
+                බැරි වුණා. 😔
 
             </p>
 
@@ -747,14 +741,13 @@ async function loadChapters(
 
 
 
-// =====================================================
+// ==========================================
 // DISPLAY CHAPTERS
-// =====================================================
+// ==========================================
 
 function displayChapters(
     chapters
 ) {
-
 
     chapterList.innerHTML =
         "";
@@ -762,6 +755,7 @@ function displayChapters(
 
 
     if (
+        !chapters ||
         chapters.length === 0
     ) {
 
@@ -778,7 +772,6 @@ function displayChapters(
             </p>
 
         `;
-
 
         return;
 
@@ -828,8 +821,7 @@ function displayChapters(
                 function() {
 
                     openChapter(
-                        chapter,
-                        chapters
+                        chapter
                     );
 
                 }
@@ -848,18 +840,16 @@ function displayChapters(
 
 
 
-// =====================================================
+// ==========================================
 // OPEN CHAPTER
-// =====================================================
+// ==========================================
 
 function openChapter(
-    chapter,
-    chapters
+    chapter
 ) {
 
-
     const currentIndex =
-        chapters.findIndex(
+        currentChapters.findIndex(
             function(item) {
 
                 return String(
@@ -880,9 +870,9 @@ function openChapter(
 
 
 
-    // =============================================
+    // ==================================
     // PREVIOUS
-    // =============================================
+    // ==================================
 
     if (
         currentIndex > 0
@@ -906,13 +896,15 @@ function openChapter(
 
 
 
-    // =============================================
+    // ==================================
     // NEXT
-    // =============================================
+    // ==================================
 
     if (
+        currentIndex !== -1
+        &&
         currentIndex <
-        chapters.length - 1
+        currentChapters.length - 1
     ) {
 
         buttonsHTML += `
@@ -945,7 +937,6 @@ function openChapter(
         </p>
 
 
-
         <h2>
 
             ${escapeHTML(
@@ -956,13 +947,11 @@ function openChapter(
         </h2>
 
 
-
         <div class="chapter-content">
 
             ${chapter.content || ""}
 
         </div>
-
 
 
         <div
@@ -983,9 +972,9 @@ function openChapter(
 
 
 
-    // =============================================
+    // ==================================
     // PREVIOUS BUTTON
-    // =============================================
+    // ==================================
 
     const previousButton =
         document.getElementById(
@@ -1000,10 +989,9 @@ function openChapter(
             function() {
 
                 openChapter(
-                    chapters[
+                    currentChapters[
                         currentIndex - 1
-                    ],
-                    chapters
+                    ]
                 );
 
             }
@@ -1013,9 +1001,9 @@ function openChapter(
 
 
 
-    // =============================================
+    // ==================================
     // NEXT BUTTON
-    // =============================================
+    // ==================================
 
     const nextButton =
         document.getElementById(
@@ -1030,10 +1018,9 @@ function openChapter(
             function() {
 
                 openChapter(
-                    chapters[
+                    currentChapters[
                         currentIndex + 1
-                    ],
-                    chapters
+                    ]
                 );
 
             }
@@ -1048,115 +1035,18 @@ function openChapter(
 
 
     chapterArea.scrollIntoView({
-        behavior:"smooth"
+        behavior: "smooth"
     });
 
 }
 
 
 
-// =====================================================
-// ADD STORY VIEW
-// =====================================================
+// ==========================================
+// LIKE
+// ==========================================
 
-async function addStoryView() {
-
-
-    if (!currentStory) {
-        return;
-    }
-
-
-
-    try {
-
-
-        const visitorId =
-            getVisitorId();
-
-
-
-        const viewKey =
-            "viewed_" +
-            currentStory.id;
-
-
-
-        // One view per visitor
-        // per browser session
-
-        if (
-            sessionStorage.getItem(
-                viewKey
-            )
-        ) {
-
-            return;
-
-        }
-
-
-
-        const {
-            error
-        } =
-            await supabaseClient
-
-                .from("story_views")
-
-                .insert({
-
-                    story_id:
-                        currentStory.id,
-
-                    visitor_id:
-                        visitorId
-
-                });
-
-
-
-        if (error) {
-
-            console.error(
-                "View insert error:",
-                error
-            );
-
-
-            return;
-
-        }
-
-
-
-        sessionStorage.setItem(
-            viewKey,
-            "true"
-        );
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "View error:",
-            error
-        );
-
-    }
-
-}
-
-
-
-// =====================================================
-// TOGGLE LIKE
-// =====================================================
-
-async function toggleLike() {
-
+function toggleLike() {
 
     if (!currentStory) {
         return;
@@ -1164,160 +1054,41 @@ async function toggleLike() {
 
 
 
-    try {
-
-
-        const visitorId =
-            getVisitorId();
-
-
-
-        const {
-            data: existingLike,
-            error: checkError
-        } =
-            await supabaseClient
-
-                .from("story_likes")
-
-                .select("id")
-
-                .eq(
-                    "story_id",
-                    currentStory.id
-                )
-
-                .eq(
-                    "visitor_id",
-                    visitorId
-                )
-
-                .maybeSingle();
+    const key =
+        "liked_" +
+        currentStory.id;
 
 
 
-        if (checkError) {
-
-            console.error(
-                "Like check error:",
-                checkError
-            );
-
-
-            return;
-
-        }
+    const liked =
+        localStorage.getItem(
+            key
+        )
+        ===
+        "true";
 
 
 
-        // =========================================
-        // REMOVE LIKE
-        // =========================================
-
-        if (existingLike) {
-
-
-            const {
-                error
-            } =
-                await supabaseClient
-
-                    .from("story_likes")
-
-                    .delete()
-
-                    .eq(
-                        "id",
-                        existingLike.id
-                    );
+    localStorage.setItem(
+        key,
+        String(
+            !liked
+        )
+    );
 
 
 
-            if (error) {
-
-                console.error(
-                    "Unlike error:",
-                    error
-                );
-
-
-                return;
-
-            }
-
-        }
-
-
-
-        // =========================================
-        // ADD LIKE
-        // =========================================
-
-        else {
-
-
-            const {
-                error
-            } =
-                await supabaseClient
-
-                    .from("story_likes")
-
-                    .insert({
-
-                        story_id:
-                            currentStory.id,
-
-                        visitor_id:
-                            visitorId
-
-                    });
-
-
-
-            if (error) {
-
-                console.error(
-                    "Like error:",
-                    error
-                );
-
-
-                return;
-
-            }
-
-        }
-
-
-
-        updateReaderButtons();
-
-
-        await updateStoryStats();
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Like error:",
-            error
-        );
-
-    }
+    updateReaderButtons();
 
 }
 
 
 
-// =====================================================
+// ==========================================
 // BOOKMARK
-// =====================================================
+// ==========================================
 
 function toggleBookmark() {
-
 
     if (!currentStory) {
         return;
@@ -1362,15 +1133,14 @@ function toggleBookmark() {
 
 
 
-// =====================================================
+// ==========================================
 // UPDATE LIBRARY
-// =====================================================
+// ==========================================
 
 function updateLibrary(
-    storyId,
+    id,
     add
 ) {
-
 
     let library = [];
 
@@ -1383,8 +1153,7 @@ function updateLibrary(
                 localStorage.getItem(
                     "kathaLibrary"
                 )
-            )
-            || [];
+            ) || [];
 
     }
 
@@ -1398,11 +1167,11 @@ function updateLibrary(
 
     library =
         library.filter(
-            function(id) {
+            function(item) {
 
-                return String(id)
+                return String(item)
                     !==
-                    String(storyId);
+                    String(id);
 
             }
         );
@@ -1412,7 +1181,7 @@ function updateLibrary(
     if (add) {
 
         library.push(
-            storyId
+            id
         );
 
     }
@@ -1430,12 +1199,11 @@ function updateLibrary(
 
 
 
-// =====================================================
+// ==========================================
 // UPDATE BUTTONS
-// =====================================================
+// ==========================================
 
-async function updateReaderButtons() {
-
+function updateReaderButtons() {
 
     if (!currentStory) {
         return;
@@ -1456,71 +1224,15 @@ async function updateReaderButtons() {
 
 
 
-    const visitorId =
-        getVisitorId();
+    const liked =
+        localStorage.getItem(
+            "liked_" +
+            currentStory.id
+        )
+        ===
+        "true";
 
 
-
-    let liked =
-        false;
-
-
-
-    // =============================================
-    // CHECK DATABASE LIKE
-    // =============================================
-
-    try {
-
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-
-                .from("story_likes")
-
-                .select("id")
-
-                .eq(
-                    "story_id",
-                    currentStory.id
-                )
-
-                .eq(
-                    "visitor_id",
-                    visitorId
-                )
-
-                .maybeSingle();
-
-
-
-        if (!error) {
-
-            liked =
-                !!data;
-
-        }
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Like state error:",
-            error
-        );
-
-    }
-
-
-
-    // =============================================
-    // BOOKMARK
-    // =============================================
 
     const bookmarked =
         localStorage.getItem(
@@ -1531,10 +1243,6 @@ async function updateReaderButtons() {
         "true";
 
 
-
-    // =============================================
-    // BUTTONS
-    // =============================================
 
     if (likeButton) {
 
@@ -1560,166 +1268,13 @@ async function updateReaderButtons() {
 
 
 
-// =====================================================
-// UPDATE STORY STATS
-// =====================================================
-
-async function updateStoryStats() {
-
-
-    if (!currentStory) {
-        return;
-    }
-
-
-
-    try {
-
-
-        // =============================================
-        // VIEW COUNT
-        // =============================================
-
-        const {
-            count: viewCount,
-            error: viewError
-        } =
-            await supabaseClient
-
-                .from("story_views")
-
-                .select(
-                    "*",
-                    {
-                        count:"exact",
-                        head:true
-                    }
-                )
-
-                .eq(
-                    "story_id",
-                    currentStory.id
-                );
-
-
-
-        // =============================================
-        // LIKE COUNT
-        // =============================================
-
-        const {
-            count: likeCount,
-            error: likeError
-        } =
-            await supabaseClient
-
-                .from("story_likes")
-
-                .select(
-                    "*",
-                    {
-                        count:"exact",
-                        head:true
-                    }
-                )
-
-                .eq(
-                    "story_id",
-                    currentStory.id
-                );
-
-
-
-        if (viewError) {
-
-            console.error(
-                "View count error:",
-                viewError
-            );
-
-        }
-
-
-
-        if (likeError) {
-
-            console.error(
-                "Like count error:",
-                likeError
-            );
-
-        }
-
-
-
-        // =============================================
-        // UPDATE DISPLAY
-        // =============================================
-
-        const meta =
-            document.querySelector(
-                ".story-meta"
-            );
-
-
-
-        if (meta) {
-
-            meta.innerHTML = `
-
-                <span>
-
-                    👁️
-                    ${viewCount || 0}
-
-                </span>
-
-
-                <span>
-
-                    ❤️
-                    ${likeCount || 0}
-
-                </span>
-
-
-                <span>
-
-                    ⭐
-                    ${Number(
-                        currentStory.rating || 0
-                    )}
-
-                </span>
-
-            `;
-
-        }
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Stats error:",
-            error
-        );
-
-    }
-
-}
-
-
-
-// =====================================================
+// ==========================================
 // FONT SIZE
-// =====================================================
+// ==========================================
 
 function changeFontSize(
     amount
 ) {
-
 
     readerFontSize +=
         amount;
@@ -1754,12 +1309,11 @@ function changeFontSize(
 
 
 
-// =====================================================
+// ==========================================
 // APPLY FONT SIZE
-// =====================================================
+// ==========================================
 
 function applyFontSize() {
-
 
     const content =
         document.querySelector(
@@ -1784,9 +1338,9 @@ function applyFontSize() {
 
 
 
-// =====================================================
+// ==========================================
 // READING MODE
-// =====================================================
+// ==========================================
 
 function toggleReadingMode() {
 
@@ -1800,12 +1354,11 @@ function toggleReadingMode() {
 
 
 
-// =====================================================
+// ==========================================
 // STORY NOT FOUND
-// =====================================================
+// ==========================================
 
 function showStoryNotFound() {
-
 
     storyInfo.innerHTML = `
 
@@ -1862,20 +1415,18 @@ function showStoryNotFound() {
 
 
 
-// =====================================================
+// ==========================================
 // ESCAPE HTML
-// =====================================================
+// ==========================================
 
 function escapeHTML(
     value
 ) {
 
-
     const div =
         document.createElement(
             "div"
         );
-
 
 
     div.textContent =
@@ -1884,16 +1435,15 @@ function escapeHTML(
             : String(value);
 
 
-
     return div.innerHTML;
 
 }
 
 
 
-// =====================================================
+// ==========================================
 // START
-// =====================================================
+// ==========================================
 
 document.addEventListener(
     "DOMContentLoaded",
