@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="si">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Login | කතා අරණ</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #292929,
+                    #090909 65%
+                );
+
+            color: white;
+        }
+
+        .login-box {
+            width: min(420px, 92%);
+
+            padding: 35px;
+
+            border-radius: 22px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            box-shadow:
+                0 25px 80px
+                rgba(0,0,0,0.5);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            text-align: center;
+
+            font-size: 42px;
+
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            text-align: center;
+
+            margin:
+                0 0 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #999;
+
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-bottom: 18px;
+
+            border-radius: 11px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            background:
+                rgba(0,0,0,0.3);
+
+            color: white;
+
+            outline: none;
+
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #888;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background: white;
+
+            color: black;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 18px;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            display: none;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+        .error {
+            background:
+                rgba(255,60,60,0.12);
+
+            color: #ff8585;
+        }
+
+        .success {
+            background:
+                rgba(60,255,140,0.12);
+
+            color: #7dffa9;
+        }
+
+        .back {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #888;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .back:hover {
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-box">
+
+    <div class="logo">
+        📚
+    </div>
+
+    <h1>
+        Admin Login
+    </h1>
+
+    <div class="subtitle">
+        කතා අරණ කළමනාකරණ පද්ධතිය
+    </div>
+
+
+    <form id="loginForm">
+
+        <label for="email">
+            Email
+        </label>
+
+        <input
+            id="email"
+            type="email"
+            placeholder="Admin email"
+            required
+        >
+
+
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            required
+        >
+
+
+        <button
+            id="loginButton"
+            type="submit"
+        >
+            🔐 Login
+        </button>
+
+    </form>
+
+
+    <div id="message"></div>
+
+
+    <a
+        class="back"
+        href="index.html"
+    >
+        ← Website එකට යන්න
+    </a>
+
+</div>
+
+
+
+<script>
+
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+const loginButton =
+    document.getElementById(
+        "loginButton"
+    );
+
+
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.innerText =
+        text;
+
+    message.className =
+        type;
+
+    message.style.display =
+        "block";
+
+}
+
+
+
+loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim();
+
+
+        const password =
+            document
+                .getElementById("password")
+                .value;
+
+
+        loginButton.disabled =
+            true;
+
+        loginButton.innerText =
+            "⏳ Logging in...";
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .auth
+                .signInWithPassword({
+
+                    email:
+                        email,
+
+                    password:
+                        password
+
+                });
+
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "❌ " +
+                error.message,
+                "error"
+            );
+
+            loginButton.disabled =
+                false;
+
+            loginButton.innerText =
+                "🔐 Login";
+
+            return;
+
+        }
+
+
+        showMessage(
+            "✅ Login successful! Redirecting...",
+            "success"
+        );
+
+
+        setTimeout(
+            function() {
+
+                window.location.href =
+                    "admin.html";
+
+            },
+            700
+        );
+
+    }
+);
+
+
+
+// If already logged in,
+// go directly to admin panel.
+
+(async function() {
+
+    const {
+        data
+    } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+    if (
+        data &&
+        data.session
+    ) {
+
+        window.location.href =
+            "admin.html";
+
+    }
+
+})();
+
+</script>
+
+
+</body>
+
+</html>
