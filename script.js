@@ -31,6 +31,9 @@ async function loadStories() {
 
     try {
 
+        console.log("Loading stories from Supabase...");
+
+
         const {
             data,
             error
@@ -51,7 +54,7 @@ async function loadStories() {
         if (error) {
 
             console.error(
-                "Supabase error:",
+                "Supabase stories error:",
                 error
             );
 
@@ -64,6 +67,12 @@ async function loadStories() {
 
         stories =
             data || [];
+
+
+        console.log(
+            "Stories loaded:",
+            stories
+        );
 
 
         displayHomeStories();
@@ -96,11 +105,17 @@ function showLoadingError() {
 
     const grids = [
 
-        document.getElementById("storyGrid"),
+        document.getElementById(
+            "storyGrid"
+        ),
 
-        document.getElementById("latestGrid"),
+        document.getElementById(
+            "latestGrid"
+        ),
 
-        document.getElementById("libraryGrid")
+        document.getElementById(
+            "libraryGrid"
+        )
 
     ];
 
@@ -136,7 +151,9 @@ function showLoadingError() {
 // CREATE STORY CARD
 // =========================================
 
-function createStoryCard(story) {
+function createStoryCard(
+    story
+) {
 
     const card =
         document.createElement(
@@ -148,17 +165,31 @@ function createStoryCard(story) {
         "story-card";
 
 
+    // =====================================
+    // COVER
+    // =====================================
+
     let coverHTML =
         "📖";
 
 
-    if (story.cover) {
+    if (
+        story.cover &&
+        String(
+            story.cover
+        ).trim() !== ""
+    ) {
 
         coverHTML = `
 
             <img
-                src="${escapeHTML(story.cover)}"
-                alt="${escapeHTML(story.title)}"
+                src="${escapeHTML(
+                    story.cover
+                )}"
+                alt="${escapeHTML(
+                    story.title ||
+                    "Story"
+                )}"
                 style="
                     width:100%;
                     height:100%;
@@ -172,13 +203,31 @@ function createStoryCard(story) {
     }
 
 
+    // =====================================
+    // STATS
+    // =====================================
+
     const views =
-        Number(story.views || 0);
+        Number(
+            story.views || 0
+        );
+
+
+    const likes =
+        Number(
+            story.liked || 0
+        );
 
 
     const rating =
-        Number(story.rating || 0);
+        Number(
+            story.rating || 0
+        );
 
+
+    // =====================================
+    // CARD HTML
+    // =====================================
 
     card.innerHTML = `
 
@@ -186,10 +235,12 @@ function createStoryCard(story) {
 
             ${coverHTML}
 
+
             <div class="cover-label">
 
                 ${escapeHTML(
-                    story.category || "Story"
+                    story.category ||
+                    "Story"
                 )}
 
             </div>
@@ -197,24 +248,30 @@ function createStoryCard(story) {
         </div>
 
 
+
         <div class="story-info">
+
 
             <p class="label">
 
                 ${escapeHTML(
-                    story.category || ""
+                    story.category ||
+                    ""
                 )}
 
             </p>
 
 
+
             <h3>
 
                 ${escapeHTML(
-                    story.title || "Untitled"
+                    story.title ||
+                    "Untitled"
                 )}
 
             </h3>
+
 
 
             <p>
@@ -222,56 +279,107 @@ function createStoryCard(story) {
                 ✍️
 
                 ${escapeHTML(
-                    story.author || "කතා අරණ"
+                    story.author ||
+                    "කතා අරණ"
                 )}
 
             </p>
+
 
 
             <p>
 
                 ${escapeHTML(
-                    story.description || ""
+                    story.description ||
+                    ""
                 )}
 
             </p>
 
 
+
+            <!-- STORY STATS -->
+
             <div
+                class="story-meta"
                 style="
                     display:flex;
                     gap:15px;
                     margin-bottom:18px;
                     color:#777;
                     font-size:13px;
+                    flex-wrap:wrap;
                 "
             >
 
                 <span>
+
                     👁️ ${views}
+
                 </span>
 
 
                 <span>
+
+                    ❤️ ${likes}
+
+                </span>
+
+
+                <span>
+
                     ⭐ ${rating}
+
                 </span>
 
             </div>
 
 
+
+            <!-- READ BUTTON -->
+
             <button
                 class="read-btn"
                 type="button"
-                onclick="openStory('${story.id}')"
+                data-story-id="${escapeHTML(
+                    story.id
+                )}"
             >
 
                 කියවන්න →
 
             </button>
 
+
         </div>
 
     `;
+
+
+    // =====================================
+    // READ BUTTON EVENT
+    // =====================================
+
+    const readButton =
+        card.querySelector(
+            ".read-btn"
+        );
+
+
+    if (readButton) {
+
+        readButton.addEventListener(
+            "click",
+            function() {
+
+                openStory(
+                    story.id
+                );
+
+            }
+        );
+
+    }
 
 
     return card;
@@ -283,7 +391,9 @@ function createStoryCard(story) {
 // ESCAPE HTML
 // =========================================
 
-function escapeHTML(value) {
+function escapeHTML(
+    value
+) {
 
     const div =
         document.createElement(
@@ -347,7 +457,9 @@ function displayStories(
         function(story) {
 
             element.appendChild(
-                createStoryCard(story)
+                createStoryCard(
+                    story
+                )
             );
 
         }
@@ -360,11 +472,15 @@ function displayStories(
 // OPEN STORY
 // =========================================
 
-function openStory(id) {
+function openStory(
+    id
+) {
 
     window.location.href =
         "story.html?id=" +
-        encodeURIComponent(id);
+        encodeURIComponent(
+            id
+        );
 
 }
 
@@ -395,7 +511,7 @@ function displayHomeStories() {
 
 
 // =========================================
-// LATEST STORIES
+// DISPLAY LATEST STORIES
 // =========================================
 
 function displayLatest() {
@@ -413,7 +529,10 @@ function displayLatest() {
 
     const latest =
         [...getStories()]
-            .slice(0, 4);
+            .slice(
+                0,
+                4
+            );
 
 
     displayStories(
@@ -428,7 +547,9 @@ function displayLatest() {
 // CATEGORY
 // =========================================
 
-function showCategory(category) {
+function showCategory(
+    category
+) {
 
     const allStories =
         getStories();
@@ -441,13 +562,16 @@ function showCategory(category) {
                 return (
 
                     String(
-                        story.category || ""
+                        story.category ||
+                        ""
                     )
                     .toLowerCase()
 
                     ===
 
-                    String(category)
+                    String(
+                        category
+                    )
                     .toLowerCase()
 
                 );
@@ -501,7 +625,8 @@ function showCategory(category) {
 
 
     results.scrollIntoView({
-        behavior: "smooth"
+        behavior:
+            "smooth"
     });
 
 }
@@ -536,7 +661,8 @@ function showAllStories() {
     if (storiesSection) {
 
         storiesSection.scrollIntoView({
-            behavior: "smooth"
+            behavior:
+                "smooth"
         });
 
     }
@@ -581,7 +707,9 @@ function searchStories() {
     }
 
 
-    if (text === "") {
+    if (
+        text === ""
+    ) {
 
         displayHomeStories();
 
@@ -597,34 +725,52 @@ function searchStories() {
                 return (
 
                     String(
-                        story.title || ""
+                        story.title ||
+                        ""
                     )
                     .toLowerCase()
-                    .includes(text)
+                    .includes(
+                        text
+                    )
+
 
                     ||
 
+
                     String(
-                        story.author || ""
+                        story.author ||
+                        ""
                     )
                     .toLowerCase()
-                    .includes(text)
+                    .includes(
+                        text
+                    )
+
 
                     ||
 
+
                     String(
-                        story.category || ""
+                        story.category ||
+                        ""
                     )
                     .toLowerCase()
-                    .includes(text)
+                    .includes(
+                        text
+                    )
+
 
                     ||
 
+
                     String(
-                        story.description || ""
+                        story.description ||
+                        ""
                     )
                     .toLowerCase()
-                    .includes(text)
+                    .includes(
+                        text
+                    )
 
                 );
 
@@ -647,7 +793,8 @@ function searchStories() {
     if (storiesSection) {
 
         storiesSection.scrollIntoView({
-            behavior: "smooth"
+            behavior:
+                "smooth"
         });
 
     }
@@ -659,24 +806,64 @@ function searchStories() {
 // SEARCH WHILE TYPING
 // =========================================
 
-const searchBox =
-    document.getElementById(
-        "searchBox"
-    );
+function setupSearch() {
+
+    const searchBox =
+        document.getElementById(
+            "searchBox"
+        );
 
 
-if (searchBox) {
+    if (!searchBox) {
+        return;
+    }
+
 
     searchBox.addEventListener(
-        "keyup",
+        "input",
         searchStories
     );
 
 }
 
 
+setupSearch();
+
+
 // =========================================
 // MY LIBRARY
+// =========================================
+
+function getLibrary() {
+
+    let library = [];
+
+
+    try {
+
+        library =
+            JSON.parse(
+                localStorage.getItem(
+                    "kathaLibrary"
+                )
+            ) || [];
+
+    }
+
+    catch (error) {
+
+        library = [];
+
+    }
+
+
+    return library;
+
+}
+
+
+// =========================================
+// DISPLAY LIBRARY
 // =========================================
 
 function displayLibrary() {
@@ -693,19 +880,23 @@ function displayLibrary() {
 
 
     const saved =
-        JSON.parse(
-            localStorage.getItem(
-                "kathaLibrary"
-            )
-        ) || [];
+        getLibrary();
 
 
     const savedStories =
         getStories().filter(
             function(story) {
 
-                return saved.includes(
-                    story.id
+                return saved.some(
+                    function(id) {
+
+                        return String(id)
+                            ===
+                            String(
+                                story.id
+                            );
+
+                    }
                 );
 
             }
@@ -721,18 +912,112 @@ function displayLibrary() {
 
 
 // =========================================
+// REFRESH HOME DATA
+// =========================================
+
+async function refreshStories() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+
+                .from("stories")
+
+                .select("*")
+
+                .order(
+                    "id",
+                    {
+                        ascending:
+                            false
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Refresh stories error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        stories =
+            data || [];
+
+
+        displayHomeStories();
+
+        displayLatest();
+
+        displayLibrary();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+    }
+
+}
+
+
+// =========================================
 // START WEBSITE
 // =========================================
 
-// First show empty state
+async function startWebsite() {
 
-displayHomeStories();
-
-displayLatest();
-
-displayLibrary();
+    console.log(
+        "Katha Arana starting..."
+    );
 
 
-// Then load from Supabase
+    // Empty state first
 
-loadStories();
+    displayHomeStories();
+
+    displayLatest();
+
+    displayLibrary();
+
+
+    // Load Supabase data
+
+    await loadStories();
+
+}
+
+
+// =========================================
+// START
+// =========================================
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        startWebsite
+    );
+
+}
+
+else {
+
+    startWebsite();
+
+}
