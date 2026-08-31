@@ -25,42 +25,33 @@ function getStories() {
 
 function isAdultStory(story) {
 
-    return String(
-        story?.category || ""
-    )
-    .trim()
-    .toLowerCase() === "18+";
-
+    return String(story?.category || "")
+        .trim()
+        .toLowerCase() === "18+";
 }
 
 
 // =========================================
-// GET PUBLIC STORIES
+// PUBLIC STORIES
 // =========================================
 
 function getPublicStories() {
 
     return getStories().filter(function (story) {
-
         return !isAdultStory(story);
-
     });
-
 }
 
 
 // =========================================
-// GET ADULT STORIES
+// ADULT STORIES
 // =========================================
 
 function getAdultStories() {
 
     return getStories().filter(function (story) {
-
         return isAdultStory(story);
-
     });
-
 }
 
 
@@ -70,45 +61,50 @@ function getAdultStories() {
 
 function escapeHTML(value) {
 
-    const div =
-        document.createElement("div");
+    const div = document.createElement("div");
 
     div.textContent =
-        value == null
-            ? ""
-            : String(value);
+        value == null ? "" : String(value);
 
     return div.innerHTML;
-
 }
 
 
 // =========================================
-// LOAD STORIES
+// LOAD STORIES FROM SUPABASE
 // =========================================
 
 async function loadStories() {
 
+    console.log("📚 Loading stories...");
+
     try {
 
-        console.log("📚 Loading stories...");
+        if (typeof supabaseClient === "undefined") {
 
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .from("stories")
-            .select(
-                "id,created_at,author,title,category,description,cover,views,rating,likes"
-            )
-            .order(
-                "id",
-                {
-                    ascending: false
-                }
+            console.error(
+                "❌ supabaseClient is not defined"
             );
+
+            showLoadingError(
+                "Supabase connection එක හම්බ වුණේ නැහැ."
+            );
+
+            return;
+        }
+
+
+        const result =
+            await supabaseClient
+                .from("stories")
+                .select("*")
+                .order("id", {
+                    ascending: false
+                });
+
+
+        const data = result.data;
+        const error = result.error;
 
 
         if (error) {
@@ -119,11 +115,10 @@ async function loadStories() {
             );
 
             showLoadingError(
-                error.message
+                "Supabase එකෙන් කතා load කරන්න බැරි වුණා."
             );
 
             return;
-
         }
 
 
@@ -133,8 +128,7 @@ async function loadStories() {
         );
 
 
-        stories =
-            data || [];
+        stories = data || [];
 
 
         displayHomeStories();
@@ -143,22 +137,19 @@ async function loadStories() {
 
         displayLibrary();
 
-
     }
 
     catch (error) {
 
         console.error(
-            "❌ Load stories error:",
+            "❌ loadStories error:",
             error
         );
 
         showLoadingError(
-            error.message
+            "කතා load කරන්න බැරි වුණා."
         );
-
     }
-
 }
 
 
@@ -170,21 +161,13 @@ function showLoadingError(message) {
 
     const grids = [
 
-        document.getElementById(
-            "storyGrid"
-        ),
+        document.getElementById("storyGrid"),
 
-        document.getElementById(
-            "latestGrid"
-        ),
+        document.getElementById("latestGrid"),
 
-        document.getElementById(
-            "libraryGrid"
-        ),
+        document.getElementById("libraryGrid"),
 
-        document.getElementById(
-            "categoryStoryGrid"
-        )
+        document.getElementById("categoryStoryGrid")
 
     ];
 
@@ -199,29 +182,16 @@ function showLoadingError(message) {
         grid.innerHTML = `
 
             <p style="
-                color:#ff8a8a;
+                color:#888;
                 padding:20px;
-                line-height:1.8;
             ">
 
-                ❌ කතා load කරන්න බැරි වුණා.
-
-                <br>
-
-                <small style="
-                    color:#888;
-                ">
-                    ${escapeHTML(
-                        message || "Unknown error"
-                    )}
-                </small>
+                😔 ${escapeHTML(message)}
 
             </p>
 
         `;
-
     });
-
 }
 
 
@@ -232,9 +202,8 @@ function showLoadingError(message) {
 function createStoryCard(story) {
 
     const card =
-        document.createElement(
-            "article"
-        );
+        document.createElement("article");
+
 
     card.className =
         "story-card";
@@ -255,45 +224,46 @@ function createStoryCard(story) {
         coverHTML = `
 
             <img
-                src="${escapeHTML(
-                    story.cover
-                )}"
+                src="${escapeHTML(story.cover)}"
                 alt="${escapeHTML(
-                    story.title ||
-                    "Story"
+                    story.title || "Story"
                 )}"
                 loading="lazy"
             >
 
         `;
-
     }
 
 
     // =====================================
-    // STATS
+    // DATABASE STATS
+    // IMPORTANT:
+    // views  = views
+    // likes  = likes
+    // rating = rating
     // =====================================
 
     const views =
-        Number(
-            story.views || 0
-        );
+        Number(story.views || 0);
 
-
-    // IMPORTANT:
-    // Database column is "likes"
-    // NOT "liked"
 
     const likes =
-        Number(
-            story.likes || 0
-        );
+        Number(story.likes || 0);
 
 
     const rating =
-        Number(
-            story.rating || 0
-        );
+        Number(story.rating || 0);
+
+
+    console.log(
+        "📊 Story stats:",
+        story.title,
+        {
+            views: views,
+            likes: likes,
+            rating: rating
+        }
+    );
 
 
     // =====================================
@@ -306,12 +276,10 @@ function createStoryCard(story) {
 
             ${coverHTML}
 
-
             <div class="cover-label">
 
                 ${escapeHTML(
-                    story.category ||
-                    "Story"
+                    story.category || "Story"
                 )}
 
             </div>
@@ -320,7 +288,6 @@ function createStoryCard(story) {
 
 
         <div class="story-info">
-
 
             <p class="label">
 
@@ -334,8 +301,7 @@ function createStoryCard(story) {
             <h3>
 
                 ${escapeHTML(
-                    story.title ||
-                    "Untitled"
+                    story.title || "Untitled"
                 )}
 
             </h3>
@@ -346,8 +312,7 @@ function createStoryCard(story) {
                 ✍️
 
                 ${escapeHTML(
-                    story.author ||
-                    "කතා අරණ"
+                    story.author || "කතා අරණ"
                 )}
 
             </p>
@@ -356,15 +321,13 @@ function createStoryCard(story) {
             <p>
 
                 ${escapeHTML(
-                    story.description ||
-                    ""
+                    story.description || ""
                 )}
 
             </p>
 
 
             <div class="story-meta">
-
 
                 <span>
 
@@ -386,7 +349,6 @@ function createStoryCard(story) {
 
                 </span>
 
-
             </div>
 
 
@@ -399,7 +361,6 @@ function createStoryCard(story) {
 
             </button>
 
-
         </div>
 
     `;
@@ -410,9 +371,7 @@ function createStoryCard(story) {
     // =====================================
 
     const readButton =
-        card.querySelector(
-            ".read-btn"
-        );
+        card.querySelector(".read-btn");
 
 
     if (readButton) {
@@ -421,18 +380,14 @@ function createStoryCard(story) {
             "click",
             function () {
 
-                openStory(
-                    story.id
-                );
+                openStory(story.id);
 
             }
         );
-
     }
 
 
     return card;
-
 }
 
 
@@ -465,30 +420,23 @@ function displayStories(
                 padding:20px;
             ">
 
-                මේ section එකේ
-                තවම කතා නැහැ. 📚
+                මේ section එකේ තවම කතා නැහැ. 📚
 
             </p>
 
         `;
 
         return;
-
     }
 
 
-    storyList.forEach(
-        function (story) {
+    storyList.forEach(function (story) {
 
-            element.appendChild(
-                createStoryCard(
-                    story
-                )
-            );
+        element.appendChild(
+            createStoryCard(story)
+        );
 
-        }
-    );
-
+    });
 }
 
 
@@ -499,14 +447,12 @@ function displayStories(
 function openStory(id) {
 
     const story =
-        getStories().find(
-            function (item) {
+        getStories().find(function (item) {
 
-                return String(item.id) ===
-                    String(id);
+            return String(item.id) ===
+                String(id);
 
-            }
-        );
+        });
 
 
     if (!story) {
@@ -517,7 +463,6 @@ function openStory(id) {
         );
 
         return;
-
     }
 
 
@@ -538,19 +483,17 @@ function openStory(id) {
         if (!confirmed) {
             return;
         }
-
     }
 
 
     window.location.href =
         "story.html?id=" +
         encodeURIComponent(id);
-
 }
 
 
 // =========================================
-// DISPLAY HOME
+// HOME STORIES
 // =========================================
 
 function displayHomeStories() {
@@ -570,12 +513,11 @@ function displayHomeStories() {
         getPublicStories(),
         grid
     );
-
 }
 
 
 // =========================================
-// DISPLAY LATEST
+// LATEST STORIES
 // =========================================
 
 function displayLatest() {
@@ -592,20 +534,18 @@ function displayLatest() {
 
 
     const latest =
-        getPublicStories()
-            .slice(0, 4);
+        getPublicStories().slice(0, 4);
 
 
     displayStories(
         latest,
         grid
     );
-
 }
 
 
 // =========================================
-// SHOW CATEGORY
+// CATEGORY
 // =========================================
 
 function showCategory(category) {
@@ -637,9 +577,7 @@ function showCategory(category) {
             }
 
 
-            adultCategoryUnlocked =
-                true;
-
+            adultCategoryUnlocked = true;
         }
 
 
@@ -650,7 +588,6 @@ function showCategory(category) {
 
 
         return;
-
     }
 
 
@@ -659,31 +596,29 @@ function showCategory(category) {
     // =====================================
 
     const filtered =
-        getPublicStories()
-            .filter(
-                function (story) {
+        getPublicStories().filter(
+            function (story) {
 
-                    return String(
-                        story.category || ""
-                    )
-                    .trim()
-                    .toLowerCase() ===
-                    categoryName;
+                return String(
+                    story.category || ""
+                )
+                .trim()
+                .toLowerCase() ===
+                categoryName;
 
-                }
-            );
+            }
+        );
 
 
     showCategoryResults(
         category + " කතා",
         filtered
     );
-
 }
 
 
 // =========================================
-// SHOW CATEGORY RESULTS
+// CATEGORY RESULTS
 // =========================================
 
 function showCategoryResults(
@@ -735,7 +670,6 @@ function showCategoryResults(
     results.scrollIntoView({
         behavior: "smooth"
     });
-
 }
 
 
@@ -755,7 +689,6 @@ function showAllStories() {
 
         results.style.display =
             "none";
-
     }
 
 
@@ -777,9 +710,7 @@ function showAllStories() {
         storiesSection.scrollIntoView({
             behavior: "smooth"
         });
-
     }
-
 }
 
 
@@ -818,7 +749,7 @@ function searchStories() {
 
 
     // =====================================
-    // EMPTY SEARCH
+    // EMPTY
     // =====================================
 
     if (text === "") {
@@ -826,7 +757,6 @@ function searchStories() {
         displayHomeStories();
 
         return;
-
     }
 
 
@@ -835,62 +765,57 @@ function searchStories() {
     // =====================================
 
     const results =
-        getPublicStories()
-            .filter(
-                function (story) {
+        getPublicStories().filter(
+            function (story) {
 
-                    const title =
-                        String(
-                            story.title ||
-                            ""
-                        )
-                        .toLowerCase();
+                const title =
+                    String(
+                        story.title || ""
+                    )
+                    .toLowerCase();
 
 
-                    const author =
-                        String(
-                            story.author ||
-                            ""
-                        )
-                        .toLowerCase();
+                const author =
+                    String(
+                        story.author || ""
+                    )
+                    .toLowerCase();
 
 
-                    const category =
-                        String(
-                            story.category ||
-                            ""
-                        )
-                        .toLowerCase();
+                const category =
+                    String(
+                        story.category || ""
+                    )
+                    .toLowerCase();
 
 
-                    const description =
-                        String(
-                            story.description ||
-                            ""
-                        )
-                        .toLowerCase();
+                const description =
+                    String(
+                        story.description || ""
+                    )
+                    .toLowerCase();
 
 
-                    return (
+                return (
 
-                        title.includes(text)
+                    title.includes(text)
 
-                        ||
+                    ||
 
-                        author.includes(text)
+                    author.includes(text)
 
-                        ||
+                    ||
 
-                        category.includes(text)
+                    category.includes(text)
 
-                        ||
+                    ||
 
-                        description.includes(text)
+                    description.includes(text)
 
-                    );
+                );
 
-                }
-            );
+            }
+        );
 
 
     displayStories(
@@ -909,24 +834,7 @@ function searchStories() {
 
         categoryResults.style.display =
             "none";
-
     }
-
-
-    const storiesSection =
-        document.getElementById(
-            "stories"
-        );
-
-
-    if (storiesSection) {
-
-        storiesSection.scrollIntoView({
-            behavior: "smooth"
-        });
-
-    }
-
 }
 
 
@@ -950,18 +858,13 @@ function setupSearch() {
 
     if (!searchInput) {
 
-        console.error(
-            "searchInput not found"
+        console.log(
+            "Search input not found."
         );
 
         return;
-
     }
 
-
-    // =====================================
-    // SEARCH WHILE TYPING
-    // =====================================
 
     searchInput.addEventListener(
         "input",
@@ -972,10 +875,6 @@ function setupSearch() {
         }
     );
 
-
-    // =====================================
-    // SEARCH BUTTON
-    // =====================================
 
     if (searchButton) {
 
@@ -989,13 +888,8 @@ function setupSearch() {
 
             }
         );
-
     }
 
-
-    // =====================================
-    // ENTER KEY
-    // =====================================
 
     searchInput.addEventListener(
         "keydown",
@@ -1011,12 +905,11 @@ function setupSearch() {
 
         }
     );
-
 }
 
 
 // =========================================
-// MY LIBRARY
+// LIBRARY
 // =========================================
 
 function getLibrary() {
@@ -1038,12 +931,10 @@ function getLibrary() {
     catch (error) {
 
         library = [];
-
     }
 
 
     return library;
-
 }
 
 
@@ -1069,28 +960,26 @@ function displayLibrary() {
 
 
     const savedStories =
-        getPublicStories()
-            .filter(
-                function (story) {
+        getPublicStories().filter(
+            function (story) {
 
-                    return saved.some(
-                        function (id) {
+                return saved.some(
+                    function (id) {
 
-                            return String(id) ===
-                                String(story.id);
+                        return String(id) ===
+                            String(story.id);
 
-                        }
-                    );
+                    }
+                );
 
-                }
-            );
+            }
+        );
 
 
     displayStories(
         savedStories,
         grid
     );
-
 }
 
 
@@ -1100,44 +989,35 @@ function displayLibrary() {
 
 async function refreshStories() {
 
+    console.log(
+        "🔄 Refreshing stories..."
+    );
+
+
     try {
 
-        console.log(
-            "🔄 Refreshing stories..."
-        );
-
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .from("stories")
-            .select(
-                "id,created_at,author,title,category,description,cover,views,rating,likes"
-            )
-            .order(
-                "id",
-                {
+        const result =
+            await supabaseClient
+                .from("stories")
+                .select("*")
+                .order("id", {
                     ascending: false
-                }
-            );
+                });
 
 
-        if (error) {
+        if (result.error) {
 
             console.error(
-                "Refresh stories error:",
-                error
+                "Refresh error:",
+                result.error
             );
 
             return;
-
         }
 
 
         stories =
-            data || [];
+            result.data || [];
 
 
         displayHomeStories();
@@ -1145,7 +1025,6 @@ async function refreshStories() {
         displayLatest();
 
         displayLibrary();
-
 
     }
 
@@ -1155,9 +1034,7 @@ async function refreshStories() {
             "Refresh stories error:",
             error
         );
-
     }
-
 }
 
 
@@ -1172,7 +1049,7 @@ async function startWebsite() {
     );
 
 
-    // Initial display
+    // Initial empty display
 
     displayHomeStories();
 
@@ -1186,10 +1063,14 @@ async function startWebsite() {
     setupSearch();
 
 
-    // Supabase
+    // Load Supabase stories
 
     await loadStories();
 
+
+    console.log(
+        "✅ Katha Arana ready."
+    );
 }
 
 
