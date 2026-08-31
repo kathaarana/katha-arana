@@ -19,8 +19,11 @@
     >
 
     <!-- SUPABASE -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script src="supabase.js"></script>
+
 
     <style>
 
@@ -29,11 +32,13 @@
             padding-bottom: 80px;
         }
 
+
         .admin-container {
             max-width: 1100px;
             margin: auto;
             padding: 40px 20px;
         }
+
 
         .admin-top {
             display: flex;
@@ -43,31 +48,44 @@
             margin-bottom: 35px;
         }
 
+
         .admin-title h1 {
             margin: 0;
         }
+
 
         .admin-title p {
             color: #999;
             margin-top: 8px;
         }
 
+
         .admin-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
             border-radius: 18px;
+
             padding: 25px;
+
             margin-bottom: 25px;
         }
+
 
         .admin-card h2 {
             margin-top: 0;
         }
 
+
         .admin-form {
             display: grid;
             gap: 16px;
         }
+
 
         .admin-form label {
             display: block;
@@ -75,23 +93,37 @@
             font-weight: 600;
         }
 
+
         .admin-form input,
         .admin-form textarea,
         .admin-form select {
+
             width: 100%;
+
             box-sizing: border-box;
+
             padding: 13px 15px;
+
             border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.12);
-            background: rgba(0,0,0,0.25);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            background:
+                rgba(0,0,0,0.25);
+
             color: inherit;
+
             outline: none;
         }
+
 
         .admin-form textarea {
             min-height: 150px;
             resize: vertical;
         }
+
 
         .admin-buttons {
             display: flex;
@@ -99,95 +131,150 @@
             flex-wrap: wrap;
         }
 
+
         .admin-btn {
+
             border: none;
+
             padding: 12px 18px;
+
             border-radius: 10px;
+
             cursor: pointer;
+
             font-weight: 600;
         }
+
 
         .admin-btn.primary {
             background: #ffffff;
             color: #111;
         }
 
+
         .admin-btn.danger {
             background: #7f1d1d;
             color: white;
         }
 
+
         .admin-btn.secondary {
-            background: rgba(255,255,255,0.08);
+            background:
+                rgba(255,255,255,0.08);
+
             color: inherit;
         }
 
-        .logout-btn {
-            background: #7f1d1d;
-            color: white;
-        }
 
         .admin-story {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             gap: 20px;
+
             padding: 16px;
+
             margin-bottom: 12px;
+
             border-radius: 14px;
-            background: rgba(255,255,255,0.035);
-            border: 1px solid rgba(255,255,255,0.06);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.06);
         }
+
 
         .admin-story-info h3 {
             margin: 0 0 6px;
         }
+
 
         .admin-story-info p {
             margin: 0;
             color: #999;
         }
 
+
         .cover-preview {
+
             width: 180px;
+
             height: 240px;
+
             border-radius: 12px;
-            border: 1px dashed rgba(255,255,255,0.2);
+
+            border:
+                1px dashed
+                rgba(255,255,255,0.2);
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             overflow: hidden;
+
             color: #888;
+
             margin-top: 10px;
         }
 
+
         .cover-preview img {
+
             width: 100%;
+
             height: 100%;
+
             object-fit: cover;
         }
 
+
         .chapter-item {
+
             padding: 15px;
+
             margin-top: 10px;
+
             border-radius: 12px;
-            background: rgba(255,255,255,0.035);
+
+            background:
+                rgba(255,255,255,0.035);
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             gap: 15px;
         }
 
+
         .status-message {
+
             margin-top: 15px;
+
             padding: 12px;
+
             border-radius: 10px;
+
             display: none;
         }
+
 
         .hidden {
             display: none !important;
         }
+
 
         @media (max-width: 700px) {
 
@@ -196,10 +283,12 @@
                 align-items: flex-start;
             }
 
+
             .admin-story {
                 flex-direction: column;
                 align-items: flex-start;
             }
+
 
             .chapter-item {
                 flex-direction: column;
@@ -239,14 +328,6 @@
             <a href="index.html">
                 🏠 Website
             </a>
-
-            <button
-                id="logoutButton"
-                class="admin-btn logout-btn"
-                type="button"
-            >
-                🚪 Logout
-            </button>
 
         </nav>
 
@@ -295,9 +376,10 @@
                 class="admin-form"
             >
 
+
                 <div>
 
-                    <label>
+                    <label for="storyTitle">
                         කතාවේ නම
                     </label>
 
@@ -311,9 +393,10 @@
                 </div>
 
 
+
                 <div>
 
-                    <label>
+                    <label for="storyAuthor">
                         Author
                     </label>
 
@@ -326,13 +409,18 @@
                 </div>
 
 
+
+                <!-- CATEGORY -->
+
                 <div>
 
-                    <label>
+                    <label for="storyCategory">
                         Category
                     </label>
 
-                    <select id="storyCategory">
+                    <select
+                        id="storyCategory"
+                    >
 
                         <option value="Romance">
                             ❤️ Romance
@@ -350,14 +438,19 @@
                             🧙 Fantasy
                         </option>
 
+                        <option value="18+">
+                            🔞 18+
+                        </option>
+
                     </select>
 
                 </div>
 
 
+
                 <div>
 
-                    <label>
+                    <label for="storyDescription">
                         Description
                     </label>
 
@@ -369,9 +462,10 @@
                 </div>
 
 
+
                 <div>
 
-                    <label>
+                    <label for="storyCover">
                         Cover Image
                     </label>
 
@@ -381,14 +475,18 @@
                         accept="image/*"
                     >
 
+
                     <div
                         id="coverPreview"
                         class="cover-preview"
                     >
+
                         🖼️ Preview
+
                     </div>
 
                 </div>
+
 
 
                 <div class="admin-buttons">
@@ -397,24 +495,31 @@
                         type="submit"
                         class="admin-btn primary"
                     >
+
                         💾 Save Story
+
                     </button>
+
 
                     <button
                         type="button"
                         id="cancelEdit"
                         class="admin-btn secondary hidden"
                     >
+
                         Cancel
+
                     </button>
 
                 </div>
+
 
 
                 <div
                     id="storyMessage"
                     class="status-message"
                 ></div>
+
 
             </form>
 
@@ -430,8 +535,11 @@
                 📚 Published Stories
             </h2>
 
+
             <div id="storyList">
+
                 Loading...
+
             </div>
 
         </section>
@@ -455,9 +563,10 @@
                 class="admin-form"
             >
 
+
                 <div>
 
-                    <label>
+                    <label for="chapterNumber">
                         Chapter Number
                     </label>
 
@@ -471,9 +580,10 @@
                 </div>
 
 
+
                 <div>
 
-                    <label>
+                    <label for="chapterTitle">
                         Chapter Title
                     </label>
 
@@ -487,9 +597,10 @@
                 </div>
 
 
+
                 <div>
 
-                    <label>
+                    <label for="chapterContent">
                         Chapter Content
                     </label>
 
@@ -502,21 +613,27 @@
                 </div>
 
 
+
                 <div class="admin-buttons">
 
                     <button
                         type="submit"
                         class="admin-btn primary"
                     >
+
                         💾 Save Chapter
+
                     </button>
+
 
                     <button
                         type="button"
                         id="closeChapterEditor"
                         class="admin-btn secondary"
                     >
+
                         Close
+
                     </button>
 
                 </div>
@@ -539,32 +656,6 @@
 
 
 // =====================================================
-// ADMIN LOGIN PROTECTION
-// =====================================================
-
-(async function () {
-
-    const {
-        data,
-        error
-    } = await supabaseClient.auth.getSession();
-
-    if (error || !data.session) {
-
-        window.location.href =
-            "admin-login.html";
-
-        return;
-
-    }
-
-    loadStories();
-
-})();
-
-
-
-// =====================================================
 // VARIABLES
 // =====================================================
 
@@ -583,37 +674,21 @@ let selectedCoverFile = null;
 const storyForm =
     document.getElementById("storyForm");
 
+
 const storyList =
     document.getElementById("storyList");
+
 
 const storyMessage =
     document.getElementById("storyMessage");
 
+
 const chapterEditor =
     document.getElementById("chapterEditor");
 
+
 const coverPreview =
     document.getElementById("coverPreview");
-
-
-
-// =====================================================
-// LOGOUT
-// =====================================================
-
-document
-    .getElementById("logoutButton")
-    .addEventListener(
-        "click",
-        async function () {
-
-            await supabaseClient.auth.signOut();
-
-            window.location.href =
-                "admin-login.html";
-
-        }
-    );
 
 
 
@@ -644,10 +719,11 @@ document
     .getElementById("storyCover")
     .addEventListener(
         "change",
-        function (event) {
+        function(event) {
 
             const file =
                 event.target.files[0];
+
 
             if (!file) {
 
@@ -660,23 +736,29 @@ document
 
             }
 
+
             selectedCoverFile =
                 file;
+
 
             const reader =
                 new FileReader();
 
+
             reader.onload =
-                function (e) {
+                function(e) {
 
                     coverPreview.innerHTML = `
+
                         <img
                             src="${e.target.result}"
                             alt="Cover"
                         >
+
                     `;
 
                 };
+
 
             reader.readAsDataURL(file);
 
@@ -694,13 +776,17 @@ async function loadStories() {
     storyList.innerHTML =
         "Loading...";
 
+
     const {
         data,
         error
     } =
         await supabaseClient
+
             .from("stories")
+
             .select("*")
+
             .order(
                 "id",
                 {
@@ -708,11 +794,13 @@ async function loadStories() {
                 }
             );
 
+
     if (error) {
 
         console.error(error);
 
         storyList.innerHTML = `
+
             <p>
                 ❌ Stories load කරන්න බැරි වුණා.
             </p>
@@ -720,52 +808,73 @@ async function loadStories() {
             <small>
                 ${escapeHTML(error.message)}
             </small>
+
         `;
 
         return;
 
     }
+
 
     if (!data || data.length === 0) {
 
         storyList.innerHTML = `
+
             <p style="color:#888;">
                 තවම Stories නැහැ.
             </p>
+
         `;
 
         return;
 
     }
 
-    storyList.innerHTML = "";
+
+    storyList.innerHTML =
+        "";
+
 
     data.forEach(
-        function (story) {
+        function(story) {
 
             const item =
                 document.createElement("div");
 
+
             item.className =
                 "admin-story";
 
+
             item.innerHTML = `
 
-                <div class="admin-story-info">
+                <div
+                    class="admin-story-info"
+                >
 
                     <h3>
-                        ${escapeHTML(story.title)}
+                        ${escapeHTML(
+                            story.title
+                        )}
                     </h3>
 
+
                     <p>
-                        ${escapeHTML(story.category || "")}
+
+                        ${escapeHTML(
+                            story.category || ""
+                        )}
+
                         ·
-                        ${escapeHTML(story.author || "Unknown")}
-                        ·
-                        👁️ ${Number(story.views || 0)}
+
+                        ${escapeHTML(
+                            story.author || "Unknown"
+                        )}
+
                     </p>
 
                 </div>
+
 
                 <div class="admin-buttons">
 
@@ -774,28 +883,37 @@ async function loadStories() {
                         data-action="chapters"
                         data-id="${story.id}"
                     >
+
                         📖 Chapters
+
                     </button>
+
 
                     <button
                         class="admin-btn secondary"
                         data-action="edit"
                         data-id="${story.id}"
                     >
+
                         ✏️ Edit
+
                     </button>
+
 
                     <button
                         class="admin-btn danger"
                         data-action="delete"
                         data-id="${story.id}"
                     >
+
                         🗑️ Delete
+
                     </button>
 
                 </div>
 
             `;
+
 
             storyList.appendChild(item);
 
@@ -815,10 +933,12 @@ function escapeHTML(value) {
     const div =
         document.createElement("div");
 
+
     div.textContent =
         value == null
             ? ""
             : String(value);
+
 
     return div.innerHTML;
 
@@ -832,20 +952,24 @@ function escapeHTML(value) {
 
 storyList.addEventListener(
     "click",
-    async function (event) {
+    async function(event) {
 
         const button =
             event.target.closest("button");
+
 
         if (!button) {
             return;
         }
 
+
         const id =
             button.dataset.id;
 
+
         const action =
             button.dataset.action;
+
 
         if (action === "edit") {
 
@@ -853,11 +977,13 @@ storyList.addEventListener(
 
         }
 
+
         if (action === "delete") {
 
             deleteStory(id);
 
         }
+
 
         if (action === "chapters") {
 
@@ -876,32 +1002,34 @@ storyList.addEventListener(
 
 storyForm.addEventListener(
     "submit",
-    async function (event) {
+    async function(event) {
 
         event.preventDefault();
 
+
         const title =
-            document
-                .getElementById("storyTitle")
-                .value
-                .trim();
+            document.getElementById(
+                "storyTitle"
+            ).value.trim();
+
 
         const author =
-            document
-                .getElementById("storyAuthor")
-                .value
-                .trim();
+            document.getElementById(
+                "storyAuthor"
+            ).value.trim();
+
 
         const category =
-            document
-                .getElementById("storyCategory")
-                .value;
+            document.getElementById(
+                "storyCategory"
+            ).value;
+
 
         const description =
-            document
-                .getElementById("storyDescription")
-                .value
-                .trim();
+            document.getElementById(
+                "storyDescription"
+            ).value.trim();
+
 
         try {
 
@@ -911,7 +1039,9 @@ storyForm.addEventListener(
             );
 
 
-            let coverURL = null;
+            let coverURL =
+                null;
+
 
 
             // =========================================
@@ -925,25 +1055,33 @@ storyForm.addEventListener(
                         .split(".")
                         .pop();
 
+
                 const fileName =
                     "cover_" +
                     Date.now() +
                     "." +
                     extension;
 
+
+                const filePath =
+                    fileName;
+
+
                 const {
-                    error: uploadError
+                    error:
+                        uploadError
                 } =
                     await supabaseClient
                         .storage
                         .from("story-covers")
                         .upload(
-                            fileName,
+                            filePath,
                             selectedCoverFile,
                             {
                                 upsert: false
                             }
                         );
+
 
                 if (uploadError) {
 
@@ -951,15 +1089,18 @@ storyForm.addEventListener(
 
                 }
 
+
                 const {
-                    data: publicData
+                    data:
+                        publicData
                 } =
                     supabaseClient
                         .storage
                         .from("story-covers")
                         .getPublicUrl(
-                            fileName
+                            filePath
                         );
+
 
                 coverURL =
                     publicData.publicUrl;
@@ -967,23 +1108,29 @@ storyForm.addEventListener(
             }
 
 
+
             // =========================================
-            // EDIT
+            // EDIT STORY
             // =========================================
 
             if (editingStoryId) {
 
                 const updateData = {
 
-                    title: title,
+                    title:
+                        title,
 
-                    author: author,
+                    author:
+                        author,
 
-                    category: category,
+                    category:
+                        category,
 
-                    description: description
+                    description:
+                        description
 
                 };
+
 
                 if (coverURL) {
 
@@ -992,16 +1139,23 @@ storyForm.addEventListener(
 
                 }
 
+
                 const {
                     error
                 } =
                     await supabaseClient
+
                         .from("stories")
-                        .update(updateData)
+
+                        .update(
+                            updateData
+                        )
+
                         .eq(
                             "id",
                             editingStoryId
                         );
+
 
                 if (error) {
 
@@ -1009,12 +1163,14 @@ storyForm.addEventListener(
 
                 }
 
+
                 showMessage(
                     storyMessage,
                     "✅ Story updated!"
                 );
 
             }
+
 
 
             // =========================================
@@ -1027,30 +1183,41 @@ storyForm.addEventListener(
                     error
                 } =
                     await supabaseClient
+
                         .from("stories")
+
                         .insert({
 
-                            title: title,
+                            title:
+                                title,
 
-                            author: author,
+                            author:
+                                author,
 
-                            category: category,
+                            category:
+                                category,
 
-                            description: description,
+                            description:
+                                description,
 
-                            cover: coverURL,
+                            cover:
+                                coverURL,
 
-                            views: 0,
+                            views:
+                                0,
 
-                            rating: 0
+                            rating:
+                                0
 
                         });
+
 
                 if (error) {
 
                     throw error;
 
                 }
+
 
                 showMessage(
                     storyMessage,
@@ -1062,6 +1229,7 @@ storyForm.addEventListener(
 
             resetStoryForm();
 
+
             await loadStories();
 
         }
@@ -1069,6 +1237,7 @@ storyForm.addEventListener(
         catch (error) {
 
             console.error(error);
+
 
             showMessage(
                 storyMessage,
@@ -1094,56 +1263,78 @@ async function editStory(id) {
         error
     } =
         await supabaseClient
+
             .from("stories")
+
             .select("*")
-            .eq("id", id)
+
+            .eq(
+                "id",
+                id
+            )
+
             .single();
+
 
     if (error) {
 
-        alert(error.message);
+        alert(
+            error.message
+        );
 
         return;
 
     }
 
+
     editingStoryId =
         data.id;
+
 
     document.getElementById(
         "storyTitle"
     ).value =
         data.title || "";
 
+
     document.getElementById(
         "storyAuthor"
     ).value =
         data.author || "";
+
 
     document.getElementById(
         "storyCategory"
     ).value =
         data.category || "Romance";
 
+
     document.getElementById(
         "storyDescription"
     ).value =
         data.description || "";
 
+
     if (data.cover) {
 
         coverPreview.innerHTML = `
+
             <img
                 src="${escapeHTML(data.cover)}"
                 alt="Cover"
             >
+
         `;
 
     }
 
+
     document.getElementById(
         "cancelEdit"
-    ).classList.remove("hidden");
+    ).classList.remove(
+        "hidden"
+    );
+
 
     window.scrollTo({
         top: 0,
@@ -1165,21 +1356,27 @@ async function deleteStory(id) {
             "මේ Story එක සහ එහි Chapters delete කරන්නද?"
         );
 
+
     if (!ok) {
         return;
     }
 
 
     const {
-        error: chapterError
+        error:
+            chapterError
     } =
         await supabaseClient
+
             .from("chapters")
+
             .delete()
+
             .eq(
                 "story_id",
                 id
             );
+
 
     if (chapterError) {
 
@@ -1196,12 +1393,16 @@ async function deleteStory(id) {
         error
     } =
         await supabaseClient
+
             .from("stories")
+
             .delete()
+
             .eq(
                 "id",
                 id
             );
+
 
     if (error) {
 
@@ -1215,6 +1416,7 @@ async function deleteStory(id) {
 
 
     await loadStories();
+
 
     alert(
         "Story එක delete කළා. 🗑️"
@@ -1233,18 +1435,23 @@ function resetStoryForm() {
     editingStoryId =
         null;
 
+
     selectedCoverFile =
         null;
 
+
     storyForm.reset();
+
 
     coverPreview.innerHTML =
         "🖼️ Preview";
 
-    document
-        .getElementById("cancelEdit")
-        .classList
-        .add("hidden");
+
+    document.getElementById(
+        "cancelEdit"
+    ).classList.add(
+        "hidden"
+    );
 
 }
 
@@ -1254,12 +1461,12 @@ function resetStoryForm() {
 // CANCEL EDIT
 // =====================================================
 
-document
-    .getElementById("cancelEdit")
-    .addEventListener(
-        "click",
-        resetStoryForm
-    );
+document.getElementById(
+    "cancelEdit"
+).addEventListener(
+    "click",
+    resetStoryForm
+);
 
 
 
@@ -1272,23 +1479,35 @@ async function openChapterEditor(storyId) {
     selectedStoryId =
         storyId;
 
+
     const {
         data: story,
         error
     } =
         await supabaseClient
+
             .from("stories")
+
             .select("title")
-            .eq("id", storyId)
+
+            .eq(
+                "id",
+                storyId
+            )
+
             .single();
+
 
     if (error) {
 
-        alert(error.message);
+        alert(
+            error.message
+        );
 
         return;
 
     }
+
 
     document.getElementById(
         "chapterEditorTitle"
@@ -1297,11 +1516,14 @@ async function openChapterEditor(storyId) {
         story.title +
         " — Chapters";
 
+
     chapterEditor
         .classList
         .remove("hidden");
 
+
     await loadChapters();
+
 
     chapterEditor.scrollIntoView({
         behavior: "smooth"
@@ -1315,149 +1537,154 @@ async function openChapterEditor(storyId) {
 // SAVE CHAPTER
 // =====================================================
 
-document
-    .getElementById("chapterForm")
-    .addEventListener(
-        "submit",
-        async function (event) {
+document.getElementById(
+    "chapterForm"
+).addEventListener(
+    "submit",
+    async function(event) {
 
-            event.preventDefault();
-
-            if (!selectedStoryId) {
-
-                alert(
-                    "Story එකක් තෝරන්න."
-                );
-
-                return;
-
-            }
+        event.preventDefault();
 
 
-            const number =
-                Number(
-                    document
-                        .getElementById("chapterNumber")
-                        .value
-                );
-
-            const title =
-                document
-                    .getElementById("chapterTitle")
-                    .value
-                    .trim();
-
-            const content =
-                document
-                    .getElementById("chapterContent")
-                    .value
-                    .trim();
-
-
-            const {
-                data: existing,
-                error: findError
-            } =
-                await supabaseClient
-                    .from("chapters")
-                    .select("id")
-                    .eq(
-                        "story_id",
-                        selectedStoryId
-                    )
-                    .eq(
-                        "number",
-                        number
-                    )
-                    .maybeSingle();
-
-            if (findError) {
-
-                alert(
-                    findError.message
-                );
-
-                return;
-
-            }
-
-
-            let error;
-
-
-            if (existing) {
-
-                const result =
-                    await supabaseClient
-                        .from("chapters")
-                        .update({
-
-                            title: title,
-
-                            content: content
-
-                        })
-                        .eq(
-                            "id",
-                            existing.id
-                        );
-
-                error =
-                    result.error;
-
-            }
-
-            else {
-
-                const result =
-                    await supabaseClient
-                        .from("chapters")
-                        .insert({
-
-                            story_id:
-                                selectedStoryId,
-
-                            number:
-                                number,
-
-                            title:
-                                title,
-
-                            content:
-                                content
-
-                        });
-
-                error =
-                    result.error;
-
-            }
-
-
-            if (error) {
-
-                alert(
-                    "❌ Chapter save error:\n" +
-                    error.message
-                );
-
-                return;
-
-            }
-
-
-            document
-                .getElementById("chapterForm")
-                .reset();
-
-            await loadChapters();
+        if (!selectedStoryId) {
 
             alert(
-                "Chapter එක Save කළා! 📖"
+                "Story එකක් තෝරන්න."
             );
 
+            return;
+
         }
-    );
+
+
+        const number =
+            Number(
+                document.getElementById(
+                    "chapterNumber"
+                ).value
+            );
+
+
+        const title =
+            document.getElementById(
+                "chapterTitle"
+            ).value.trim();
+
+
+        const content =
+            document.getElementById(
+                "chapterContent"
+            ).value.trim();
+
+
+        const {
+            data: existing
+        } =
+            await supabaseClient
+
+                .from("chapters")
+
+                .select("id")
+
+                .eq(
+                    "story_id",
+                    selectedStoryId
+                )
+
+                .eq(
+                    "number",
+                    number
+                )
+
+                .maybeSingle();
+
+
+        let error;
+
+
+        if (existing) {
+
+            const result =
+                await supabaseClient
+
+                    .from("chapters")
+
+                    .update({
+
+                        title:
+                            title,
+
+                        content:
+                            content
+
+                    })
+
+                    .eq(
+                        "id",
+                        existing.id
+                    );
+
+
+            error =
+                result.error;
+
+        }
+
+        else {
+
+            const result =
+                await supabaseClient
+
+                    .from("chapters")
+
+                    .insert({
+
+                        story_id:
+                            selectedStoryId,
+
+                        number:
+                            number,
+
+                        title:
+                            title,
+
+                        content:
+                            content
+
+                    });
+
+
+            error =
+                result.error;
+
+        }
+
+
+        if (error) {
+
+            alert(
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "chapterForm"
+        ).reset();
+
+
+        await loadChapters();
+
+
+        alert(
+            "Chapter එක Save කළා! 📖"
+        );
+
+    }
+);
 
 
 
@@ -1472,17 +1699,22 @@ async function loadChapters() {
             "chapterList"
         );
 
+
     const {
         data,
         error
     } =
         await supabaseClient
+
             .from("chapters")
+
             .select("*")
+
             .eq(
                 "story_id",
                 selectedStoryId
             )
+
             .order(
                 "number",
                 {
@@ -1490,18 +1722,23 @@ async function loadChapters() {
                 }
             );
 
+
     if (error) {
 
         list.innerHTML =
             "❌ " +
-            escapeHTML(error.message);
+            escapeHTML(
+                error.message
+            );
 
         return;
 
     }
 
+
     list.innerHTML =
         "";
+
 
     if (
         !data ||
@@ -1509,9 +1746,13 @@ async function loadChapters() {
     ) {
 
         list.innerHTML = `
+
             <p style="color:#888;">
+
                 තවම Chapters නැහැ.
+
             </p>
+
         `;
 
         return;
@@ -1520,15 +1761,17 @@ async function loadChapters() {
 
 
     data.forEach(
-        function (chapter) {
+        function(chapter) {
 
             const item =
                 document.createElement(
                     "div"
                 );
 
+
             item.className =
                 "chapter-item";
+
 
             item.innerHTML = `
 
@@ -1536,7 +1779,9 @@ async function loadChapters() {
 
                     <strong>
                         Chapter
-                        ${escapeHTML(chapter.number)}
+                        ${escapeHTML(
+                            chapter.number
+                        )}
                     </strong>
 
                     —
@@ -1547,11 +1792,16 @@ async function loadChapters() {
 
                 </div>
 
+
                 <button
                     class="admin-btn danger"
-                    data-chapter-id="${chapter.id}"
+                    data-chapter-id="${escapeHTML(
+                        chapter.id
+                    )}"
                 >
+
                     🗑️ Delete
+
                 </button>
 
             `;
@@ -1561,7 +1811,7 @@ async function loadChapters() {
                 .querySelector("button")
                 .addEventListener(
                     "click",
-                    function () {
+                    function() {
 
                         deleteChapter(
                             chapter.id
@@ -1601,12 +1851,16 @@ async function deleteChapter(id) {
         error
     } =
         await supabaseClient
+
             .from("chapters")
+
             .delete()
+
             .eq(
                 "id",
                 id
             );
+
 
     if (error) {
 
@@ -1618,6 +1872,7 @@ async function deleteChapter(id) {
 
     }
 
+
     await loadChapters();
 
 }
@@ -1628,21 +1883,30 @@ async function deleteChapter(id) {
 // CLOSE CHAPTER EDITOR
 // =====================================================
 
-document
-    .getElementById("closeChapterEditor")
-    .addEventListener(
-        "click",
-        function () {
+document.getElementById(
+    "closeChapterEditor"
+).addEventListener(
+    "click",
+    function() {
 
-            chapterEditor
-                .classList
-                .add("hidden");
+        chapterEditor
+            .classList
+            .add("hidden");
 
-            selectedStoryId =
-                null;
 
-        }
-    );
+        selectedStoryId =
+            null;
+
+    }
+);
+
+
+
+// =====================================================
+// START
+// =====================================================
+
+loadStories();
 
 </script>
 
