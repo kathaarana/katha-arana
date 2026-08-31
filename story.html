@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="si">
 
@@ -319,6 +320,47 @@ async function loadStory() {
 
 
 
+        // ==================================
+        // 18+ STORY PROTECTION
+        // ==================================
+
+        const isAdultStory =
+            String(
+                story.category || ""
+            )
+            .trim()
+            .toLowerCase()
+            ===
+            "18+";
+
+
+        if (isAdultStory) {
+
+            const confirmed =
+                confirm(
+                    "🔞 18+ Content\n\n" +
+                    "මෙම කතාව වැඩිහිටියන් සඳහා පමණි.\n\n" +
+                    "ඔබට ඉදිරියට යාමට අවශ්‍යද?"
+                );
+
+
+            if (!confirmed) {
+
+                window.location.href =
+                    "index.html";
+
+                return;
+
+            }
+
+        }
+
+
+
+        // ==================================
+        // SAVE CURRENT STORY
+        // ==================================
+
         currentStory =
             story;
 
@@ -380,7 +422,9 @@ async function loadStory() {
                 viewError
             );
 
-        } else {
+        }
+
+        else {
 
             console.log(
                 "New views:",
@@ -1461,3 +1505,4 @@ document.addEventListener(
 </body>
 
 </html>
+```
