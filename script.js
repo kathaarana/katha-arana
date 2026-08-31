@@ -23,12 +23,9 @@ function getStories() {
 // =========================================
 
 function isAdultStory(story) {
-
-    return String(
-        story?.category || ""
-    )
-    .trim()
-    .toLowerCase() === "18+";
+    return String(story?.category || "")
+        .trim()
+        .toLowerCase() === "18+";
 }
 
 
@@ -37,12 +34,9 @@ function isAdultStory(story) {
 // =========================================
 
 function getPublicStories() {
-
-    return getStories().filter(
-        function (story) {
-            return !isAdultStory(story);
-        }
-    );
+    return getStories().filter(function (story) {
+        return !isAdultStory(story);
+    });
 }
 
 
@@ -51,17 +45,14 @@ function getPublicStories() {
 // =========================================
 
 function getAdultStories() {
-
-    return getStories().filter(
-        function (story) {
-            return isAdultStory(story);
-        }
-    );
+    return getStories().filter(function (story) {
+        return isAdultStory(story);
+    });
 }
 
 
 // =========================================
-// LOAD STORIES
+// LOAD STORIES FROM SUPABASE
 // =========================================
 
 async function loadStories() {
@@ -70,16 +61,12 @@ async function loadStories() {
 
         console.log("Loading stories from Supabase...");
 
-        const {
-            data,
-            error
-        } = await supabaseClient
+        const { data, error } = await supabaseClient
             .from("stories")
             .select("*")
             .order("id", {
                 ascending: false
             });
-
 
         if (error) {
 
@@ -93,23 +80,18 @@ async function loadStories() {
             return;
         }
 
-
         stories = data || [];
-
 
         console.log(
             "Stories loaded:",
             stories
         );
 
-
         displayHomeStories();
         displayLatest();
         displayLibrary();
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "Load stories error:",
@@ -128,36 +110,27 @@ async function loadStories() {
 function showLoadingError() {
 
     const grids = [
-
         document.getElementById("storyGrid"),
-
         document.getElementById("latestGrid"),
-
         document.getElementById("libraryGrid"),
-
         document.getElementById("categoryStoryGrid")
-
     ];
 
+    grids.forEach(function (grid) {
 
-    grids.forEach(
-        function (grid) {
-
-            if (!grid) {
-                return;
-            }
-
-
-            grid.innerHTML = `
-                <p style="
-                    color:#888;
-                    padding:20px;
-                ">
-                    කතා load කරන්න බැරි වුණා. 😔
-                </p>
-            `;
+        if (!grid) {
+            return;
         }
-    );
+
+        grid.innerHTML = `
+            <p style="
+                color:#888;
+                padding:20px;
+            ">
+                කතා load කරන්න බැරි වුණා. 😔
+            </p>
+        `;
+    });
 }
 
 
@@ -167,12 +140,9 @@ function showLoadingError() {
 
 function createStoryCard(story) {
 
-    const card =
-        document.createElement("article");
+    const card = document.createElement("article");
 
-
-    card.className =
-        "story-card";
+    card.className = "story-card";
 
 
     // =====================================
@@ -180,7 +150,6 @@ function createStoryCard(story) {
     // =====================================
 
     let coverHTML = "📖";
-
 
     if (
         story.cover &&
@@ -208,20 +177,21 @@ function createStoryCard(story) {
     // STATS
     // =====================================
 
-    const views =
-        Number(story.views || 0);
+    const views = Number(story.views || 0);
 
+    const likes = Number(
+        story.liked ??
+        story.likes ??
+        0
+    );
 
-    const likes =
-        Number(story.liked || 0);
-
-
-    const rating =
-        Number(story.rating || 0);
+    const rating = Number(
+        story.rating || 0
+    );
 
 
     // =====================================
-    // CARD HTML
+    // CARD
     // =====================================
 
     card.innerHTML = `
@@ -231,11 +201,9 @@ function createStoryCard(story) {
             ${coverHTML}
 
             <div class="cover-label">
-
                 ${escapeHTML(
                     story.category || "Story"
                 )}
-
             </div>
 
         </div>
@@ -244,39 +212,31 @@ function createStoryCard(story) {
         <div class="story-info">
 
             <p class="label">
-
                 ${escapeHTML(
                     story.category || ""
                 )}
-
             </p>
 
 
             <h3>
-
                 ${escapeHTML(
                     story.title || "Untitled"
                 )}
-
             </h3>
 
 
             <p>
-
                 ✍️
                 ${escapeHTML(
                     story.author || "කතා අරණ"
                 )}
-
             </p>
 
 
             <p>
-
                 ${escapeHTML(
                     story.description || ""
                 )}
-
             </p>
 
 
@@ -296,11 +256,9 @@ function createStoryCard(story) {
                     👁️ ${views}
                 </span>
 
-
                 <span>
                     ❤️ ${likes}
                 </span>
-
 
                 <span>
                     ⭐ ${rating}
@@ -326,7 +284,6 @@ function createStoryCard(story) {
 
     const readButton =
         card.querySelector(".read-btn");
-
 
     if (readButton) {
 
@@ -354,12 +311,10 @@ function escapeHTML(value) {
     const div =
         document.createElement("div");
 
-
     div.textContent =
         value == null
             ? ""
             : String(value);
-
 
     return div.innerHTML;
 }
@@ -377,7 +332,6 @@ function displayStories(
     if (!element) {
         return;
     }
-
 
     element.innerHTML = "";
 
@@ -423,7 +377,7 @@ function openStory(id) {
             function (item) {
 
                 return String(item.id) ===
-                       String(id);
+                    String(id);
 
             }
         );
@@ -467,15 +421,15 @@ function openStory(id) {
 function displayHomeStories() {
 
     const grid =
-        document.getElementById("storyGrid");
+        document.getElementById(
+            "storyGrid"
+        );
 
 
     if (!grid) {
         return;
     }
 
-
-    // 18+ STORIES NEVER SHOW HERE
 
     displayStories(
         getPublicStories(),
@@ -491,15 +445,15 @@ function displayHomeStories() {
 function displayLatest() {
 
     const grid =
-        document.getElementById("latestGrid");
+        document.getElementById(
+            "latestGrid"
+        );
 
 
     if (!grid) {
         return;
     }
 
-
-    // 18+ STORIES NEVER SHOW HERE
 
     const latest =
         getPublicStories().slice(0, 4);
@@ -533,10 +487,6 @@ function openAdultCategory() {
 
     adultCategoryUnlocked = true;
 
-
-    // =====================================
-    // SHOW 18+ CARD
-    // =====================================
 
     const adultCategory =
         document.getElementById(
@@ -620,9 +570,9 @@ function showCategory(category) {
                 return String(
                     story.category || ""
                 )
-                .trim()
-                .toLowerCase()
-                === categoryName;
+                    .trim()
+                    .toLowerCase()
+                    === categoryName;
 
             }
         );
@@ -710,9 +660,8 @@ function showAllStories() {
     }
 
 
-    // LOCK 18+ AGAIN
-
-    adultCategoryUnlocked = false;
+    adultCategoryUnlocked =
+        false;
 
 
     const adultCategory =
@@ -780,10 +729,6 @@ function searchStories() {
     }
 
 
-    // =====================================
-    // EMPTY SEARCH
-    // =====================================
-
     if (text === "") {
 
         displayHomeStories();
@@ -791,10 +736,6 @@ function searchStories() {
         return;
     }
 
-
-    // =====================================
-    // SEARCH PUBLIC STORIES ONLY
-    // =====================================
 
     const results =
         getPublicStories().filter(
@@ -805,35 +746,34 @@ function searchStories() {
                     String(
                         story.title || ""
                     )
-                    .toLowerCase()
-                    .includes(text)
+                        .toLowerCase()
+                        .includes(text)
 
                     ||
 
                     String(
                         story.author || ""
                     )
-                    .toLowerCase()
-                    .includes(text)
+                        .toLowerCase()
+                        .includes(text)
 
                     ||
 
                     String(
                         story.category || ""
                     )
-                    .toLowerCase()
-                    .includes(text)
+                        .toLowerCase()
+                        .includes(text)
 
                     ||
 
                     String(
                         story.description || ""
                     )
-                    .toLowerCase()
-                    .includes(text)
+                        .toLowerCase()
+                        .includes(text)
 
                 );
-
             }
         );
 
@@ -891,7 +831,6 @@ function getLibrary() {
 
     let library = [];
 
-
     try {
 
         library =
@@ -902,7 +841,6 @@ function getLibrary() {
             ) || [];
 
     }
-
     catch (error) {
 
         library = [];
@@ -934,8 +872,6 @@ function displayLibrary() {
         getLibrary();
 
 
-    // 18+ STORIES EXCLUDED
-
     const savedStories =
         getPublicStories().filter(
             function (story) {
@@ -944,11 +880,10 @@ function displayLibrary() {
                     function (id) {
 
                         return String(id) ===
-                               String(story.id);
+                            String(story.id);
 
                     }
                 );
-
             }
         );
 
@@ -1000,7 +935,6 @@ async function refreshStories() {
         displayLibrary();
 
     }
-
     catch (error) {
 
         console.error(
@@ -1022,19 +956,13 @@ async function startWebsite() {
     );
 
 
-    // INITIAL DISPLAY
-
     displayHomeStories();
     displayLatest();
     displayLibrary();
 
 
-    // SEARCH
-
     setupSearch();
 
-
-    // LOAD DATABASE STORIES
 
     await loadStories();
 }
@@ -1055,7 +983,6 @@ if (
     );
 
 }
-
 else {
 
     startWebsite();
