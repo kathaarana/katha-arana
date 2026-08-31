@@ -5,7 +5,6 @@
 // =========================================
 
 let stories = [];
-
 let adultCategoryUnlocked = false;
 
 
@@ -14,9 +13,7 @@ let adultCategoryUnlocked = false;
 // =========================================
 
 function getStories() {
-
     return stories;
-
 }
 
 
@@ -43,9 +40,7 @@ function getPublicStories() {
 
     return getStories().filter(
         function (story) {
-
             return !isAdultStory(story);
-
         }
     );
 
@@ -60,9 +55,7 @@ function getAdultStories() {
 
     return getStories().filter(
         function (story) {
-
             return isAdultStory(story);
-
         }
     );
 
@@ -84,7 +77,6 @@ function escapeHTML(value) {
             : String(value);
 
     return div.innerHTML;
-
 }
 
 
@@ -100,7 +92,6 @@ async function loadStories() {
             "Loading stories from Supabase..."
         );
 
-
         const result =
             await supabaseClient
                 .from("stories")
@@ -109,13 +100,11 @@ async function loadStories() {
                     ascending: false
                 });
 
-
         const data =
             result.data;
 
         const error =
             result.error;
-
 
         if (error) {
 
@@ -127,24 +116,18 @@ async function loadStories() {
             showLoadingError();
 
             return;
-
         }
-
 
         stories =
             data || [];
-
 
         console.log(
             "Stories loaded:",
             stories
         );
 
-
         displayHomeStories();
-
         displayLatest();
-
         displayLibrary();
 
     }
@@ -157,9 +140,7 @@ async function loadStories() {
         );
 
         showLoadingError();
-
     }
-
 }
 
 
@@ -171,24 +152,15 @@ function showLoadingError() {
 
     const grids = [
 
-        document.getElementById(
-            "storyGrid"
-        ),
+        document.getElementById("storyGrid"),
 
-        document.getElementById(
-            "latestGrid"
-        ),
+        document.getElementById("latestGrid"),
 
-        document.getElementById(
-            "libraryGrid"
-        ),
+        document.getElementById("libraryGrid"),
 
-        document.getElementById(
-            "categoryStoryGrid"
-        )
+        document.getElementById("categoryStoryGrid")
 
     ];
-
 
     grids.forEach(
         function (grid) {
@@ -196,7 +168,6 @@ function showLoadingError() {
             if (!grid) {
                 return;
             }
-
 
             grid.innerHTML = `
 
@@ -210,10 +181,8 @@ function showLoadingError() {
                 </p>
 
             `;
-
         }
     );
-
 }
 
 
@@ -226,14 +195,16 @@ function createStoryCard(story) {
     const card =
         document.createElement("article");
 
-
     card.className =
         "story-card";
 
 
+    // =====================================
+    // COVER
+    // =====================================
+
     let coverHTML =
         "📖";
-
 
     if (
         story.cover &&
@@ -254,27 +225,32 @@ function createStoryCard(story) {
             >
 
         `;
-
     }
 
+
+    // =====================================
+    // STATS
+    // =====================================
 
     const views =
         Number(
             story.views || 0
         );
 
-
     const likes =
         Number(
-            story.liked || 0
+            story.likes || 0
         );
-
 
     const rating =
         Number(
             story.rating || 0
         );
 
+
+    // =====================================
+    // CARD
+    // =====================================
 
     card.innerHTML = `
 
@@ -368,11 +344,14 @@ function createStoryCard(story) {
     `;
 
 
+    // =====================================
+    // READ BUTTON
+    // =====================================
+
     const readButton =
         card.querySelector(
             ".read-btn"
         );
-
 
     if (readButton) {
 
@@ -386,12 +365,10 @@ function createStoryCard(story) {
 
             }
         );
-
     }
 
 
     return card;
-
 }
 
 
@@ -408,9 +385,8 @@ function displayStories(
         return;
     }
 
-
-    element.innerHTML = "";
-
+    element.innerHTML =
+        "";
 
     if (
         !storyList ||
@@ -432,7 +408,6 @@ function displayStories(
         `;
 
         return;
-
     }
 
 
@@ -447,7 +422,6 @@ function displayStories(
 
         }
     );
-
 }
 
 
@@ -477,7 +451,6 @@ function openStory(id) {
         );
 
         return;
-
     }
 
 
@@ -494,14 +467,12 @@ function openStory(id) {
         if (!confirmed) {
             return;
         }
-
     }
 
 
     window.location.href =
         "story.html?id=" +
         encodeURIComponent(id);
-
 }
 
 
@@ -516,17 +487,14 @@ function displayHomeStories() {
             "storyGrid"
         );
 
-
     if (!grid) {
         return;
     }
-
 
     displayStories(
         getPublicStories(),
         grid
     );
-
 }
 
 
@@ -541,22 +509,18 @@ function displayLatest() {
             "latestGrid"
         );
 
-
     if (!grid) {
         return;
     }
-
 
     const latest =
         getPublicStories()
             .slice(0, 4);
 
-
     displayStories(
         latest,
         grid
     );
-
 }
 
 
@@ -580,7 +544,7 @@ function showCategory(category) {
                 confirm(
                     "🔞 18+ Content\n\n" +
                     "මෙම කොටස වැඩිහිටියන් සඳහා පමණි.\n\n" +
-                    "ඔබට ඉදිරියට යාමට අවශ්‍යද?"
+                    "ඔබට 18+ කතා බලන්න අවශ්‍යද?"
                 );
 
 
@@ -591,7 +555,6 @@ function showCategory(category) {
 
             adultCategoryUnlocked =
                 true;
-
         }
 
 
@@ -600,9 +563,7 @@ function showCategory(category) {
             getAdultStories()
         );
 
-
         return;
-
     }
 
 
@@ -626,7 +587,6 @@ function showCategory(category) {
         category + " කතා",
         filtered
     );
-
 }
 
 
@@ -644,12 +604,10 @@ function showCategoryResults(
             "categoryResults"
         );
 
-
     const title =
         document.getElementById(
             "categoryTitle"
         );
-
 
     const grid =
         document.getElementById(
@@ -683,7 +641,6 @@ function showCategoryResults(
     results.scrollIntoView({
         behavior: "smooth"
     });
-
 }
 
 
@@ -703,7 +660,6 @@ function showAllStories() {
 
         results.style.display =
             "none";
-
     }
 
 
@@ -725,9 +681,7 @@ function showAllStories() {
         storiesSection.scrollIntoView({
             behavior: "smooth"
         });
-
     }
-
 }
 
 
@@ -765,14 +719,17 @@ function searchStories() {
     }
 
 
+    // EMPTY SEARCH
+
     if (text === "") {
 
         displayHomeStories();
 
         return;
-
     }
 
+
+    // SEARCH
 
     const results =
         getPublicStories().filter(
@@ -823,7 +780,6 @@ function searchStories() {
                     description.includes(text)
 
                 );
-
             }
         );
 
@@ -844,7 +800,6 @@ function searchStories() {
 
         categoryResults.style.display =
             "none";
-
     }
 
 
@@ -859,9 +814,7 @@ function searchStories() {
         storiesSection.scrollIntoView({
             behavior: "smooth"
         });
-
     }
-
 }
 
 
@@ -890,11 +843,8 @@ function setupSearch() {
         );
 
         return;
-
     }
 
-
-    // Search while typing
 
     searchInput.addEventListener(
         "input",
@@ -905,8 +855,6 @@ function setupSearch() {
         }
     );
 
-
-    // Search button
 
     if (searchForm) {
 
@@ -920,9 +868,7 @@ function setupSearch() {
 
             }
         );
-
     }
-
 }
 
 
@@ -949,12 +895,10 @@ function getLibrary() {
     catch (error) {
 
         library = [];
-
     }
 
 
     return library;
-
 }
 
 
@@ -1003,7 +947,6 @@ function displayLibrary() {
         savedStories,
         grid
     );
-
 }
 
 
@@ -1040,7 +983,6 @@ async function refreshStories() {
             );
 
             return;
-
         }
 
 
@@ -1062,9 +1004,7 @@ async function refreshStories() {
             "Refresh stories error:",
             error
         );
-
     }
-
 }
 
 
@@ -1090,7 +1030,6 @@ async function startWebsite() {
 
 
     await loadStories();
-
 }
 
 
