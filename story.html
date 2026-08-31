@@ -16,12 +16,13 @@
 <style>
 
 /* =====================================================
-   PREMIUM STORY PAGE
+   STORY PAGE
 ===================================================== */
 
 body{
     background:#08060d;
 }
+
 
 /* =====================================================
    HEADER
@@ -30,6 +31,7 @@ body{
 .story-page-header{
     width:100%;
     min-height:65px;
+
     padding:12px 5%;
 
     display:flex;
@@ -54,8 +56,6 @@ body{
 
     font-size:20px;
     font-weight:700;
-
-    color:#fff;
 }
 
 .story-page-header nav{
@@ -84,7 +84,7 @@ body{
 
 
 /* =====================================================
-   STORY READER
+   STORY INFORMATION
 ===================================================== */
 
 .story-reader{
@@ -99,7 +99,7 @@ body{
 
     max-width:1100px;
 
-    margin:auto;
+    margin:0 auto;
 
     padding:45px;
 
@@ -157,19 +157,12 @@ body{
 
     box-shadow:
         0 20px 45px
-        rgba(0,0,0,.5);
+        rgba(0,0,0,.5),
+
+        0 0 0 1px
+        rgba(192,132,252,.10);
 
     position:relative;
-}
-
-.reader-cover img{
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    display:block;
 }
 
 .reader-cover::after{
@@ -188,6 +181,16 @@ body{
         );
 
     pointer-events:none;
+}
+
+.reader-cover img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
 }
 
 
@@ -268,7 +271,8 @@ body{
     background:
         rgba(255,255,255,.045);
 
-    border:1px solid
+    border:
+        1px solid
         rgba(255,255,255,.06);
 
     color:#aaa2b7;
@@ -283,7 +287,7 @@ body{
 
 
 /* =====================================================
-   CONTROLS
+   READER CONTROLS
 ===================================================== */
 
 .reader-controls{
@@ -299,7 +303,8 @@ body{
 
 .reader-controls button{
 
-    border:1px solid
+    border:
+        1px solid
         rgba(255,255,255,.08);
 
     padding:10px 14px;
@@ -347,11 +352,11 @@ body{
 
     color:#ff6b81;
 
+    border-color:
+        rgba(255,107,129,.35);
+
     background:
         rgba(255,107,129,.10);
-
-    border-color:
-        rgba(255,107,129,.3);
 }
 
 #bookmarkButton{
@@ -363,11 +368,11 @@ body{
 
     color:#d8b4fe;
 
+    border-color:
+        rgba(192,132,252,.35);
+
     background:
         rgba(139,92,246,.10);
-
-    border-color:
-        rgba(192,132,252,.3);
 }
 
 
@@ -380,7 +385,6 @@ body{
     max-width:1100px;
 
     margin-left:auto;
-
     margin-right:auto;
 
     margin-top:50px !important;
@@ -416,7 +420,8 @@ body{
 
     padding:17px 18px;
 
-    border:1px solid
+    border:
+        1px solid
         rgba(167,139,250,.13);
 
     border-radius:13px;
@@ -452,6 +457,10 @@ body{
     transform:translateX(5px);
 
     color:#fff;
+
+    box-shadow:
+        0 10px 30px
+        rgba(124,58,237,.14);
 }
 
 
@@ -468,7 +477,8 @@ body{
             #0d0a14
         );
 
-    border:1px solid
+    border:
+        1px solid
         rgba(167,139,250,.14);
 
     border-radius:25px;
@@ -478,7 +488,6 @@ body{
     max-width:950px;
 
     margin-left:auto;
-
     margin-right:auto;
 
     box-shadow:
@@ -536,47 +545,36 @@ body{
 
     padding-top:25px;
 
-    border-top:1px solid
+    border-top:
+        1px solid
         rgba(255,255,255,.06);
 
     flex-wrap:wrap;
 }
 
-.read-btn{
 
-    display:inline-block;
+/* =====================================================
+   FOOTER
+===================================================== */
 
-    border:none;
+footer{
 
     background:
         linear-gradient(
-            135deg,
-            #8b5cf6,
-            #6d28d9
+            180deg,
+            #0b0810,
+            #050408
         );
 
-    color:#fff;
+    color:white;
 
-    text-decoration:none;
+    text-align:center;
 
-    padding:10px 18px;
+    padding:55px 7% 25px;
 
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:14px;
-
-    transition:.3s;
-}
-
-.read-btn:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 8px 25px
-        rgba(139,92,246,.45);
+    border-top:
+        1px solid
+        rgba(139,92,246,.12);
 }
 
 
@@ -624,8 +622,6 @@ body.reading-mode .chapter-content{
     font-size:21px;
 
     line-height:2.05;
-
-    color:#e4e4e4;
 }
 
 
@@ -677,11 +673,6 @@ body.reading-mode .chapter-content{
     }
 
 }
-
-
-/* =====================================================
-   SMALL PHONES
-===================================================== */
 
 @media(max-width:550px){
 
@@ -764,11 +755,25 @@ body.reading-mode .chapter-content{
         line-height:1.9;
     }
 
-    body.reading-mode .chapter-content{
+}
 
-        font-size:19px;
 
-        line-height:1.95;
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+
+@media(max-width:400px){
+
+    .reader-cover{
+
+        width:165px;
+
+        height:248px;
+    }
+
+    .reader-info h1{
+
+        font-size:30px;
     }
 
 }
@@ -816,80 +821,77 @@ body.reading-mode .chapter-content{
 <main class="section">
 
 
-<!-- =====================================================
-     STORY INFO
-===================================================== -->
+    <!-- STORY INFO -->
 
-<div
-    class="story-reader"
-    id="storyInfo"
->
+    <div
+        class="story-reader"
+        id="storyInfo"
+    >
 
-    <p style="
-        color:#888;
-        text-align:center;
-        padding:40px;
-        grid-column:1/-1;
-    ">
+        <p style="
+            color:#888;
+            text-align:center;
+            padding:40px;
+            grid-column:1/-1;
+        ">
 
-        ⏳ කතාව load වෙමින්...
+            ⏳ කතාව load වෙමින්...
 
-    </p>
-
-</div>
-
-
-<!-- =====================================================
-     CHAPTERS
-===================================================== -->
-
-<section
-    id="chapterListSection"
->
-
-    <p class="label">
-        CHAPTERS
-    </p>
-
-    <h2>
-        📚 පරිච්ඡේද
-    </h2>
-
-    <div id="chapterList">
-
-        <p style="color:#888;">
-            ⏳ Chapters load වෙමින්...
         </p>
 
     </div>
 
-</section>
 
 
-<!-- =====================================================
-     READING AREA
-===================================================== -->
+    <!-- CHAPTERS -->
 
-<article
-    class="reading-area"
-    id="chapterArea"
-    style="margin-top:45px;"
->
+    <section
+        id="chapterListSection"
+        style="margin-top:55px;"
+    >
 
-    <p class="label">
-        STORY
-    </p>
+        <p class="label">
+            CHAPTERS
+        </p>
 
-    <h2>
-        Chapter එකක් තෝරන්න
-    </h2>
+        <h2>
+            📚 පරිච්ඡේද
+        </h2>
 
-    <p>
-        ඉහළින් Chapter එකක් තෝරලා
-        කතාව කියවීම ආරම්භ කරන්න. 📖
-    </p>
+        <div id="chapterList">
 
-</article>
+            <p style="color:#888;">
+                ⏳ Chapters load වෙමින්...
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- READING AREA -->
+
+    <article
+        class="reading-area"
+        id="chapterArea"
+        style="margin-top:45px;"
+    >
+
+        <p class="label">
+            STORY
+        </p>
+
+        <h2>
+            Chapter එකක් තෝරන්න
+        </h2>
+
+        <p>
+            ඉහළින් Chapter එකක් තෝරලා
+            කතාව කියවීම ආරම්භ කරන්න. 📖
+        </p>
+
+    </article>
 
 
 </main>
@@ -917,6 +919,7 @@ body.reading-mode .chapter-content{
 </footer>
 
 
+
 <!-- =====================================================
      SUPABASE
 ===================================================== -->
@@ -924,6 +927,7 @@ body.reading-mode .chapter-content{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
+
 
 
 <script>
@@ -1027,11 +1031,10 @@ async function loadStory(){
         }
 
 
-        /* =================================================
-           18+ CHECK
-        ================================================= */
+        /* 18+ CHECK */
 
         const isAdultStory =
+
             String(
                 story.category || ""
             )
@@ -1045,13 +1048,9 @@ async function loadStory(){
 
             const confirmed =
                 confirm(
-
                     "🔞 18+ Content\n\n" +
-
                     "මෙම කතාව වැඩිහිටියන් සඳහා පමණි.\n\n" +
-
                     "ඔබට ඉදිරියට යාමට අවශ්‍යද?"
-
                 );
 
 
@@ -1067,8 +1066,7 @@ async function loadStory(){
         }
 
 
-        currentStory =
-            story;
+        currentStory = story;
 
 
         document.title =
@@ -1092,14 +1090,10 @@ async function loadStory(){
             error:viewError
         } =
         await supabaseClient.rpc(
-
             "increment_story_views",
-
             {
-                p_story_id:
-                    story.id
+                p_story_id:story.id
             }
-
         );
 
 
@@ -1115,7 +1109,7 @@ async function loadStory(){
 
                 viewsElement.innerText =
                     "👁️ " +
-                    newViews;
+                    Number(newViews || 0);
 
             }
 
@@ -1123,23 +1117,21 @@ async function loadStory(){
         else{
 
             console.error(
-                "View count error:",
+                "View error:",
                 viewError
             );
 
         }
 
 
-        /* =================================================
-           LOAD CHAPTERS
-        ================================================= */
+        /* LOAD CHAPTERS */
 
         await loadChapters(
             story.id
         );
 
-    }
 
+    }
     catch(error){
 
         console.error(
@@ -1184,21 +1176,15 @@ function displayStory(story){
 
 
     const views =
-        Number(
-            story.views || 0
-        );
+        Number(story.views || 0);
 
 
     const likes =
-        Number(
-            story.likes || 0
-        );
+        Number(story.likes || 0);
 
 
     const rating =
-        Number(
-            story.rating || 0
-        );
+        Number(story.rating || 0);
 
 
     storyInfo.innerHTML = `
@@ -1246,18 +1232,14 @@ function displayStory(story){
             <p class="description">
 
                 ${escapeHTML(
-                    story.description ||
-                    ""
+                    story.description || ""
                 )}
 
             </p>
 
 
-            <!-- ================================
-                 STORY STATS
-            ================================= -->
-
             <div class="story-meta">
+
 
                 <span id="storyViews">
 
@@ -1279,12 +1261,9 @@ function displayStory(story){
 
                 </span>
 
+
             </div>
 
-
-            <!-- ================================
-                 CONTROLS
-            ================================= -->
 
             <div class="reader-controls">
 
@@ -1343,6 +1322,7 @@ function displayStory(story){
 
             </div>
 
+
         </div>
 
     `;
@@ -1371,10 +1351,7 @@ async function loadChapters(storyId){
 
         .select("*")
 
-        .eq(
-            "story_id",
-            storyId
-        )
+        .eq("story_id",storyId)
 
         .order(
             "number",
@@ -1417,13 +1394,9 @@ async function loadChapters(storyId){
         );
 
     }
-
     catch(error){
 
-        console.error(
-            "Chapter system error:",
-            error
-        );
+        console.error(error);
 
     }
 
@@ -1436,8 +1409,7 @@ async function loadChapters(storyId){
 
 function displayChapters(chapters){
 
-    chapterList.innerHTML =
-        "";
+    chapterList.innerHTML = "";
 
 
     if(
@@ -1536,8 +1508,7 @@ function openChapter(chapter){
         );
 
 
-    let buttonsHTML =
-        "";
+    let buttonsHTML = "";
 
 
     if(currentIndex > 0){
@@ -1679,24 +1650,13 @@ function openChapter(chapter){
 
 
 /* =====================================================
-   LIKE SYSTEM
+   LIKE
 ===================================================== */
 
 async function toggleLike(){
 
-    if(!currentStory){
-
-        console.error(
-            "LIKE ERROR: currentStory missing"
-        );
-
+    if(!currentStory)
         return;
-
-    }
-
-
-    const storyId =
-        currentStory.id;
 
 
     const likeButton =
@@ -1705,272 +1665,174 @@ async function toggleLike(){
         );
 
 
-    if(likeButton){
-
-        likeButton.disabled =
-            true;
-
-    }
-
-
-    try{
-
-        const key =
-            "liked_" +
-            storyId;
-
-
-        const currentlyLiked =
-            localStorage.getItem(
-                key
-            )
-            ===
-            "true";
-
-
-        /* =================================================
-           ADD LIKE
-        ================================================= */
-
-        if(!currentlyLiked){
-
-            const {
-                data,
-                error
-            } =
-            await supabaseClient.rpc(
-
-                "increment_story_likes",
-
-                {
-                    p_story_id:
-                        storyId
-                }
-
-            );
-
-
-            if(error){
-
-                console.error(
-                    "LIKE ERROR FULL:",
-                    error
-                );
-
-                console.error(
-                    "LIKE ERROR JSON:",
-                    JSON.stringify(
-                        error,
-                        null,
-                        2
-                    )
-                );
-
-                console.error(
-                    "LIKE ERROR MESSAGE:",
-                    error?.message
-                );
-
-                console.error(
-                    "LIKE ERROR DETAILS:",
-                    error?.details
-                );
-
-                console.error(
-                    "LIKE ERROR HINT:",
-                    error?.hint
-                );
-
-                console.error(
-                    "LIKE ERROR CODE:",
-                    error?.code
-                );
-
-
-                alert(
-                    "Like update කරන්න බැරි වුණා.\n\n" +
-                    "F12 → Console එකේ " +
-                    "LIKE ERROR බලන්න."
-                );
-
-
-                return;
-
-            }
-
-
-            localStorage.setItem(
-                key,
-                "true"
-            );
-
-
-            updateLikeCount(
-                data
-            );
-
-        }
-
-
-        /* =================================================
-           REMOVE LIKE
-        ================================================= */
-
-        else{
-
-            const {
-                data,
-                error
-            } =
-            await supabaseClient.rpc(
-
-                "decrement_story_likes",
-
-                {
-                    p_story_id:
-                        storyId
-                }
-
-            );
-
-
-            if(error){
-
-                console.error(
-                    "UNLIKE ERROR FULL:",
-                    error
-                );
-
-                console.error(
-                    "UNLIKE ERROR JSON:",
-                    JSON.stringify(
-                        error,
-                        null,
-                        2
-                    )
-                );
-
-                console.error(
-                    "UNLIKE ERROR MESSAGE:",
-                    error?.message
-                );
-
-                console.error(
-                    "UNLIKE ERROR DETAILS:",
-                    error?.details
-                );
-
-                console.error(
-                    "UNLIKE ERROR HINT:",
-                    error?.hint
-                );
-
-                console.error(
-                    "UNLIKE ERROR CODE:",
-                    error?.code
-                );
-
-
-                alert(
-                    "Unlike update කරන්න බැරි වුණා."
-                );
-
-
-                return;
-
-            }
-
-
-            localStorage.setItem(
-                key,
-                "false"
-            );
-
-
-            updateLikeCount(
-                data
-            );
-
-        }
-
-
-        updateReaderButtons();
-
-    }
-
-    catch(error){
-
-        console.error(
-            "LIKE SYSTEM CRASH:",
-            error
-        );
-
-        console.error(
-            "LIKE SYSTEM CRASH JSON:",
-            JSON.stringify(
-                error,
-                null,
-                2
-            )
-        );
-
-    }
-
-    finally{
-
-        if(likeButton){
-
-            likeButton.disabled =
-                false;
-
-        }
-
-    }
-
-}
-
-
-/* =====================================================
-   UPDATE LIKE COUNT
-===================================================== */
-
-function updateLikeCount(value){
-
-    if(!currentStory)
-        return;
-
-
-    let newLikes =
-        Number(value);
-
-
-    if(
-        Number.isNaN(newLikes)
-    ){
-
-        newLikes =
-            Number(
-                currentStory.likes || 0
-            );
-
-    }
-
-
-    currentStory.likes =
-        newLikes;
-
-
     const likeCount =
         document.getElementById(
             "storyLikes"
         );
 
 
-    if(likeCount){
+    const key =
+        "liked_" +
+        currentStory.id;
 
-        likeCount.innerText =
-            "❤️ " +
-            newLikes;
+
+    const liked =
+        localStorage.getItem(key)
+        ===
+        "true";
+
+
+    /* ALREADY LIKED */
+
+    if(liked){
+
+        alert(
+            "ඔයා මේ story එකට Like කරලා තියෙන්නේ ❤️"
+        );
+
+        return;
+
+    }
+
+
+    /* DISABLE */
+
+    if(likeButton){
+
+        likeButton.disabled =
+            true;
+
+        likeButton.innerText =
+            "⏳ Like වෙමින්...";
+
+    }
+
+
+    try{
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient.rpc(
+            "increment_story_likes",
+            {
+                p_story_id:
+                    currentStory.id
+            }
+        );
+
+
+        if(error){
+
+            console.error(
+                "Like error:",
+                error
+            );
+
+            console.error(
+                "Like message:",
+                error.message
+            );
+
+            console.error(
+                "Like details:",
+                error.details
+            );
+
+            console.error(
+                "Like hint:",
+                error.hint
+            );
+
+
+            if(likeButton){
+
+                likeButton.disabled =
+                    false;
+
+                likeButton.innerText =
+                    "🤍 Like";
+
+            }
+
+
+            alert(
+                "Like update කරන්න බැරි වුණා.\n\n" +
+                "Supabase SQL function / permission එක check කරන්න."
+            );
+
+            return;
+
+        }
+
+
+        /* SAVE LOCAL LIKE */
+
+        localStorage.setItem(
+            key,
+            "true"
+        );
+
+
+        /* UPDATE STORY */
+
+        currentStory.likes =
+            Number(data || 0);
+
+
+        /* UPDATE COUNT */
+
+        if(likeCount){
+
+            likeCount.innerText =
+                "❤️ " +
+                Number(data || 0);
+
+        }
+
+
+        /* UPDATE BUTTON */
+
+        if(likeButton){
+
+            likeButton.innerText =
+                "❤️ Liked";
+
+            likeButton.classList.add(
+                "liked"
+            );
+
+            likeButton.disabled =
+                false;
+
+        }
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Unexpected Like error:",
+            error
+        );
+
+
+        if(likeButton){
+
+            likeButton.disabled =
+                false;
+
+            likeButton.innerText =
+                "🤍 Like";
+
+        }
+
+
+        alert(
+            "Like update කිරීමේදී error එකක් ආවා."
+        );
 
     }
 
@@ -1993,9 +1855,7 @@ function toggleBookmark(){
 
 
     const bookmarked =
-        localStorage.getItem(
-            key
-        )
+        localStorage.getItem(key)
         ===
         "true";
 
@@ -2021,10 +1881,7 @@ function toggleBookmark(){
    LIBRARY
 ===================================================== */
 
-function updateLibrary(
-    id,
-    add
-){
+function updateLibrary(id,add){
 
     let library = [];
 
@@ -2037,11 +1894,9 @@ function updateLibrary(
                     "kathaLibrary"
                 )
             )
-            ||
-            [];
+            || [];
 
     }
-
     catch(error){
 
         library = [];
@@ -2070,9 +1925,7 @@ function updateLibrary(
 
     localStorage.setItem(
         "kathaLibrary",
-        JSON.stringify(
-            library
-        )
+        JSON.stringify(library)
     );
 
 }
@@ -2156,40 +2009,23 @@ function updateReaderButtons(){
    FONT SIZE
 ===================================================== */
 
-function changeFontSize(
-    amount
-){
+function changeFontSize(amount){
 
-    readerFontSize +=
-        amount;
+    readerFontSize += amount;
 
 
-    if(
-        readerFontSize < 15
-    ){
-
+    if(readerFontSize < 15)
         readerFontSize = 15;
 
-    }
 
-
-    if(
-        readerFontSize > 30
-    ){
-
+    if(readerFontSize > 30)
         readerFontSize = 30;
-
-    }
 
 
     applyFontSize();
 
 }
 
-
-/* =====================================================
-   APPLY FONT SIZE
-===================================================== */
 
 function applyFontSize(){
 
@@ -2246,8 +2082,7 @@ function showStoryNotFound(){
 
             <h1>
 
-                😕 Story එක
-                හම්බ වුණේ නැහැ.
+                😕 Story එක හම්බ වුණේ නැහැ.
 
             </h1>
 
@@ -2257,8 +2092,7 @@ function showStoryNotFound(){
                 margin:20px 0;
             ">
 
-                මේ story එක
-                හොයාගන්න බැහැ.
+                මේ story එක හොයාගන්න බැහැ.
 
             </p>
 
