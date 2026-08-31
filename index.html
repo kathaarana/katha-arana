@@ -19,18 +19,19 @@
     >
 
 
+    <!-- =========================================
+         HEADER LOGO SIZE
+    ========================================= -->
+
     <style>
 
-        /* =========================================
-           KATHA ARANA PNG LOGO
-        ========================================= */
+        /* Remove old text logo */
 
         .header .logo {
+            width: 420px !important;
+            height: 105px !important;
 
             display: block !important;
-
-            width: 360px !important;
-            height: 90px !important;
 
             margin: 0 !important;
             padding: 0 !important;
@@ -40,40 +41,26 @@
 
             color: transparent !important;
 
-            text-decoration: none !important;
-
             background: transparent !important;
 
             border: none !important;
 
             flex-shrink: 0;
 
-        }
-
-
-        .header .logo::before,
-        .header .logo::after {
-
-            content: none !important;
-
-            display: none !important;
-
+            overflow: hidden;
         }
 
 
         .header .logo span {
-
             display: none !important;
-
         }
 
 
         .header .logo img {
-
             display: block !important;
 
-            width: 360px !important;
-            height: 90px !important;
+            width: 420px !important;
+            height: 105px !important;
 
             margin: 0 !important;
             padding: 0 !important;
@@ -81,19 +68,23 @@
             object-fit: contain !important;
 
             border: none !important;
+        }
 
+
+        .header .logo::before,
+        .header .logo::after {
+            display: none !important;
+            content: none !important;
         }
 
 
 
         /* =========================================
-           HEADER SIZE
+           HEADER
         ========================================= */
 
         .header {
-
-            min-height: 110px;
-
+            min-height: 125px;
         }
 
 
@@ -105,25 +96,19 @@
         @media (max-width: 850px) {
 
             .header {
-
-                padding: 15px 5%;
-
+                padding: 12px 5%;
             }
 
 
             .header .logo {
-
-                width: 320px !important;
-                height: 80px !important;
-
+                width: 360px !important;
+                height: 90px !important;
             }
 
 
             .header .logo img {
-
-                width: 320px !important;
-                height: 80px !important;
-
+                width: 360px !important;
+                height: 90px !important;
             }
 
         }
@@ -140,25 +125,28 @@
 
                 flex-direction: column;
 
-                gap: 10px;
+                gap: 8px;
 
                 min-height: auto;
+
+                padding:
+                    10px 4%;
 
             }
 
 
             .header .logo {
 
-                width: 300px !important;
-                height: 75px !important;
+                width: 330px !important;
+                height: 82.5px !important;
 
             }
 
 
             .header .logo img {
 
-                width: 300px !important;
-                height: 75px !important;
+                width: 330px !important;
+                height: 82.5px !important;
 
             }
 
@@ -167,9 +155,38 @@
 
                 width: 100%;
 
+                display: flex;
+
                 justify-content: center;
 
                 flex-wrap: wrap;
+
+                gap: 14px;
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           VERY SMALL PHONES
+        ========================================= */
+
+        @media (max-width: 380px) {
+
+            .header .logo {
+
+                width: 290px !important;
+                height: 72.5px !important;
+
+            }
+
+
+            .header .logo img {
+
+                width: 290px !important;
+                height: 72.5px !important;
 
             }
 
@@ -216,9 +233,11 @@
             මුල් පිටුව
         </a>
 
+
         <a href="#categories">
             කතා වර්ග
         </a>
+
 
         <a href="#about">
             අප ගැන
@@ -412,7 +431,6 @@
 
 
         <div
-            id="adultCategory"
             class="category"
             onclick="showCategory('18+')"
         >
