@@ -5,13 +5,7 @@
 // SUPABASE VERSION
 // =========================================
 
-
-// =========================================
-// STORIES
-// =========================================
-
 let stories = [];
-
 let adultCategoryUnlocked = false;
 
 
@@ -20,9 +14,7 @@ let adultCategoryUnlocked = false;
 // =========================================
 
 function getStories() {
-
     return stories;
-
 }
 
 
@@ -119,8 +111,7 @@ async function loadStories() {
         }
 
 
-        stories =
-            data || [];
+        stories = data || [];
 
 
         console.log(
@@ -209,9 +200,7 @@ function showLoadingError() {
 // CREATE STORY CARD
 // =========================================
 
-function createStoryCard(
-    story
-) {
+function createStoryCard(story) {
 
     const card =
         document.createElement(
@@ -245,8 +234,7 @@ function createStoryCard(
                     story.cover
                 )}"
                 alt="${escapeHTML(
-                    story.title ||
-                    "Story"
+                    story.title || "Story"
                 )}"
                 style="
                     width:100%;
@@ -297,8 +285,7 @@ function createStoryCard(
             <div class="cover-label">
 
                 ${escapeHTML(
-                    story.category ||
-                    "Story"
+                    story.category || "Story"
                 )}
 
             </div>
@@ -308,11 +295,11 @@ function createStoryCard(
 
         <div class="story-info">
 
+
             <p class="label">
 
                 ${escapeHTML(
-                    story.category ||
-                    ""
+                    story.category || ""
                 )}
 
             </p>
@@ -321,8 +308,7 @@ function createStoryCard(
             <h3>
 
                 ${escapeHTML(
-                    story.title ||
-                    "Untitled"
+                    story.title || "Untitled"
                 )}
 
             </h3>
@@ -333,8 +319,7 @@ function createStoryCard(
                 ✍️
 
                 ${escapeHTML(
-                    story.author ||
-                    "කතා අරණ"
+                    story.author || "කතා අරණ"
                 )}
 
             </p>
@@ -343,8 +328,7 @@ function createStoryCard(
             <p>
 
                 ${escapeHTML(
-                    story.description ||
-                    ""
+                    story.description || ""
                 )}
 
             </p>
@@ -435,9 +419,7 @@ function createStoryCard(
 // ESCAPE HTML
 // =========================================
 
-function escapeHTML(
-    value
-) {
+function escapeHTML(value) {
 
     const div =
         document.createElement(
@@ -470,8 +452,7 @@ function displayStories(
     }
 
 
-    element.innerHTML =
-        "";
+    element.innerHTML = "";
 
 
     if (
@@ -516,9 +497,7 @@ function displayStories(
 // OPEN STORY
 // =========================================
 
-function openStory(
-    id
-) {
+function openStory(id) {
 
     const story =
         getStories().find(
@@ -526,9 +505,7 @@ function openStory(
 
                 return String(
                     item.id
-                )
-                ===
-                String(id);
+                ) === String(id);
 
             }
         );
@@ -554,9 +531,7 @@ function openStory(
 
 
         if (!confirmed) {
-
             return;
-
         }
 
     }
@@ -564,9 +539,7 @@ function openStory(
 
     window.location.href =
         "story.html?id=" +
-        encodeURIComponent(
-            id
-        );
+        encodeURIComponent(id);
 
 }
 
@@ -588,9 +561,7 @@ function displayHomeStories() {
     }
 
 
-    // =====================================
-    // ONLY PUBLIC STORIES
-    // =====================================
+    // 18+ stories NEVER appear here
 
     displayStories(
         getPublicStories(),
@@ -617,16 +588,11 @@ function displayLatest() {
     }
 
 
-    // =====================================
-    // ONLY PUBLIC STORIES
-    // =====================================
+    // Only public stories
 
     const latest =
         getPublicStories()
-            .slice(
-                0,
-                4
-            );
+            .slice(0, 4);
 
 
     displayStories(
@@ -652,19 +618,13 @@ function openAdultCategory() {
 
 
     if (!confirmed) {
-
         return;
-
     }
 
 
     adultCategoryUnlocked =
         true;
 
-
-    // =====================================
-    // SHOW HIDDEN CATEGORY CARD
-    // =====================================
 
     const adultCategory =
         document.getElementById(
@@ -677,14 +637,6 @@ function openAdultCategory() {
         adultCategory.style.display =
             "block";
 
-    }
-
-
-    // =====================================
-    // SCROLL TO CARD
-    // =====================================
-
-    if (adultCategory) {
 
         adultCategory.scrollIntoView({
             behavior: "smooth",
@@ -700,9 +652,7 @@ function openAdultCategory() {
 // CATEGORY
 // =========================================
 
-function showCategory(
-    category
-) {
+function showCategory(category) {
 
     // =====================================
     // 18+ CATEGORY
@@ -716,10 +666,6 @@ function showCategory(
         "18+"
     ) {
 
-        // =================================
-        // MUST BE UNLOCKED FIRST
-        // =================================
-
         if (!adultCategoryUnlocked) {
 
             const confirmed =
@@ -731,9 +677,7 @@ function showCategory(
 
 
             if (!confirmed) {
-
                 return;
-
             }
 
 
@@ -742,10 +686,6 @@ function showCategory(
 
         }
 
-
-        // =================================
-        // GET ONLY 18+ STORIES
-        // =================================
 
         const adultStories =
             getAdultStories();
@@ -773,19 +713,16 @@ function showCategory(
                 return (
 
                     String(
-                        story.category ||
-                        ""
+                        story.category || ""
                     )
                     .trim()
                     .toLowerCase()
 
                     ===
 
-                    String(
-                        category
-                    )
-                    .trim()
-                    .toLowerCase()
+                    String(category)
+                        .trim()
+                        .toLowerCase()
 
                 );
 
@@ -833,9 +770,7 @@ function showCategoryResults(
         !title ||
         !grid
     ) {
-
         return;
-
     }
 
 
@@ -879,10 +814,6 @@ function showAllStories() {
 
     }
 
-
-    // =====================================
-    // LOCK 18+ AGAIN
-    // =====================================
 
     adultCategoryUnlocked =
         false;
@@ -942,10 +873,6 @@ function searchStories() {
     }
 
 
-    // =====================================
-    // EMPTY SEARCH
-    // =====================================
-
     if (text === "") {
 
         displayHomeStories();
@@ -955,9 +882,7 @@ function searchStories() {
     }
 
 
-    // =====================================
-    // SEARCH PUBLIC STORIES ONLY
-    // =====================================
+    // 18+ stories are excluded
 
     const results =
         getPublicStories().filter(
@@ -966,8 +891,7 @@ function searchStories() {
                 return (
 
                     String(
-                        story.title ||
-                        ""
+                        story.title || ""
                     )
                     .toLowerCase()
                     .includes(text)
@@ -975,8 +899,7 @@ function searchStories() {
                     ||
 
                     String(
-                        story.author ||
-                        ""
+                        story.author || ""
                     )
                     .toLowerCase()
                     .includes(text)
@@ -984,8 +907,7 @@ function searchStories() {
                     ||
 
                     String(
-                        story.category ||
-                        ""
+                        story.category || ""
                     )
                     .toLowerCase()
                     .includes(text)
@@ -993,8 +915,7 @@ function searchStories() {
                     ||
 
                     String(
-                        story.description ||
-                        ""
+                        story.description || ""
                     )
                     .toLowerCase()
                     .includes(text)
@@ -1109,9 +1030,7 @@ function displayLibrary() {
         getLibrary();
 
 
-    // =====================================
-    // PUBLIC STORIES ONLY
-    // =====================================
+    // 18+ stories excluded
 
     const savedStories =
         getPublicStories().filter(
@@ -1120,15 +1039,11 @@ function displayLibrary() {
                 return saved.some(
                     function(id) {
 
-                        return (
-
-                            String(id)
+                        return String(id)
                             ===
                             String(
                                 story.id
-                            )
-
-                        );
+                            );
 
                     }
                 );
@@ -1166,8 +1081,7 @@ async function refreshStories() {
                 .order(
                     "id",
                     {
-                        ascending:
-                            false
+                        ascending: false
                     }
                 );
 
@@ -1219,20 +1133,12 @@ async function startWebsite() {
     );
 
 
-    // =====================================
-    // INITIAL EMPTY STATE
-    // =====================================
-
     displayHomeStories();
 
     displayLatest();
 
     displayLibrary();
 
-
-    // =====================================
-    // LOAD SUPABASE DATA
-    // =====================================
 
     await loadStories();
 
