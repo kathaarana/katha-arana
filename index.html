@@ -20,43 +20,109 @@
 
     <style>
 
-        /* ================================
-           HEADER LOGO IMAGE
-        ================================= */
+        /* =====================================
+           HEADER
+        ===================================== */
 
-        .header .logo img {
-            width: 180px;
-            height: 45px;
-            object-fit: contain;
-            display: block;
+        .header {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 20px !important;
         }
 
-        /* Keep header logo area neat */
+
+        /* =====================================
+           PNG LOGO
+        ===================================== */
 
         .header .logo {
-            display: flex;
-            align-items: center;
+            display: block !important;
+
+            width: 180px !important;
+            height: 45px !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            font-size: 0 !important;
+
+            line-height: 0 !important;
+
+            text-decoration: none !important;
+
+            background: none !important;
+
+            border: none !important;
         }
 
 
-        /* ================================
+        .header .logo::before,
+        .header .logo::after {
+
+            content: none !important;
+
+            display: none !important;
+
+        }
+
+
+        .header .logo span {
+
+            display: none !important;
+
+        }
+
+
+        .header .logo img {
+
+            display: block !important;
+
+            width: 180px !important;
+
+            height: 45px !important;
+
+            margin: 0 !important;
+
+            padding: 0 !important;
+
+            object-fit: contain !important;
+
+        }
+
+
+        /* =====================================
            18+ CARD
-        ================================= */
+        ===================================== */
 
-        #adultCard {
+        #adultCategory {
+
             display: none;
+
         }
 
 
-        /* ================================
+        /* =====================================
            MOBILE
-        ================================= */
+        ===================================== */
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
+
+            .header .logo {
+
+                width: 140px !important;
+
+                height: 38px !important;
+
+            }
+
 
             .header .logo img {
-                width: 140px;
-                height: 38px;
+
+                width: 140px !important;
+
+                height: 38px !important;
+
             }
 
         }
@@ -69,21 +135,19 @@
 <body>
 
 
-<!-- =====================================
+<!-- =========================================
      HEADER
-===================================== -->
+========================================= -->
 
 <header class="header">
 
 
-    <!-- LOGO -->
+    <!-- ONLY PNG LOGO -->
 
     <a
         href="index.html"
         class="logo"
     >
-
-        <!-- YOUR PHOTOSHOP PNG -->
 
         <img
             src="./banner.png"
@@ -91,7 +155,6 @@
         >
 
     </a>
-
 
 
     <!-- NAVIGATION -->
@@ -119,16 +182,16 @@
 
 
 
-<!-- =====================================
+<!-- =========================================
      MAIN
-===================================== -->
+========================================= -->
 
 <main>
 
 
-    <!-- =================================
+    <!-- =====================================
          HERO
-    ================================== -->
+    ====================================== -->
 
     <section class="hero">
 
@@ -141,17 +204,22 @@
 
 
             <h1>
+
                 ඔබේ මීළඟ
+
                 <span>
                     කතාව සොයාගන්න.
                 </span>
+
             </h1>
 
 
             <p>
+
                 ආදරය, ත්‍රාසය, අභිරහස් සහ
                 අපූරු සිංහල කතා එකම තැනකින්
                 කියවන්න.
+
             </p>
 
 
@@ -161,15 +229,14 @@
 
 
 
-    <!-- =================================
+    <!-- =====================================
          CATEGORIES
-    ================================== -->
+    ====================================== -->
 
     <section
         class="section"
         id="categories"
     >
-
 
         <p class="label">
             EXPLORE
@@ -287,7 +354,7 @@
             <!-- 18+ -->
 
             <div
-                id="adultCard"
+                id="adultCategory"
                 class="category"
                 onclick="showCategory('18+')"
             >
@@ -315,52 +382,15 @@
 
 
 
-    <!-- =================================
-         STORIES
-    ================================== -->
-
-    <section
-        class="section"
-        id="stories"
-    >
-
-
-        <p class="label">
-            DISCOVER
-        </p>
-
-
-        <h2>
-            📚 කතා
-        </h2>
-
-
-        <div
-            class="story-grid"
-            id="storyGrid"
-        >
-
-            <p>
-                කතා load වෙමින් පවතී...
-            </p>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =================================
+    <!-- =====================================
          CATEGORY RESULTS
-    ================================== -->
+    ====================================== -->
 
     <section
         class="section"
         id="categoryResults"
         style="display:none;"
     >
-
 
         <p class="label">
             CATEGORY
@@ -377,20 +407,118 @@
             id="categoryStoryGrid"
         ></div>
 
+    </section>
+
+
+
+    <!-- =====================================
+         STORIES
+    ====================================== -->
+
+    <section
+        class="section"
+        id="stories"
+    >
+
+        <p class="label">
+            DISCOVER
+        </p>
+
+
+        <h2>
+            📚 කතා
+        </h2>
+
+
+        <div
+            class="story-grid"
+            id="storyGrid"
+        >
+
+            <p style="color:#888; padding:20px;">
+
+                📚 කතා load වෙමින් පවතී...
+
+            </p>
+
+        </div>
 
     </section>
 
 
 
-    <!-- =================================
+    <!-- =====================================
+         LATEST
+    ====================================== -->
+
+    <section
+        class="section"
+        id="latest"
+    >
+
+        <p class="label">
+            JUST PUBLISHED
+        </p>
+
+
+        <h2>
+            🆕 අලුත්ම කතා
+        </h2>
+
+
+        <div
+            class="story-grid"
+            id="latestGrid"
+        >
+
+            <p style="color:#888; padding:20px;">
+
+                📚 කතා load වෙමින් පවතී...
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         LIBRARY
+    ====================================== -->
+
+    <section
+        class="section"
+        id="library"
+    >
+
+        <p class="label">
+            MY LIBRARY
+        </p>
+
+
+        <h2>
+            🔖 My Library
+        </h2>
+
+
+        <div
+            class="story-grid"
+            id="libraryGrid"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =====================================
          ABOUT
-    ================================== -->
+    ====================================== -->
 
     <section
         class="section"
         id="about"
     >
-
 
         <p class="label">
             ABOUT US
@@ -403,10 +531,11 @@
 
 
         <p>
+
             හොඳ සිංහල කතා කියවන්නට
             ඔබේම තැනක්.
-        </p>
 
+        </p>
 
     </section>
 
@@ -415,20 +544,24 @@
 
 
 
-<!-- =====================================
+<!-- =========================================
      FOOTER
-===================================== -->
+========================================= -->
 
 <footer>
 
 
     <div class="footer-logo">
+
         📚 කතා අරණ
+
     </div>
 
 
     <p>
+
         සිංහල කතා කියවන්නට ඔබේම තැන.
+
     </p>
 
 
@@ -444,11 +577,13 @@
 
 
 
-<!-- =====================================
+<!-- =========================================
      SUPABASE
-===================================== -->
+========================================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
 
 <script src="supabase.js"></script>
