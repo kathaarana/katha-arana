@@ -13,6 +13,7 @@
 
     <title>කතා අරණ | Sinhala Stories</title>
 
+    <!-- MAIN CSS -->
     <link
         rel="stylesheet"
         href="style.css"
@@ -21,7 +22,7 @@
     <style>
 
         /* =========================================
-           HIDDEN 18+ CATEGORY
+           18+ CATEGORY
         ========================================= */
 
         #adultCategory {
@@ -41,13 +42,11 @@
 
             padding: 7px 12px;
 
-            border: 1px solid
-                rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.08);
 
             border-radius: 8px;
 
-            background:
-                rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.03);
 
             color: #777;
 
@@ -66,8 +65,7 @@
 
             color: white;
 
-            background:
-                rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.08);
 
         }
 
@@ -174,9 +172,7 @@
                     type="button"
                     onclick="searchStories()"
                 >
-
                     සොයන්න
-
                 </button>
 
             </div>
@@ -209,9 +205,7 @@
         <div class="category-grid">
 
 
-            <!-- =================================
-                 ROMANCE
-            ================================== -->
+            <!-- ROMANCE -->
 
             <div
                 class="category"
@@ -236,9 +230,7 @@
 
 
 
-            <!-- =================================
-                 HORROR
-            ================================== -->
+            <!-- HORROR -->
 
             <div
                 class="category"
@@ -263,9 +255,7 @@
 
 
 
-            <!-- =================================
-                 MYSTERY
-            ================================== -->
+            <!-- MYSTERY -->
 
             <div
                 class="category"
@@ -290,9 +280,7 @@
 
 
 
-            <!-- =================================
-                 FANTASY
-            ================================== -->
+            <!-- FANTASY -->
 
             <div
                 class="category"
@@ -319,9 +307,7 @@
 
             <!-- =================================
                  18+ CATEGORY
-
-                 HIDDEN BY DEFAULT
-                 JS WILL SHOW AFTER CONFIRMATION
+                 HIDDEN UNTIL UNLOCKED
             ================================== -->
 
             <div
@@ -385,9 +371,7 @@
                 type="button"
                 onclick="showAllStories()"
             >
-
                 ← සියලු කතා
-
             </button>
 
 
@@ -398,7 +382,6 @@
             class="story-grid"
             id="categoryStoryGrid"
         ></div>
-
 
     </section>
 
@@ -429,7 +412,6 @@
 
             </div>
 
-
         </div>
 
 
@@ -442,13 +424,10 @@
                 color:#888;
                 padding:20px;
             ">
-
                 📚 කතා load වෙමින් පවතී...
-
             </p>
 
         </div>
-
 
     </section>
 
@@ -479,7 +458,6 @@
 
             </div>
 
-
         </div>
 
 
@@ -492,13 +470,10 @@
                 color:#888;
                 padding:20px;
             ">
-
                 📚 කතා load වෙමින් පවතී...
-
             </p>
 
         </div>
-
 
     </section>
 
@@ -529,7 +504,6 @@
 
             </div>
 
-
         </div>
 
 
@@ -537,7 +511,6 @@
             class="story-grid"
             id="libraryGrid"
         ></div>
-
 
     </section>
 
@@ -563,11 +536,9 @@
 
 
         <p>
-
             හොඳ සිංහල කතාවක් කියවන්න,
             අලුත් ලෝකයකට යන්න,
             අලුත් චරිත හඳුනාගන්න.
-
         </p>
 
     </section>
@@ -592,17 +563,12 @@
 
 
     <p>
-
         සිංහල කතා කියවන්නට ඔබේම තැන.
-
     </p>
 
 
     <!-- =====================================
          SECRET 18+ TRIGGER
-
-         This is the ONLY visible 18+
-         entry point before unlocking.
     ====================================== -->
 
     <button
@@ -610,9 +576,7 @@
         class="adult-trigger"
         onclick="openAdultCategory()"
     >
-
         🔞 18+
-
     </button>
 
 
@@ -632,27 +596,61 @@
      SUPABASE
 ========================================= -->
 
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
+<!-- SUPABASE CONFIG -->
 <script src="supabase.js"></script>
+
+
+<!-- MAIN WEBSITE SCRIPT -->
+<script src="script.js"></script>
 
 
 
 <!-- =========================================
-     MAIN WEBSITE SCRIPT
+     18+ BUTTON CONTROL
 
-     IMPORTANT:
-     This script contains:
-     - 18+ hiding
-     - 18+ category unlock
-     - search filtering
-     - story protection
+     මේක script.js එකට අමතරව
+     safety fallback එකක් විතරයි.
 ========================================= -->
 
-<script src="script.js"></script>
+<script>
+
+function openAdultCategory() {
+
+    const confirmed = confirm(
+        "🔞 18+ Content\n\n" +
+        "මෙම කොටස වැඩිහිටියන් සඳහා පමණි.\n\n" +
+        "ඔබට 18+ කතා බලන්න අවශ්‍යද?"
+    );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const adultCategory =
+        document.getElementById("adultCategory");
+
+
+    if (!adultCategory) {
+        return;
+    }
+
+
+    adultCategory.style.display = "block";
+
+
+    adultCategory.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+</script>
 
 
 </body>
