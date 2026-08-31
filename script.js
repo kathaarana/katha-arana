@@ -1,3 +1,4 @@
+```javascript
 // =========================================
 // KATHA ARANA
 // MAIN WEBSITE SCRIPT
@@ -33,7 +34,6 @@ async function loadStories() {
 
         console.log("Loading stories from Supabase...");
 
-
         const {
             data,
             error
@@ -65,8 +65,7 @@ async function loadStories() {
         }
 
 
-        stories =
-            data || [];
+        stories = data || [];
 
 
         console.log(
@@ -105,17 +104,11 @@ function showLoadingError() {
 
     const grids = [
 
-        document.getElementById(
-            "storyGrid"
-        ),
+        document.getElementById("storyGrid"),
 
-        document.getElementById(
-            "latestGrid"
-        ),
+        document.getElementById("latestGrid"),
 
-        document.getElementById(
-            "libraryGrid"
-        )
+        document.getElementById("libraryGrid")
 
     ];
 
@@ -151,14 +144,10 @@ function showLoadingError() {
 // CREATE STORY CARD
 // =========================================
 
-function createStoryCard(
-    story
-) {
+function createStoryCard(story) {
 
     const card =
-        document.createElement(
-            "article"
-        );
+        document.createElement("article");
 
 
     card.className =
@@ -169,26 +158,20 @@ function createStoryCard(
     // COVER
     // =====================================
 
-    let coverHTML =
-        "📖";
+    let coverHTML = "📖";
 
 
     if (
         story.cover &&
-        String(
-            story.cover
-        ).trim() !== ""
+        String(story.cover).trim() !== ""
     ) {
 
         coverHTML = `
 
             <img
-                src="${escapeHTML(
-                    story.cover
-                )}"
+                src="${escapeHTML(story.cover)}"
                 alt="${escapeHTML(
-                    story.title ||
-                    "Story"
+                    story.title || "Story"
                 )}"
                 style="
                     width:100%;
@@ -208,21 +191,31 @@ function createStoryCard(
     // =====================================
 
     const views =
-        Number(
-            story.views || 0
-        );
+        Number(story.views || 0);
 
 
     const likes =
-        Number(
-            story.liked || 0
-        );
+        Number(story.liked || 0);
 
 
     const rating =
-        Number(
-            story.rating || 0
-        );
+        Number(story.rating || 0);
+
+
+    // =====================================
+    // 18+ LABEL
+    // =====================================
+
+    const is18Plus =
+        String(story.category || "")
+            .toLowerCase()
+            .trim() === "18+";
+
+
+    const ageLabel =
+        is18Plus
+            ? `<span class="age-label">🔞 18+</span>`
+            : "";
 
 
     // =====================================
@@ -239,8 +232,7 @@ function createStoryCard(
             <div class="cover-label">
 
                 ${escapeHTML(
-                    story.category ||
-                    "Story"
+                    story.category || "Story"
                 )}
 
             </div>
@@ -255,9 +247,10 @@ function createStoryCard(
             <p class="label">
 
                 ${escapeHTML(
-                    story.category ||
-                    ""
+                    story.category || ""
                 )}
+
+                ${ageLabel}
 
             </p>
 
@@ -266,8 +259,7 @@ function createStoryCard(
             <h3>
 
                 ${escapeHTML(
-                    story.title ||
-                    "Untitled"
+                    story.title || "Untitled"
                 )}
 
             </h3>
@@ -279,8 +271,7 @@ function createStoryCard(
                 ✍️
 
                 ${escapeHTML(
-                    story.author ||
-                    "කතා අරණ"
+                    story.author || "කතා අරණ"
                 )}
 
             </p>
@@ -290,8 +281,7 @@ function createStoryCard(
             <p>
 
                 ${escapeHTML(
-                    story.description ||
-                    ""
+                    story.description || ""
                 )}
 
             </p>
@@ -341,9 +331,7 @@ function createStoryCard(
             <button
                 class="read-btn"
                 type="button"
-                data-story-id="${escapeHTML(
-                    story.id
-                )}"
+                data-story-id="${escapeHTML(story.id)}"
             >
 
                 කියවන්න →
@@ -361,9 +349,7 @@ function createStoryCard(
     // =====================================
 
     const readButton =
-        card.querySelector(
-            ".read-btn"
-        );
+        card.querySelector(".read-btn");
 
 
     if (readButton) {
@@ -372,9 +358,26 @@ function createStoryCard(
             "click",
             function() {
 
-                openStory(
-                    story.id
-                );
+                // 18+ confirmation
+
+                if (is18Plus) {
+
+                    const allowed =
+                        confirm(
+                            "🔞 මෙම කතාව 18+ සඳහා පමණි.\n\nඔබ වයස අවුරුදු 18ක් හෝ ඊට වැඩිද?"
+                        );
+
+
+                    if (!allowed) {
+
+                        return;
+
+                    }
+
+                }
+
+
+                openStory(story.id);
 
             }
         );
@@ -391,14 +394,10 @@ function createStoryCard(
 // ESCAPE HTML
 // =========================================
 
-function escapeHTML(
-    value
-) {
+function escapeHTML(value) {
 
     const div =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
 
     div.textContent =
@@ -426,8 +425,7 @@ function displayStories(
     }
 
 
-    element.innerHTML =
-        "";
+    element.innerHTML = "";
 
 
     if (
@@ -457,9 +455,7 @@ function displayStories(
         function(story) {
 
             element.appendChild(
-                createStoryCard(
-                    story
-                )
+                createStoryCard(story)
             );
 
         }
@@ -472,15 +468,11 @@ function displayStories(
 // OPEN STORY
 // =========================================
 
-function openStory(
-    id
-) {
+function openStory(id) {
 
     window.location.href =
         "story.html?id=" +
-        encodeURIComponent(
-            id
-        );
+        encodeURIComponent(id);
 
 }
 
@@ -492,9 +484,7 @@ function openStory(
 function displayHomeStories() {
 
     const grid =
-        document.getElementById(
-            "storyGrid"
-        );
+        document.getElementById("storyGrid");
 
 
     if (!grid) {
@@ -517,9 +507,7 @@ function displayHomeStories() {
 function displayLatest() {
 
     const grid =
-        document.getElementById(
-            "latestGrid"
-        );
+        document.getElementById("latestGrid");
 
 
     if (!grid) {
@@ -529,10 +517,7 @@ function displayLatest() {
 
     const latest =
         [...getStories()]
-            .slice(
-                0,
-                4
-            );
+            .slice(0, 4);
 
 
     displayStories(
@@ -547,9 +532,7 @@ function displayLatest() {
 // CATEGORY
 // =========================================
 
-function showCategory(
-    category
-) {
+function showCategory(category) {
 
     const allStories =
         getStories();
@@ -562,10 +545,10 @@ function showCategory(
                 return (
 
                     String(
-                        story.category ||
-                        ""
+                        story.category || ""
                     )
                     .toLowerCase()
+                    .trim()
 
                     ===
 
@@ -573,6 +556,7 @@ function showCategory(
                         category
                     )
                     .toLowerCase()
+                    .trim()
 
                 );
 
@@ -609,9 +593,26 @@ function showCategory(
     }
 
 
-    title.innerText =
-        category +
-        " කතා";
+    // 18+ title
+
+    if (
+        String(category)
+            .toLowerCase()
+            .trim() === "18+"
+    ) {
+
+        title.innerText =
+            "🔞 18+ කතා";
+
+    }
+
+    else {
+
+        title.innerText =
+            category +
+            " කතා";
+
+    }
 
 
     displayStories(
@@ -625,8 +626,7 @@ function showCategory(
 
 
     results.scrollIntoView({
-        behavior:
-            "smooth"
+        behavior: "smooth"
     });
 
 }
@@ -661,8 +661,7 @@ function showAllStories() {
     if (storiesSection) {
 
         storiesSection.scrollIntoView({
-            behavior:
-                "smooth"
+            behavior: "smooth"
         });
 
     }
@@ -707,9 +706,7 @@ function searchStories() {
     }
 
 
-    if (
-        text === ""
-    ) {
+    if (text === "") {
 
         displayHomeStories();
 
@@ -725,52 +722,40 @@ function searchStories() {
                 return (
 
                     String(
-                        story.title ||
-                        ""
+                        story.title || ""
                     )
                     .toLowerCase()
-                    .includes(
-                        text
-                    )
+                    .includes(text)
 
 
                     ||
 
 
                     String(
-                        story.author ||
-                        ""
+                        story.author || ""
                     )
                     .toLowerCase()
-                    .includes(
-                        text
-                    )
+                    .includes(text)
 
 
                     ||
 
 
                     String(
-                        story.category ||
-                        ""
+                        story.category || ""
                     )
                     .toLowerCase()
-                    .includes(
-                        text
-                    )
+                    .includes(text)
 
 
                     ||
 
 
                     String(
-                        story.description ||
-                        ""
+                        story.description || ""
                     )
                     .toLowerCase()
-                    .includes(
-                        text
-                    )
+                    .includes(text)
 
                 );
 
@@ -793,8 +778,7 @@ function searchStories() {
     if (storiesSection) {
 
         storiesSection.scrollIntoView({
-            behavior:
-                "smooth"
+            behavior: "smooth"
         });
 
     }
@@ -890,11 +874,11 @@ function displayLibrary() {
                 return saved.some(
                     function(id) {
 
-                        return String(id)
+                        return (
+                            String(id)
                             ===
-                            String(
-                                story.id
-                            );
+                            String(story.id)
+                        );
 
                     }
                 );
@@ -932,8 +916,7 @@ async function refreshStories() {
                 .order(
                     "id",
                     {
-                        ascending:
-                            false
+                        ascending: false
                     }
                 );
 
@@ -964,9 +947,7 @@ async function refreshStories() {
 
     catch (error) {
 
-        console.error(
-            error
-        );
+        console.error(error);
 
     }
 
@@ -1021,3 +1002,4 @@ else {
     startWebsite();
 
 }
+```
