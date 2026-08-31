@@ -42,11 +42,17 @@
            NAVIGATION
         ========================================= */
 
-        .main-nav {
+        .main-navigation {
+            width: 100%;
+
             display: flex;
-            align-items: center;
+
             justify-content: center;
+
+            align-items: center;
+
             gap: 28px;
+
             padding: 15px 20px;
 
             background:
@@ -55,31 +61,44 @@
             border-bottom:
                 1px solid
                 rgba(255,255,255,0.08);
+
+            box-sizing: border-box;
         }
 
-        .main-nav a {
+
+        .main-navigation a {
+
             color: #aaa;
+
             text-decoration: none;
+
             font-size: 14px;
+
             transition: 0.2s;
+
         }
 
-        .main-nav a:hover {
+
+        .main-navigation a:hover {
+
             color: white;
+
         }
 
 
         /* =========================================
-           HIDDEN 18+ CATEGORY
+           HIDDEN 18+
         ========================================= */
 
         #adultCategory {
+
             display: none;
+
         }
 
 
         /* =========================================
-           SECRET 18+ BUTTON
+           18+ TRIGGER
         ========================================= */
 
         .adult-trigger {
@@ -90,7 +109,8 @@
 
             padding: 7px 12px;
 
-            border: 1px solid
+            border:
+                1px solid
                 rgba(255,255,255,0.08);
 
             border-radius: 8px;
@@ -104,10 +124,10 @@
 
             cursor: pointer;
 
-            text-decoration: none;
-
             transition: 0.2s;
+
         }
+
 
         .adult-trigger:hover {
 
@@ -115,6 +135,7 @@
 
             background:
                 rgba(255,255,255,0.08);
+
         }
 
 
@@ -125,18 +146,30 @@
         @media (max-width: 600px) {
 
             .site-banner img {
+
                 width: 100%;
+
                 height: auto;
+
             }
 
-            .main-nav {
+
+            .main-navigation {
+
                 gap: 15px;
-                padding: 12px 10px;
+
+                padding:
+                    12px 10px;
+
                 flex-wrap: wrap;
+
             }
 
-            .main-nav a {
+
+            .main-navigation a {
+
                 font-size: 13px;
+
             }
 
         }
@@ -150,13 +183,13 @@
 
 
 <!-- =========================================
-     BANNER
+     TOP BANNER
 ========================================= -->
 
 <div class="site-banner">
 
     <img
-        src="banner.png"
+        src="./banner.png"
         alt="කතා අරණ"
     >
 
@@ -170,7 +203,7 @@
 
 <header class="header">
 
-    <nav class="main-nav">
+    <nav class="main-navigation">
 
         <a href="index.html">
             මුල් පිටුව
@@ -213,6 +246,7 @@
                 WELCOME TO KATHA ARANA
             </p>
 
+
             <h1>
 
                 ඔබේ මීළඟ
@@ -222,6 +256,7 @@
                 </span>
 
             </h1>
+
 
             <p class="hero-text">
 
@@ -241,11 +276,14 @@
                     placeholder="🔍 කතාවක් සොයන්න..."
                 >
 
+
                 <button
                     type="button"
                     onclick="searchStories()"
                 >
+
                     සොයන්න
+
                 </button>
 
             </div>
@@ -269,6 +307,7 @@
             EXPLORE
         </p>
 
+
         <h2>
             කතා වර්ග
         </h2>
@@ -288,15 +327,18 @@
                     ❤️
                 </span>
 
+
                 <h3>
                     ආදර කතා
                 </h3>
+
 
                 <p>
                     Romance
                 </p>
 
             </div>
+
 
 
             <!-- HORROR -->
@@ -310,15 +352,18 @@
                     👻
                 </span>
 
+
                 <h3>
                     ත්‍රාසජනක
                 </h3>
+
 
                 <p>
                     Horror
                 </p>
 
             </div>
+
 
 
             <!-- MYSTERY -->
@@ -332,15 +377,18 @@
                     🔎
                 </span>
 
+
                 <h3>
                     අභිරහස්
                 </h3>
+
 
                 <p>
                     Mystery
                 </p>
 
             </div>
+
 
 
             <!-- FANTASY -->
@@ -354,15 +402,18 @@
                     🧙
                 </span>
 
+
                 <h3>
                     මනඃකල්පිත
                 </h3>
+
 
                 <p>
                     Fantasy
                 </p>
 
             </div>
+
 
 
             <!-- 18+ -->
@@ -377,9 +428,11 @@
                     🔞
                 </span>
 
+
                 <h3>
                     18+ කතා
                 </h3>
+
 
                 <p>
                     18+
@@ -406,11 +459,13 @@
 
         <div class="section-heading">
 
+
             <div>
 
                 <p class="label">
                     CATEGORY
                 </p>
+
 
                 <h2 id="categoryTitle">
                     කතා
@@ -429,6 +484,7 @@
 
             </button>
 
+
         </div>
 
 
@@ -436,6 +492,7 @@
             class="story-grid"
             id="categoryStoryGrid"
         ></div>
+
 
     </section>
 
@@ -452,17 +509,20 @@
 
         <div class="section-heading">
 
+
             <div>
 
                 <p class="label">
                     DISCOVER
                 </p>
 
+
                 <h2>
                     📚 ජනප්‍රිය කතා
                 </h2>
 
             </div>
+
 
         </div>
 
@@ -483,6 +543,7 @@
 
         </div>
 
+
     </section>
 
 
@@ -498,17 +559,20 @@
 
         <div class="section-heading">
 
+
             <div>
 
                 <p class="label">
                     JUST PUBLISHED
                 </p>
 
+
                 <h2>
                     🆕 අලුත්ම කතා
                 </h2>
 
             </div>
+
 
         </div>
 
@@ -529,6 +593,7 @@
 
         </div>
 
+
     </section>
 
 
@@ -544,17 +609,20 @@
 
         <div class="section-heading">
 
+
             <div>
 
                 <p class="label">
                     MY LIBRARY
                 </p>
 
+
                 <h2>
                     🔖 My Library
                 </h2>
 
             </div>
+
 
         </div>
 
@@ -563,6 +631,7 @@
             class="story-grid"
             id="libraryGrid"
         ></div>
+
 
     </section>
 
@@ -581,9 +650,11 @@
             KATHA ARANA
         </p>
 
+
         <h2>
             ඔබේම කතා අරණයට සාදරයෙන් පිළිගනිමු. 📖
         </h2>
+
 
         <p>
 
@@ -605,6 +676,7 @@
 ========================================= -->
 
 <footer>
+
 
     <div class="footer-logo">
 
@@ -640,6 +712,7 @@
 
     </div>
 
+
 </footer>
 
 
@@ -648,9 +721,13 @@
      SUPABASE
 ========================================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 
 <script src="supabase.js"></script>
+
 
 <script src="script.js"></script>
 
