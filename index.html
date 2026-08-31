@@ -20,15 +20,15 @@
 
     <style>
 
-        /* =====================================
+        /* =========================================
            HEADER PNG LOGO
-        ===================================== */
+        ========================================= */
 
         .header .logo {
             display: block !important;
 
-            width: 180px !important;
-            height: 45px !important;
+            width: 250px !important;
+            height: 62.5px !important;
 
             margin: 0 !important;
             padding: 0 !important;
@@ -43,6 +43,8 @@
             background: transparent !important;
 
             border: none !important;
+
+            flex-shrink: 0;
         }
 
 
@@ -61,8 +63,8 @@
         .header .logo img {
             display: block !important;
 
-            width: 180px !important;
-            height: 45px !important;
+            width: 250px !important;
+            height: 62.5px !important;
 
             margin: 0 !important;
             padding: 0 !important;
@@ -73,20 +75,43 @@
         }
 
 
-        /* =====================================
-           MOBILE LOGO
-        ===================================== */
+        /* =========================================
+           MOBILE
+        ========================================= */
 
-        @media (max-width: 550px) {
+        @media (max-width: 850px) {
 
             .header .logo {
-                width: 150px !important;
-                height: 38px !important;
+                width: 220px !important;
+                height: 55px !important;
             }
 
             .header .logo img {
-                width: 150px !important;
-                height: 38px !important;
+                width: 220px !important;
+                height: 55px !important;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .header {
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+
+            .header .logo {
+                width: 210px !important;
+                height: 52.5px !important;
+            }
+
+
+            .header .logo img {
+                width: 210px !important;
+                height: 52.5px !important;
             }
 
         }
@@ -106,7 +131,7 @@
 <header class="header">
 
 
-    <!-- PNG LOGO -->
+    <!-- KATHA ARANA PNG -->
 
     <a
         href="index.html"
@@ -156,6 +181,7 @@
             KATHA ARANA
         </p>
 
+
         <h1>
 
             ඔබේ මීළඟ
@@ -166,6 +192,7 @@
 
         </h1>
 
+
         <p class="hero-text">
 
             ආදරය, ත්‍රාසය, අභිරහස් සහ
@@ -173,6 +200,7 @@
             කියවන්න.
 
         </p>
+
 
 
         <!-- SEARCH -->
@@ -185,11 +213,14 @@
                 placeholder="කතාවක් සොයන්න..."
             >
 
+
             <button
                 type="button"
                 id="searchButton"
             >
+
                 🔎 සොයන්න
+
             </button>
 
         </div>
@@ -213,9 +244,11 @@
         EXPLORE
     </p>
 
+
     <h2>
         කතා වර්ග
     </h2>
+
 
 
     <div class="category-grid">
@@ -226,7 +259,9 @@
             onclick="showCategory('Romance')"
         >
 
-            <span>❤️</span>
+            <span>
+                ❤️
+            </span>
 
             <h3>
                 ආදර කතා
@@ -239,12 +274,15 @@
         </div>
 
 
+
         <div
             class="category"
             onclick="showCategory('Horror')"
         >
 
-            <span>👻</span>
+            <span>
+                👻
+            </span>
 
             <h3>
                 ත්‍රාසජනක
@@ -257,12 +295,15 @@
         </div>
 
 
+
         <div
             class="category"
             onclick="showCategory('Mystery')"
         >
 
-            <span>🔎</span>
+            <span>
+                🔎
+            </span>
 
             <h3>
                 අභිරහස්
@@ -275,12 +316,15 @@
         </div>
 
 
+
         <div
             class="category"
             onclick="showCategory('Fantasy')"
         >
 
-            <span>🧙</span>
+            <span>
+                🧙
+            </span>
 
             <h3>
                 මනඃකල්පිත
@@ -293,6 +337,7 @@
         </div>
 
 
+
         <!-- 18+ -->
 
         <div
@@ -301,7 +346,9 @@
             onclick="showCategory('18+')"
         >
 
-            <span>🔞</span>
+            <span>
+                🔞
+            </span>
 
             <h3>
                 18+ කතා
@@ -334,6 +381,7 @@
         CATEGORY
     </p>
 
+
     <h2 id="categoryTitle">
         කතා
     </h2>
@@ -360,6 +408,7 @@
     <p class="label">
         DISCOVER
     </p>
+
 
     <h2>
         📚 කතා
@@ -394,6 +443,7 @@
         JUST PUBLISHED
     </p>
 
+
     <h2>
         🆕 අලුත්ම කතා
     </h2>
@@ -427,6 +477,7 @@
         MY LIBRARY
     </p>
 
+
     <h2>
         🔖 My Library
     </h2>
@@ -435,9 +486,7 @@
     <div
         class="story-grid"
         id="libraryGrid"
-    >
-
-    </div>
+    ></div>
 
 </section>
 
@@ -455,6 +504,7 @@
     <p class="label">
         ABOUT US
     </p>
+
 
     <h2>
         කතා අරණ ගැන
