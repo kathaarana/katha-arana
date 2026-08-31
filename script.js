@@ -7,8 +7,6 @@
 
 let stories = [];
 
-let adultCategoryUnlocked = false;
-
 
 // =========================================
 // GET STORIES
@@ -20,7 +18,41 @@ function getStories() {
 
 
 // =========================================
-// LOAD STORIES
+// CHECK 18+ STORY
+// =========================================
+
+function isAdultStory(story) {
+    return String(story?.category || "")
+        .trim()
+        .toLowerCase() === "18+";
+}
+
+
+// =========================================
+// PUBLIC STORIES
+// 18+ STORIES ARE HIDDEN
+// =========================================
+
+function getPublicStories() {
+    return getStories().filter(function (story) {
+        return !isAdultStory(story);
+    });
+}
+
+
+// =========================================
+// 18+ STORIES
+// =========================================
+
+function getAdultStories() {
+    return getStories().filter(function (story) {
+        return isAdultStory(story);
+    });
+}
+
+
+// =========================================
+// LOAD STORIES FROM SUPABASE
 // =========================================
 
 async function loadStories() {
@@ -56,10 +88,14 @@ async function loadStories() {
         stories = data || [];
 
 
+        console.log(
+            "Stories loaded:",
+            stories
+        );
+
+
         displayHomeStories();
-
         displayLatest();
-
         displayLibrary();
 
     }
@@ -72,51 +108,7 @@ async function loadStories() {
         );
 
         showLoadingError();
-
     }
-
-}
-
-
-// =========================================
-// NORMAL PUBLIC STORIES
-// =========================================
-
-function getPublicStories() {
-
-    return getStories().filter(
-        function(story) {
-
-            return (
-                String(story.category || "")
-                    .toLowerCase()
-                    !== "18+"
-            );
-
-        }
-    );
-
-}
-
-
-// =========================================
-// 18+ STORIES
-// =========================================
-
-function getAdultStories() {
-
-    return getStories().filter(
-        function(story) {
-
-            return (
-                String(story.category || "")
-                    .toLowerCase()
-                    === "18+"
-            );
-
-        }
-    );
-
 }
 
 
@@ -129,37 +121,29 @@ function showLoadingError() {
     const grids = [
 
         document.getElementById("storyGrid"),
-
         document.getElementById("latestGrid"),
-
         document.getElementById("libraryGrid")
 
     ];
 
 
-    grids.forEach(
-        function(grid) {
+    grids.forEach(function (grid) {
 
-            if (!grid) {
-                return;
-            }
-
-
-            grid.innerHTML = `
-
-                <p style="
-                    color:#888;
-                    padding:20px;
-                ">
-
-                    කතා load කරන්න බැරි වුණා. 😔
-
-                </p>
-
-            `;
-
+        if (!grid) {
+            return;
         }
-    );
+
+
+        grid.innerHTML = `
+            <p style="
+                color:#888;
+                padding:20px;
+            ">
+                කතා load කරන්න බැරි වුණා. 😔
+            </p>
+        `;
+
+    });
 
 }
 
@@ -182,8 +166,7 @@ function createStoryCard(story) {
     // COVER
     // =====================================
 
-    let coverHTML =
-        "📖";
+    let coverHTML = "📖";
 
 
     if (
@@ -192,7 +175,6 @@ function createStoryCard(story) {
     ) {
 
         coverHTML = `
-
             <img
                 src="${escapeHTML(story.cover)}"
                 alt="${escapeHTML(
@@ -205,9 +187,7 @@ function createStoryCard(story) {
                     display:block;
                 "
             >
-
         `;
-
     }
 
 
@@ -228,7 +208,7 @@ function createStoryCard(story) {
 
 
     // =====================================
-    // CARD
+    // CARD HTML
     // =====================================
 
     card.innerHTML = `
@@ -304,11 +284,9 @@ function createStoryCard(story) {
                     👁️ ${views}
                 </span>
 
-
                 <span>
                     ❤️ ${likes}
                 </span>
-
 
                 <span>
                     ⭐ ${rating}
@@ -330,7 +308,6 @@ function createStoryCard(story) {
             </button>
 
         </div>
-
     `;
 
 
@@ -346,7 +323,7 @@ function createStoryCard(story) {
 
         readButton.addEventListener(
             "click",
-            function() {
+            function () {
 
                 openStory(story.id);
 
@@ -357,7 +334,6 @@ function createStoryCard(story) {
 
 
     return card;
-
 }
 
 
@@ -378,7 +354,6 @@ function escapeHTML(value) {
 
 
     return div.innerHTML;
-
 }
 
 
@@ -396,8 +371,7 @@ function displayStories(
     }
 
 
-    element.innerHTML =
-        "";
+    element.innerHTML = "";
 
 
     if (
@@ -406,33 +380,25 @@ function displayStories(
     ) {
 
         element.innerHTML = `
-
             <p style="
                 color:#888;
                 padding:20px;
             ">
-
                 මේ section එකේ තවම කතා නැහැ. 📚
-
             </p>
-
         `;
 
         return;
-
     }
 
 
-    storyList.forEach(
-        function(story) {
+    storyList.forEach(function (story) {
 
-            element.appendChild(
-                createStoryCard(story)
-            );
+        element.appendChild(
+            createStoryCard(story)
+        );
 
-        }
-    );
-
+    });
 }
 
 
@@ -443,14 +409,12 @@ function displayStories(
 function openStory(id) {
 
     const story =
-        getStories().find(
-            function(item) {
+        getStories().find(function (item) {
 
-                return String(item.id)
-                    === String(id);
+            return String(item.id) ===
+                String(id);
 
-            }
-        );
+        });
 
 
     if (!story) {
@@ -459,21 +423,16 @@ function openStory(id) {
 
 
     // =====================================
-    // 18+ STORY PROTECTION
+    // 18+ PROTECTION
     // =====================================
 
-    const isAdult =
-        String(
-            story.category || ""
-        ).toLowerCase()
-        === "18+";
-
-
-    if (isAdult) {
+    if (isAdultStory(story)) {
 
         const confirmed =
             confirm(
-                "🔞 18+ Content\n\nමෙම කතාව වැඩිහිටියන් සඳහා පමණි.\n\nඔබට ඉදිරියට යාමට අවශ්‍යද?"
+                "🔞 18+ Content\n\n" +
+                "මෙම කතාව වැඩිහිටියන් සඳහා පමණි.\n\n" +
+                "ඔබට ඉදිරියට යාමට අවශ්‍යද?"
             );
 
 
@@ -487,12 +446,12 @@ function openStory(id) {
     window.location.href =
         "story.html?id=" +
         encodeURIComponent(id);
-
 }
 
 
 // =========================================
-// DISPLAY HOME STORIES
+// HOME STORIES
+// 18+ STORIES NEVER APPEAR HERE
 // =========================================
 
 function displayHomeStories() {
@@ -508,19 +467,16 @@ function displayHomeStories() {
     }
 
 
-    // IMPORTANT:
-    // 18+ stories are NEVER shown here.
-
     displayStories(
         getPublicStories(),
         grid
     );
-
 }
 
 
 // =========================================
-// DISPLAY LATEST
+// LATEST STORIES
+// 18+ STORIES REMOVED FIRST
 // =========================================
 
 function displayLatest() {
@@ -536,19 +492,14 @@ function displayLatest() {
     }
 
 
-    // IMPORTANT:
-    // Remove 18+ before selecting latest.
-
     const latest =
-        getPublicStories()
-            .slice(0, 4);
+        getPublicStories().slice(0, 4);
 
 
     displayStories(
         latest,
         grid
     );
-
 }
 
 
@@ -564,13 +515,15 @@ function showCategory(category) {
 
     if (
         String(category)
-            .toLowerCase()
-        === "18+"
+            .trim()
+            .toLowerCase() === "18+"
     ) {
 
         const confirmed =
             confirm(
-                "🔞 18+ Content\n\nමෙම කොටස වැඩිහිටියන් සඳහා පමණි.\n\nඔබට ඉදිරියට යාමට අවශ්‍යද?"
+                "🔞 18+ Content\n\n" +
+                "මෙම කොටස වැඩිහිටියන් සඳහා පමණි.\n\n" +
+                "ඔබට ඉදිරියට යාමට අවශ්‍යද?"
             );
 
 
@@ -579,22 +532,17 @@ function showCategory(category) {
         }
 
 
-        adultCategoryUnlocked =
-            true;
-
-
         const adultStories =
             getAdultStories();
 
 
         showCategoryResults(
-            "18+ කතා",
+            "🔞 18+ කතා",
             adultStories
         );
 
 
         return;
-
     }
 
 
@@ -604,21 +552,17 @@ function showCategory(category) {
 
     const filtered =
         getPublicStories().filter(
-            function(story) {
+            function (story) {
 
-                return (
-
-                    String(
-                        story.category || ""
-                    )
+                return String(
+                    story.category || ""
+                )
+                    .trim()
                     .toLowerCase()
-
                     ===
-
                     String(category)
-                        .toLowerCase()
-
-                );
+                        .trim()
+                        .toLowerCase();
 
             }
         );
@@ -628,7 +572,6 @@ function showCategory(category) {
         category + " කතා",
         filtered
     );
-
 }
 
 
@@ -664,9 +607,7 @@ function showCategoryResults(
         !title ||
         !grid
     ) {
-
         return;
-
     }
 
 
@@ -687,7 +628,6 @@ function showCategoryResults(
     results.scrollIntoView({
         behavior: "smooth"
     });
-
 }
 
 
@@ -707,12 +647,7 @@ function showAllStories() {
 
         results.style.display =
             "none";
-
     }
-
-
-    adultCategoryUnlocked =
-        false;
 
 
     const storiesSection =
@@ -731,12 +666,12 @@ function showAllStories() {
 
 
     displayHomeStories();
-
 }
 
 
 // =========================================
 // SEARCH
+// 18+ STORIES NEVER APPEAR
 // =========================================
 
 function searchStories() {
@@ -774,49 +709,44 @@ function searchStories() {
         displayHomeStories();
 
         return;
-
     }
 
 
-    // IMPORTANT:
-    // Search only PUBLIC stories.
-    // 18+ stories are excluded.
-
     const results =
         getPublicStories().filter(
-            function(story) {
+            function (story) {
 
                 return (
 
                     String(
                         story.title || ""
                     )
-                    .toLowerCase()
-                    .includes(text)
+                        .toLowerCase()
+                        .includes(text)
 
                     ||
 
                     String(
                         story.author || ""
                     )
-                    .toLowerCase()
-                    .includes(text)
+                        .toLowerCase()
+                        .includes(text)
 
                     ||
 
                     String(
                         story.category || ""
                     )
-                    .toLowerCase()
-                    .includes(text)
+                        .toLowerCase()
+                        .includes(text)
 
                     ||
 
                     String(
                         story.description || ""
                     )
-                    .toLowerCase()
-                    .includes(text)
+                        .toLowerCase()
+                        .includes(text)
 
                 );
 
@@ -843,7 +773,6 @@ function searchStories() {
         });
 
     }
-
 }
 
 
@@ -868,7 +797,6 @@ function setupSearch() {
         "input",
         searchStories
     );
-
 }
 
 
@@ -903,12 +831,12 @@ function getLibrary() {
 
 
     return library;
-
 }
 
 
 // =========================================
 // DISPLAY LIBRARY
+// 18+ STORIES HIDDEN
 // =========================================
 
 function displayLibrary() {
@@ -928,21 +856,15 @@ function displayLibrary() {
         getLibrary();
 
 
-    // IMPORTANT:
-    // 18+ stories are excluded.
-
     const savedStories =
         getPublicStories().filter(
-            function(story) {
+            function (story) {
 
                 return saved.some(
-                    function(id) {
+                    function (id) {
 
-                        return (
-                            String(id)
-                            ===
-                            String(story.id)
-                        );
+                        return String(id) ===
+                            String(story.id);
 
                     }
                 );
@@ -955,7 +877,6 @@ function displayLibrary() {
         savedStories,
         grid
     );
-
 }
 
 
@@ -974,12 +895,9 @@ async function refreshStories() {
             await supabaseClient
                 .from("stories")
                 .select("*")
-                .order(
-                    "id",
-                    {
-                        ascending: false
-                    }
-                );
+                .order("id", {
+                    ascending: false
+                });
 
 
         if (error) {
@@ -990,7 +908,6 @@ async function refreshStories() {
             );
 
             return;
-
         }
 
 
@@ -999,9 +916,7 @@ async function refreshStories() {
 
 
         displayHomeStories();
-
         displayLatest();
-
         displayLibrary();
 
     }
@@ -1011,7 +926,6 @@ async function refreshStories() {
         console.error(error);
 
     }
-
 }
 
 
@@ -1027,9 +941,7 @@ async function startWebsite() {
 
 
     displayHomeStories();
-
     displayLatest();
-
     displayLibrary();
 
 
