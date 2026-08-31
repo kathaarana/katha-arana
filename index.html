@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="si">
 
@@ -100,20 +99,24 @@
         </p>
 
 
+
         <!-- SEARCH -->
 
-        <div class="search-box">
+        <form
+            class="search-box"
+            id="searchForm"
+        >
 
             <input
-                type="search"
+                type="text"
                 id="searchInput"
-                placeholder="කතාවක් සොයන්න..."
                 autocomplete="off"
+                placeholder="කතාවක් සොයන්න..."
             >
 
 
             <button
-                type="button"
+                type="submit"
                 id="searchButton"
             >
 
@@ -121,7 +124,8 @@
 
             </button>
 
-        </div>
+        </form>
+
 
     </div>
 
@@ -276,9 +280,24 @@
     </p>
 
 
-    <h2 id="categoryTitle">
-        කතා
-    </h2>
+    <div class="section-heading">
+
+        <h2 id="categoryTitle">
+            කතා
+        </h2>
+
+
+        <button
+            class="read-btn"
+            type="button"
+            onclick="showAllStories()"
+        >
+
+            ← සියලුම කතා
+
+        </button>
+
+    </div>
 
 
     <div
@@ -325,7 +344,7 @@
 
 
 <!-- =========================================
-     LATEST STORIES
+     LATEST
 ========================================= -->
 
 <section
@@ -380,7 +399,9 @@
     <div
         class="story-grid"
         id="libraryGrid"
-    ></div>
+    >
+
+    </div>
 
 </section>
 
@@ -455,14 +476,9 @@
 <script src="supabase.js"></script>
 
 
-<!-- =========================================
-     MAIN SCRIPT
-========================================= -->
-
 <script src="script.js"></script>
 
 
 </body>
 
 </html>
-```
