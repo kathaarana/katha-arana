@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="si">
 
@@ -18,482 +17,6 @@
         href="style.css"
     >
 
-    <style>
-
-        /* =========================================
-           STORY PAGE
-        ========================================= */
-
-        .story-page-header {
-            width: 100%;
-            min-height: 65px;
-            padding: 12px 20px;
-            box-sizing: border-box;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-
-            background: rgba(0,0,0,0.25);
-
-            border-bottom:
-                1px solid
-                rgba(255,255,255,0.08);
-        }
-
-
-        .story-page-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-
-        .story-page-header nav {
-            display: flex;
-            align-items: center;
-        }
-
-
-        .story-page-header nav a {
-            text-decoration: none;
-            color: inherit;
-
-            padding: 9px 14px;
-
-            border-radius: 9px;
-
-            background:
-                rgba(255,255,255,0.06);
-
-            transition: 0.2s;
-        }
-
-
-        .story-page-header nav a:hover {
-            background:
-                rgba(255,255,255,0.12);
-        }
-
-
-
-        /* =========================================
-           STORY READER
-        ========================================= */
-
-        .story-reader {
-            display: grid;
-
-            grid-template-columns:
-                240px 1fr;
-
-            gap: 35px;
-
-            align-items: start;
-        }
-
-
-        .reader-cover {
-            width: 100%;
-            max-width: 240px;
-
-            aspect-ratio: 2 / 3;
-
-            border-radius: 16px;
-
-            overflow: hidden;
-
-            background:
-                rgba(255,255,255,0.05);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 50px;
-        }
-
-
-        .reader-cover img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            display: block;
-        }
-
-
-        .reader-info h1 {
-            margin-top: 5px;
-            margin-bottom: 12px;
-        }
-
-
-        .reader-info .author {
-            color: #aaa;
-            margin-bottom: 18px;
-        }
-
-
-        .reader-info .description {
-            color: #aaa;
-            line-height: 1.8;
-        }
-
-
-        .reader-controls {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 9px;
-
-            margin-top: 22px;
-        }
-
-
-        .reader-controls button {
-            border: none;
-
-            padding: 10px 14px;
-
-            border-radius: 9px;
-
-            cursor: pointer;
-
-            background:
-                rgba(255,255,255,0.08);
-
-            color: inherit;
-
-            transition: 0.2s;
-        }
-
-
-        .reader-controls button:hover {
-            background:
-                rgba(255,255,255,0.15);
-        }
-
-
-
-        /* =========================================
-           CHAPTER LIST
-        ========================================= */
-
-        #chapterList {
-            display: grid;
-
-            gap: 10px;
-        }
-
-
-        .chapter-button {
-            width: 100%;
-
-            text-align: left;
-
-            padding: 15px 17px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,0.04);
-
-            color: inherit;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-
-            font-size: 15px;
-        }
-
-
-        .chapter-button:hover {
-            background:
-                rgba(255,255,255,0.09);
-
-            transform:
-                translateX(3px);
-        }
-
-
-
-        /* =========================================
-           READING AREA
-        ========================================= */
-
-        .reading-area {
-            padding: 30px;
-
-            border-radius: 18px;
-
-            background:
-                rgba(255,255,255,0.035);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.07);
-        }
-
-
-        .chapter-content {
-            font-size: 19px;
-
-            line-height: 1.9;
-
-            color: inherit;
-
-            white-space: normal;
-
-            overflow-wrap: anywhere;
-
-            margin-top: 25px;
-        }
-
-
-        .chapter-content p {
-            margin-bottom: 22px;
-        }
-
-
-        .chapter-buttons {
-            display: flex;
-
-            gap: 10px;
-
-            margin-top: 30px;
-
-            flex-wrap: wrap;
-        }
-
-
-        .read-btn {
-            display: inline-block;
-
-            border: none;
-
-            padding: 11px 17px;
-
-            border-radius: 10px;
-
-            cursor: pointer;
-
-            background:
-                rgba(255,255,255,0.1);
-
-            color: inherit;
-
-            text-decoration: none;
-
-            transition: 0.2s;
-        }
-
-
-        .read-btn:hover {
-            background:
-                rgba(255,255,255,0.17);
-        }
-
-
-
-        /* =========================================
-           FULL READING MODE
-           HEADER SPACE COMPLETELY REMOVED
-        ========================================= */
-
-        body.reading-mode {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-
-        body.reading-mode .story-page-header,
-        body.reading-mode footer,
-        body.reading-mode #storyInfo,
-        body.reading-mode #chapterListSection {
-            display: none !important;
-        }
-
-
-        body.reading-mode .section {
-            width: 100% !important;
-
-            max-width: 100% !important;
-
-            margin: 0 !important;
-
-            padding:
-                25px
-                6% !important;
-        }
-
-
-        body.reading-mode .reading-area {
-            width: 100% !important;
-
-            max-width: 950px !important;
-
-            margin:
-                0 auto !important;
-
-            padding:
-                25px 0 !important;
-
-            border: none !important;
-
-            background: transparent !important;
-
-            box-shadow: none !important;
-        }
-
-
-        body.reading-mode .chapter-content {
-            max-width: 900px;
-
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-
-
-        /* =========================================
-           WHEN CHAPTER IS OPEN
-           AUTOMATIC READING MODE
-        ========================================= */
-
-        body.auto-reading-mode .story-page-header,
-        body.auto-reading-mode footer,
-        body.auto-reading-mode #storyInfo,
-        body.auto-reading-mode #chapterListSection {
-            display: none !important;
-        }
-
-
-        body.auto-reading-mode .section {
-            width: 100% !important;
-
-            max-width: 100% !important;
-
-            margin: 0 !important;
-
-            padding:
-                25px
-                6% !important;
-        }
-
-
-        body.auto-reading-mode .reading-area {
-            width: 100% !important;
-
-            max-width: 950px !important;
-
-            margin:
-                0 auto !important;
-
-            padding:
-                25px 0 !important;
-
-            border: none !important;
-
-            background: transparent !important;
-
-            box-shadow: none !important;
-        }
-
-
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
-        @media (max-width: 700px) {
-
-            .story-page-header {
-                min-height: 58px;
-
-                padding:
-                    10px 14px;
-            }
-
-
-            .story-page-logo {
-                font-size: 17px;
-            }
-
-
-            .story-page-header nav a {
-                font-size: 13px;
-
-                padding:
-                    8px 10px;
-            }
-
-
-            .story-reader {
-                grid-template-columns: 1fr;
-
-                gap: 25px;
-            }
-
-
-            .reader-cover {
-                width: 180px;
-
-                margin: 0 auto;
-            }
-
-
-            .reader-info {
-                text-align: center;
-            }
-
-
-            .reader-controls {
-                justify-content: center;
-            }
-
-
-            .story-meta {
-                justify-content: center;
-            }
-
-
-            .reading-area {
-                padding:
-                    20px 15px;
-            }
-
-
-            .chapter-content {
-                font-size: 18px;
-
-                line-height: 1.85;
-            }
-
-
-            body.reading-mode .section,
-            body.auto-reading-mode .section {
-                padding:
-                    20px 18px !important;
-            }
-
-        }
-
-    </style>
-
 </head>
 
 
@@ -502,6 +25,7 @@
 
 <!-- =====================================================
      STORY HEADER
+     HOME BANNER IS NOT HERE
 ===================================================== -->
 
 <header class="story-page-header">
@@ -566,7 +90,6 @@
 
     <section
         id="chapterListSection"
-        style="margin-top:40px;"
     >
 
         <p class="label">
@@ -595,7 +118,7 @@
 
     <!-- =================================================
          READING AREA
-    ================================================= -->
+    ================================================== -->
 
     <article
         class="reading-area"
@@ -687,7 +210,6 @@ const storyId =
     params.get("id");
 
 
-
 // =====================================================
 // ELEMENTS
 // =====================================================
@@ -710,7 +232,6 @@ const chapterArea =
     );
 
 
-
 // =====================================================
 // VARIABLES
 // =====================================================
@@ -720,7 +241,6 @@ let currentStory = null;
 let currentChapters = [];
 
 let readerFontSize = 19;
-
 
 
 // =====================================================
@@ -777,7 +297,6 @@ async function loadStory() {
         }
 
 
-
         // =============================================
         // 18+
         // =============================================
@@ -814,7 +333,6 @@ async function loadStory() {
         }
 
 
-
         currentStory =
             story;
 
@@ -828,11 +346,9 @@ async function loadStory() {
             " | කතා අරණ";
 
 
-
         displayStory(
             story
         );
-
 
 
         // =============================================
@@ -879,6 +395,9 @@ async function loadStory() {
         }
 
 
+        // =============================================
+        // CHAPTERS
+        // =============================================
 
         await loadChapters(
             story.id
@@ -898,7 +417,6 @@ async function loadStory() {
     }
 
 }
-
 
 
 // =====================================================
@@ -1087,7 +605,6 @@ function displayStory(
 }
 
 
-
 // =====================================================
 // LOAD CHAPTERS
 // =====================================================
@@ -1164,7 +681,6 @@ async function loadChapters(
     }
 
 }
-
 
 
 // =====================================================
@@ -1258,7 +774,6 @@ function displayChapters(
     );
 
 }
-
 
 
 // =====================================================
@@ -1372,21 +887,6 @@ function openChapter(
     `;
 
 
-
-    // =============================================
-    // AUTOMATICALLY HIDE HEADER
-    // =============================================
-
-    document.body.classList.add(
-        "auto-reading-mode"
-    );
-
-
-
-    // =============================================
-    // PREVIOUS
-    // =============================================
-
     const previousButton =
         document.getElementById(
             "previousChapterButton"
@@ -1410,11 +910,6 @@ function openChapter(
 
     }
 
-
-
-    // =============================================
-    // NEXT
-    // =============================================
 
     const nextButton =
         document.getElementById(
@@ -1443,18 +938,12 @@ function openChapter(
     applyFontSize();
 
 
-
-    // =============================================
-    // SCROLL TO TOP OF READING AREA
-    // =============================================
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+    chapterArea.scrollIntoView({
+        behavior:
+            "smooth"
     });
 
 }
-
 
 
 // =====================================================
@@ -1492,7 +981,6 @@ function toggleLike() {
     updateReaderButtons();
 
 }
-
 
 
 // =====================================================
@@ -1536,7 +1024,6 @@ function toggleBookmark() {
     updateReaderButtons();
 
 }
-
 
 
 // =====================================================
@@ -1598,7 +1085,6 @@ function updateLibrary(
     );
 
 }
-
 
 
 // =====================================================
@@ -1664,7 +1150,6 @@ function updateReaderButtons() {
 }
 
 
-
 // =====================================================
 // FONT SIZE
 // =====================================================
@@ -1702,7 +1187,6 @@ function changeFontSize(
 }
 
 
-
 // =====================================================
 // APPLY FONT SIZE
 // =====================================================
@@ -1730,24 +1214,19 @@ function applyFontSize() {
 }
 
 
-
 // =====================================================
 // READING MODE
 // =====================================================
 
 function toggleReadingMode() {
 
-    document.body.classList.toggle(
-        "reading-mode"
-    );
-
-
-    document.body.classList.remove(
-        "auto-reading-mode"
-    );
+    document.body
+        .classList
+        .toggle(
+            "reading-mode"
+        );
 
 }
-
 
 
 // =====================================================
@@ -1810,7 +1289,6 @@ function showStoryNotFound() {
 }
 
 
-
 // =====================================================
 // ESCAPE HTML
 // =====================================================
@@ -1836,7 +1314,6 @@ function escapeHTML(
 }
 
 
-
 // =====================================================
 // START
 // =====================================================
@@ -1856,4 +1333,3 @@ document.addEventListener(
 </body>
 
 </html>
-```
