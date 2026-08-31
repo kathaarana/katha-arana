@@ -1,3 +1,4 @@
+```javascript
 // =========================================
 // KATHA ARANA
 // MAIN WEBSITE SCRIPT
@@ -6,9 +7,11 @@
 
 let stories = [];
 
+let adultCategoryUnlocked = false;
+
 
 // =========================================
-// GET ALL STORIES
+// GET STORIES
 // =========================================
 
 function getStories() {
@@ -17,7 +20,7 @@ function getStories() {
 
 
 // =========================================
-// LOAD STORIES FROM SUPABASE
+// LOAD STORIES
 // =========================================
 
 async function loadStories() {
@@ -36,6 +39,7 @@ async function loadStories() {
                 ascending: false
             });
 
+
         if (error) {
 
             console.error(
@@ -48,15 +52,14 @@ async function loadStories() {
             return;
         }
 
+
         stories = data || [];
 
-        console.log(
-            "Stories loaded:",
-            stories
-        );
 
         displayHomeStories();
+
         displayLatest();
+
         displayLibrary();
 
     }
@@ -69,7 +72,51 @@ async function loadStories() {
         );
 
         showLoadingError();
+
     }
+
+}
+
+
+// =========================================
+// NORMAL PUBLIC STORIES
+// =========================================
+
+function getPublicStories() {
+
+    return getStories().filter(
+        function(story) {
+
+            return (
+                String(story.category || "")
+                    .toLowerCase()
+                    !== "18+"
+            );
+
+        }
+    );
+
+}
+
+
+// =========================================
+// 18+ STORIES
+// =========================================
+
+function getAdultStories() {
+
+    return getStories().filter(
+        function(story) {
+
+            return (
+                String(story.category || "")
+                    .toLowerCase()
+                    === "18+"
+            );
+
+        }
+    );
+
 }
 
 
@@ -80,27 +127,40 @@ async function loadStories() {
 function showLoadingError() {
 
     const grids = [
+
         document.getElementById("storyGrid"),
+
         document.getElementById("latestGrid"),
+
         document.getElementById("libraryGrid")
+
     ];
 
-    grids.forEach(function(grid) {
 
-        if (!grid) {
-            return;
+    grids.forEach(
+        function(grid) {
+
+            if (!grid) {
+                return;
+            }
+
+
+            grid.innerHTML = `
+
+                <p style="
+                    color:#888;
+                    padding:20px;
+                ">
+
+                    කතා load කරන්න බැරි වුණා. 😔
+
+                </p>
+
+            `;
+
         }
+    );
 
-        grid.innerHTML = `
-            <p style="
-                color:#888;
-                padding:20px;
-            ">
-                කතා load කරන්න බැරි වුණා. 😔
-            </p>
-        `;
-
-    });
 }
 
 
@@ -113,6 +173,7 @@ function createStoryCard(story) {
     const card =
         document.createElement("article");
 
+
     card.className =
         "story-card";
 
@@ -121,7 +182,9 @@ function createStoryCard(story) {
     // COVER
     // =====================================
 
-    let coverHTML = "📖";
+    let coverHTML =
+        "📖";
+
 
     if (
         story.cover &&
@@ -129,6 +192,7 @@ function createStoryCard(story) {
     ) {
 
         coverHTML = `
+
             <img
                 src="${escapeHTML(story.cover)}"
                 alt="${escapeHTML(
@@ -141,7 +205,9 @@ function createStoryCard(story) {
                     display:block;
                 "
             >
+
         `;
+
     }
 
 
@@ -152,8 +218,10 @@ function createStoryCard(story) {
     const views =
         Number(story.views || 0);
 
+
     const likes =
         Number(story.liked || 0);
+
 
     const rating =
         Number(story.rating || 0);
@@ -170,9 +238,11 @@ function createStoryCard(story) {
             ${coverHTML}
 
             <div class="cover-label">
+
                 ${escapeHTML(
                     story.category || "Story"
                 )}
+
             </div>
 
         </div>
@@ -181,31 +251,40 @@ function createStoryCard(story) {
         <div class="story-info">
 
             <p class="label">
+
                 ${escapeHTML(
                     story.category || ""
                 )}
+
             </p>
 
 
             <h3>
+
                 ${escapeHTML(
                     story.title || "Untitled"
                 )}
+
             </h3>
 
 
             <p>
+
                 ✍️
+
                 ${escapeHTML(
                     story.author || "කතා අරණ"
                 )}
+
             </p>
 
 
             <p>
+
                 ${escapeHTML(
                     story.description || ""
                 )}
+
             </p>
 
 
@@ -225,9 +304,11 @@ function createStoryCard(story) {
                     👁️ ${views}
                 </span>
 
+
                 <span>
                     ❤️ ${likes}
                 </span>
+
 
                 <span>
                     ⭐ ${rating}
@@ -243,10 +324,13 @@ function createStoryCard(story) {
                     story.id
                 )}"
             >
+
                 කියවන්න →
+
             </button>
 
         </div>
+
     `;
 
 
@@ -256,6 +340,7 @@ function createStoryCard(story) {
 
     const readButton =
         card.querySelector(".read-btn");
+
 
     if (readButton) {
 
@@ -270,7 +355,9 @@ function createStoryCard(story) {
 
     }
 
+
     return card;
+
 }
 
 
@@ -283,12 +370,15 @@ function escapeHTML(value) {
     const div =
         document.createElement("div");
 
+
     div.textContent =
         value == null
             ? ""
             : String(value);
 
+
     return div.innerHTML;
+
 }
 
 
@@ -305,7 +395,10 @@ function displayStories(
         return;
     }
 
-    element.innerHTML = "";
+
+    element.innerHTML =
+        "";
+
 
     if (
         !storyList ||
@@ -313,15 +406,20 @@ function displayStories(
     ) {
 
         element.innerHTML = `
+
             <p style="
                 color:#888;
                 padding:20px;
             ">
+
                 මේ section එකේ තවම කතා නැහැ. 📚
+
             </p>
+
         `;
 
         return;
+
     }
 
 
@@ -334,6 +432,7 @@ function displayStories(
 
         }
     );
+
 }
 
 
@@ -343,9 +442,52 @@ function displayStories(
 
 function openStory(id) {
 
+    const story =
+        getStories().find(
+            function(item) {
+
+                return String(item.id)
+                    === String(id);
+
+            }
+        );
+
+
+    if (!story) {
+        return;
+    }
+
+
+    // =====================================
+    // 18+ STORY PROTECTION
+    // =====================================
+
+    const isAdult =
+        String(
+            story.category || ""
+        ).toLowerCase()
+        === "18+";
+
+
+    if (isAdult) {
+
+        const confirmed =
+            confirm(
+                "🔞 18+ Content\n\nමෙම කතාව වැඩිහිටියන් සඳහා පමණි.\n\nඔබට ඉදිරියට යාමට අවශ්‍යද?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+    }
+
+
     window.location.href =
         "story.html?id=" +
         encodeURIComponent(id);
+
 }
 
 
@@ -356,39 +498,57 @@ function openStory(id) {
 function displayHomeStories() {
 
     const grid =
-        document.getElementById("storyGrid");
+        document.getElementById(
+            "storyGrid"
+        );
+
 
     if (!grid) {
         return;
     }
 
+
+    // IMPORTANT:
+    // 18+ stories are NEVER shown here.
+
     displayStories(
-        getStories(),
+        getPublicStories(),
         grid
     );
+
 }
 
 
 // =========================================
-// DISPLAY LATEST STORIES
+// DISPLAY LATEST
 // =========================================
 
 function displayLatest() {
 
     const grid =
-        document.getElementById("latestGrid");
+        document.getElementById(
+            "latestGrid"
+        );
+
 
     if (!grid) {
         return;
     }
 
+
+    // IMPORTANT:
+    // Remove 18+ before selecting latest.
+
     const latest =
-        [...getStories()].slice(0, 4);
+        getPublicStories()
+            .slice(0, 4);
+
 
     displayStories(
         latest,
         grid
     );
+
 }
 
 
@@ -398,36 +558,100 @@ function displayLatest() {
 
 function showCategory(category) {
 
-    const allStories =
-        getStories();
+    // =====================================
+    // 18+ CATEGORY
+    // =====================================
+
+    if (
+        String(category)
+            .toLowerCase()
+        === "18+"
+    ) {
+
+        const confirmed =
+            confirm(
+                "🔞 18+ Content\n\nමෙම කොටස වැඩිහිටියන් සඳහා පමණි.\n\nඔබට ඉදිරියට යාමට අවශ්‍යද?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        adultCategoryUnlocked =
+            true;
+
+
+        const adultStories =
+            getAdultStories();
+
+
+        showCategoryResults(
+            "18+ කතා",
+            adultStories
+        );
+
+
+        return;
+
+    }
+
+
+    // =====================================
+    // NORMAL CATEGORY
+    // =====================================
 
     const filtered =
-        allStories.filter(
+        getPublicStories().filter(
             function(story) {
 
                 return (
+
                     String(
                         story.category || ""
                     )
                     .toLowerCase()
+
                     ===
+
                     String(category)
                         .toLowerCase()
+
                 );
 
             }
         );
 
 
+    showCategoryResults(
+        category + " කතා",
+        filtered
+    );
+
+}
+
+
+// =========================================
+// SHOW CATEGORY RESULTS
+// =========================================
+
+function showCategoryResults(
+    titleText,
+    storyList
+) {
+
     const results =
         document.getElementById(
             "categoryResults"
         );
 
+
     const title =
         document.getElementById(
             "categoryTitle"
         );
+
 
     const grid =
         document.getElementById(
@@ -440,16 +664,18 @@ function showCategory(category) {
         !title ||
         !grid
     ) {
+
         return;
+
     }
 
 
     title.innerText =
-        category + " කතා";
+        titleText;
 
 
     displayStories(
-        filtered,
+        storyList,
         grid
     );
 
@@ -461,6 +687,7 @@ function showCategory(category) {
     results.scrollIntoView({
         behavior: "smooth"
     });
+
 }
 
 
@@ -475,11 +702,17 @@ function showAllStories() {
             "categoryResults"
         );
 
+
     if (results) {
 
         results.style.display =
             "none";
+
     }
+
+
+    adultCategoryUnlocked =
+        false;
 
 
     const storiesSection =
@@ -487,15 +720,18 @@ function showAllStories() {
             "stories"
         );
 
+
     if (storiesSection) {
 
         storiesSection.scrollIntoView({
             behavior: "smooth"
         });
+
     }
 
 
     displayHomeStories();
+
 }
 
 
@@ -509,6 +745,7 @@ function searchStories() {
         document.getElementById(
             "searchBox"
         );
+
 
     if (!input) {
         return;
@@ -526,6 +763,7 @@ function searchStories() {
             "storyGrid"
         );
 
+
     if (!grid) {
         return;
     }
@@ -536,11 +774,16 @@ function searchStories() {
         displayHomeStories();
 
         return;
+
     }
 
 
+    // IMPORTANT:
+    // Search only PUBLIC stories.
+    // 18+ stories are excluded.
+
     const results =
-        getStories().filter(
+        getPublicStories().filter(
             function(story) {
 
                 return (
@@ -592,6 +835,7 @@ function searchStories() {
             "stories"
         );
 
+
     if (storiesSection) {
 
         storiesSection.scrollIntoView({
@@ -599,6 +843,7 @@ function searchStories() {
         });
 
     }
+
 }
 
 
@@ -613,15 +858,19 @@ function setupSearch() {
             "searchBox"
         );
 
+
     if (!searchBox) {
         return;
     }
+
 
     searchBox.addEventListener(
         "input",
         searchStories
     );
+
 }
+
 
 setupSearch();
 
@@ -633,6 +882,7 @@ setupSearch();
 function getLibrary() {
 
     let library = [];
+
 
     try {
 
@@ -648,9 +898,12 @@ function getLibrary() {
     catch (error) {
 
         library = [];
+
     }
 
+
     return library;
+
 }
 
 
@@ -665,6 +918,7 @@ function displayLibrary() {
             "libraryGrid"
         );
 
+
     if (!grid) {
         return;
     }
@@ -674,8 +928,11 @@ function displayLibrary() {
         getLibrary();
 
 
+    // IMPORTANT:
+    // 18+ stories are excluded.
+
     const savedStories =
-        getStories().filter(
+        getPublicStories().filter(
             function(story) {
 
                 return saved.some(
@@ -698,11 +955,12 @@ function displayLibrary() {
         savedStories,
         grid
     );
+
 }
 
 
 // =========================================
-// REFRESH HOME DATA
+// REFRESH STORIES
 // =========================================
 
 async function refreshStories() {
@@ -732,6 +990,7 @@ async function refreshStories() {
             );
 
             return;
+
         }
 
 
@@ -740,7 +999,9 @@ async function refreshStories() {
 
 
         displayHomeStories();
+
         displayLatest();
+
         displayLibrary();
 
     }
@@ -750,6 +1011,7 @@ async function refreshStories() {
         console.error(error);
 
     }
+
 }
 
 
@@ -797,3 +1059,4 @@ else {
     startWebsite();
 
 }
+```
