@@ -2,7 +2,6 @@
 // =========================================
 // KATHA ARANA
 // MAIN WEBSITE SCRIPT
-// SUPABASE VERSION
 // =========================================
 
 let stories = [];
@@ -36,8 +35,10 @@ function isAdultStory(story) {
 
 function getPublicStories() {
 
-    return getStories().filter(function (story) {
+    return stories.filter(function (story) {
+
         return !isAdultStory(story);
+
     });
 }
 
@@ -48,8 +49,10 @@ function getPublicStories() {
 
 function getAdultStories() {
 
-    return getStories().filter(function (story) {
+    return stories.filter(function (story) {
+
         return isAdultStory(story);
+
     });
 }
 
@@ -60,7 +63,8 @@ function getAdultStories() {
 
 function escapeHTML(value) {
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
 
     div.textContent =
         value == null ? "" : String(value);
@@ -70,102 +74,14 @@ function escapeHTML(value) {
 
 
 // =========================================
-// LOAD REAL RATINGS
-// =========================================
-
-async function loadRatingsForStories(storyList) {
-
-    if (!storyList || storyList.length === 0) {
-        return;
-    }
-
-    await Promise.all(
-
-        storyList.map(async function (story) {
-
-            try {
-
-                const result =
-                    await supabaseClient.rpc(
-                        "get_story_rating",
-                        {
-                            p_story_id: Number(story.id)
-                        }
-                    );
-
-                if (result.error) {
-
-                    console.error(
-                        "Rating error for story",
-                        story.id,
-                        result.error
-                    );
-
-                    return;
-                }
-
-                const data = result.data;
-
-                let average = 0;
-                let count = 0;
-
-                if (
-                    Array.isArray(data) &&
-                    data.length > 0
-                ) {
-
-                    average =
-                        Number(
-                            data[0].average_rating || 0
-                        );
-
-                    count =
-                        Number(
-                            data[0].rating_count || 0
-                        );
-
-                }
-                else if (data) {
-
-                    average =
-                        Number(
-                            data.average_rating || 0
-                        );
-
-                    count =
-                        Number(
-                            data.rating_count || 0
-                        );
-                }
-
-                story._averageRating = average;
-                story._ratingCount = count;
-
-            }
-            catch (error) {
-
-                console.error(
-                    "Rating load failed:",
-                    error
-                );
-
-            }
-
-        })
-
-    );
-}
-
-
-// =========================================
 // LOAD STORIES
 // =========================================
 
 async function loadStories() {
 
-    try {
+    console.log("📚 Loading stories...");
 
-        console.log("Loading stories...");
+    try {
 
         const result =
             await supabaseClient
@@ -175,14 +91,18 @@ async function loadStories() {
                     ascending: false
                 });
 
-        const data = result.data;
-        const error = result.error;
 
-        if (error) {
+        console.log(
+            "📚 Supabase result:",
+            result
+        );
+
+
+        if (result.error) {
 
             console.error(
-                "Supabase stories error:",
-                error
+                "❌ Stories error:",
+                result.error
             );
 
             showLoadingError();
@@ -190,24 +110,23 @@ async function loadStories() {
             return;
         }
 
-        stories = data || [];
+
+        stories =
+            result.data || [];
+
 
         console.log(
-            "Stories loaded:",
+            "✅ Stories:",
             stories
         );
 
 
-        // =====================================
-        // LOAD REAL RATINGS
-        // =====================================
+        // IMPORTANT:
+        // Rating load failure must NOT
+        // stop stories from appearing.
 
-        await loadRatingsForStories(stories);
+        await loadRatings();
 
-
-        // =====================================
-        // DISPLAY
-        // =====================================
 
         displayHomeStories();
 
@@ -215,17 +134,121 @@ async function loadStories() {
 
         displayLibrary();
 
-
     }
     catch (error) {
 
         console.error(
-            "Load stories error:",
+            "❌ loadStories error:",
             error
         );
 
         showLoadingError();
+
     }
+}
+
+
+// =========================================
+// LOAD RATINGS
+// =========================================
+
+async function loadRatings() {
+
+    if (!stories.length) {
+        return;
+    }
+
+
+    await Promise.all(
+
+        stories.map(
+            async function (story) {
+
+                try {
+
+                    const result =
+                        await supabaseClient.rpc(
+                            "get_story_rating",
+                            {
+                                p_story_id:
+                                    Number(story.id)
+                            }
+                        );
+
+
+                    if (result.error) {
+
+                        console.warn(
+                            "Rating failed:",
+                            story.id,
+                            result.error
+                        );
+
+                        story._averageRating =
+                            Number(
+                                story.rating || 0
+                            );
+
+                        return;
+                    }
+
+
+                    let average = 0;
+
+
+                    const data =
+                        result.data;
+
+
+                    if (
+                        Array.isArray(data) &&
+                        data.length > 0
+                    ) {
+
+                        average =
+                            Number(
+                                data[0]
+                                    .average_rating
+                                || 0
+                            );
+
+                    }
+                    else if (data) {
+
+                        average =
+                            Number(
+                                data.average_rating
+                                || 0
+                            );
+
+                    }
+
+
+                    story._averageRating =
+                        average;
+
+                }
+                catch (error) {
+
+                    console.warn(
+                        "Rating exception:",
+                        story.id,
+                        error
+                    );
+
+
+                    story._averageRating =
+                        Number(
+                            story.rating || 0
+                        );
+
+                }
+
+            }
+        )
+
+    );
+
 }
 
 
@@ -237,15 +260,24 @@ function showLoadingError() {
 
     const grids = [
 
-        document.getElementById("storyGrid"),
+        document.getElementById(
+            "storyGrid"
+        ),
 
-        document.getElementById("latestGrid"),
+        document.getElementById(
+            "latestGrid"
+        ),
 
-        document.getElementById("libraryGrid"),
+        document.getElementById(
+            "libraryGrid"
+        ),
 
-        document.getElementById("categoryStoryGrid")
+        document.getElementById(
+            "categoryStoryGrid"
+        )
 
     ];
+
 
     grids.forEach(function (grid) {
 
@@ -253,15 +285,22 @@ function showLoadingError() {
             return;
         }
 
+
         grid.innerHTML = `
+
             <p style="
                 color:#888;
                 padding:20px;
             ">
+
                 කතා load කරන්න බැරි වුණා. 😔
+
             </p>
+
         `;
+
     });
+
 }
 
 
@@ -274,14 +313,18 @@ function createStoryCard(story) {
     const card =
         document.createElement("article");
 
-    card.className = "story-card";
+
+    card.className =
+        "story-card";
 
 
     // =====================================
     // COVER
     // =====================================
 
-    let coverHTML = "📖";
+    let coverHTML =
+        "📖";
+
 
     if (
         story.cover &&
@@ -289,14 +332,19 @@ function createStoryCard(story) {
     ) {
 
         coverHTML = `
+
             <img
-                src="${escapeHTML(story.cover)}"
+                src="${escapeHTML(
+                    story.cover
+                )}"
                 alt="${escapeHTML(
                     story.title || "Story"
                 )}"
                 loading="lazy"
             >
+
         `;
+
     }
 
 
@@ -305,18 +353,19 @@ function createStoryCard(story) {
     // =====================================
 
     const views =
-        Number(story.views || 0);
+        Number(
+            story.views || 0
+        );
 
 
     // =====================================
     // LIKES
-    // IMPORTANT:
-    // USE story.likes
-    // NOT story.liked
     // =====================================
 
     const likes =
-        Number(story.likes || 0);
+        Number(
+            story.likes || 0
+        );
 
 
     // =====================================
@@ -325,8 +374,10 @@ function createStoryCard(story) {
 
     let rating = 0;
 
+
     if (
-        story._averageRating !== undefined
+        story._averageRating !==
+        undefined
     ) {
 
         rating =
@@ -341,11 +392,12 @@ function createStoryCard(story) {
             Number(
                 story.rating || 0
             );
+
     }
 
 
     // =====================================
-    // CARD HTML
+    // CARD
     // =====================================
 
     card.innerHTML = `
@@ -355,9 +407,12 @@ function createStoryCard(story) {
             ${coverHTML}
 
             <div class="cover-label">
+
                 ${escapeHTML(
-                    story.category || "Story"
+                    story.category ||
+                    "Story"
                 )}
+
             </div>
 
         </div>
@@ -366,46 +421,66 @@ function createStoryCard(story) {
         <div class="story-info">
 
             <p class="label">
+
                 ${escapeHTML(
                     story.category || ""
                 )}
+
             </p>
 
 
             <h3>
+
                 ${escapeHTML(
-                    story.title || "Untitled"
+                    story.title ||
+                    "Untitled"
                 )}
+
             </h3>
 
 
             <p>
+
                 ✍️
+
                 ${escapeHTML(
-                    story.author || "කතා අරණ"
+                    story.author ||
+                    "කතා අරණ"
                 )}
+
             </p>
 
 
             <p>
+
                 ${escapeHTML(
-                    story.description || ""
+                    story.description ||
+                    ""
                 )}
+
             </p>
 
 
             <div class="story-meta">
 
                 <span>
+
                     👁️ ${views}
+
                 </span>
 
+
                 <span>
+
                     ❤️ ${likes}
+
                 </span>
 
+
                 <span>
+
                     ⭐ ${rating.toFixed(1)}
+
                 </span>
 
             </div>
@@ -415,7 +490,9 @@ function createStoryCard(story) {
                 class="read-btn"
                 type="button"
             >
+
                 කියවන්න →
+
             </button>
 
         </div>
@@ -428,7 +505,9 @@ function createStoryCard(story) {
     // =====================================
 
     const readButton =
-        card.querySelector(".read-btn");
+        card.querySelector(
+            ".read-btn"
+        );
 
 
     if (readButton) {
@@ -437,7 +516,9 @@ function createStoryCard(story) {
             "click",
             function () {
 
-                openStory(story.id);
+                openStory(
+                    story.id
+                );
 
             }
         );
@@ -472,25 +553,35 @@ function displayStories(
     ) {
 
         element.innerHTML = `
+
             <p style="
                 color:#888;
                 padding:20px;
             ">
-                මේ section එකේ තවම කතා නැහැ. 📚
+
+                මේ section එකේ තවම
+                කතා නැහැ. 📚
+
             </p>
+
         `;
 
         return;
     }
 
 
-    storyList.forEach(function (story) {
+    storyList.forEach(
+        function (story) {
 
-        element.appendChild(
-            createStoryCard(story)
-        );
+            element.appendChild(
+                createStoryCard(
+                    story
+                )
+            );
 
-    });
+        }
+    );
+
 }
 
 
@@ -501,12 +592,14 @@ function displayStories(
 function openStory(id) {
 
     const story =
-        getStories().find(function (item) {
+        stories.find(
+            function (item) {
 
-            return String(item.id) ===
-                String(id);
+                return String(item.id) ===
+                    String(id);
 
-        });
+            }
+        );
 
 
     if (!story) {
@@ -524,7 +617,9 @@ function openStory(id) {
     // 18+
     // =====================================
 
-    if (isAdultStory(story)) {
+    if (
+        isAdultStory(story)
+    ) {
 
         const confirmed =
             confirm(
@@ -537,12 +632,14 @@ function openStory(id) {
         if (!confirmed) {
             return;
         }
+
     }
 
 
     window.location.href =
         "story.html?id=" +
         encodeURIComponent(id);
+
 }
 
 
@@ -567,6 +664,7 @@ function displayHomeStories() {
         getPublicStories(),
         grid
     );
+
 }
 
 
@@ -588,18 +686,20 @@ function displayLatest() {
 
 
     const latest =
-        getPublicStories().slice(0, 4);
+        getPublicStories()
+            .slice(0, 4);
 
 
     displayStories(
         latest,
         grid
     );
+
 }
 
 
 // =========================================
-// SHOW CATEGORY
+// CATEGORY
 // =========================================
 
 function showCategory(category) {
@@ -614,7 +714,9 @@ function showCategory(category) {
     // 18+
     // =====================================
 
-    if (categoryName === "18+") {
+    if (
+        categoryName === "18+"
+    ) {
 
         if (!adultCategoryUnlocked) {
 
@@ -631,7 +733,9 @@ function showCategory(category) {
             }
 
 
-            adultCategoryUnlocked = true;
+            adultCategoryUnlocked =
+                true;
+
         }
 
 
@@ -642,32 +746,35 @@ function showCategory(category) {
 
 
         return;
+
     }
 
 
     // =====================================
-    // NORMAL
+    // NORMAL CATEGORY
     // =====================================
 
     const filtered =
-        getPublicStories().filter(
-            function (story) {
+        getPublicStories()
+            .filter(
+                function (story) {
 
-                return String(
-                    story.category || ""
-                )
-                .trim()
-                .toLowerCase() ===
-                categoryName;
+                    return String(
+                        story.category || ""
+                    )
+                    .trim()
+                    .toLowerCase() ===
+                    categoryName;
 
-            }
-        );
+                }
+            );
 
 
     showCategoryResults(
         category + " කතා",
         filtered
     );
+
 }
 
 
@@ -703,6 +810,7 @@ function showCategoryResults(
         !title ||
         !grid
     ) {
+
         return;
     }
 
@@ -724,48 +832,7 @@ function showCategoryResults(
     results.scrollIntoView({
         behavior: "smooth"
     });
-}
 
-
-// =========================================
-// SHOW ALL
-// =========================================
-
-function showAllStories() {
-
-    const results =
-        document.getElementById(
-            "categoryResults"
-        );
-
-
-    if (results) {
-
-        results.style.display =
-            "none";
-    }
-
-
-    adultCategoryUnlocked =
-        false;
-
-
-    displayHomeStories();
-
-
-    const storiesSection =
-        document.getElementById(
-            "stories"
-        );
-
-
-    if (storiesSection) {
-
-        storiesSection.scrollIntoView({
-            behavior: "smooth"
-        });
-
-    }
 }
 
 
@@ -803,10 +870,6 @@ function searchStories() {
     }
 
 
-    // =====================================
-    // EMPTY
-    // =====================================
-
     if (text === "") {
 
         displayHomeStories();
@@ -815,62 +878,59 @@ function searchStories() {
     }
 
 
-    // =====================================
-    // SEARCH
-    // =====================================
-
     const results =
-        getPublicStories().filter(
-            function (story) {
+        getPublicStories()
+            .filter(
+                function (story) {
 
-                const title =
-                    String(
-                        story.title || ""
-                    )
-                    .toLowerCase();
-
-
-                const author =
-                    String(
-                        story.author || ""
-                    )
-                    .toLowerCase();
+                    const title =
+                        String(
+                            story.title || ""
+                        )
+                        .toLowerCase();
 
 
-                const category =
-                    String(
-                        story.category || ""
-                    )
-                    .toLowerCase();
+                    const author =
+                        String(
+                            story.author || ""
+                        )
+                        .toLowerCase();
 
 
-                const description =
-                    String(
-                        story.description || ""
-                    )
-                    .toLowerCase();
+                    const category =
+                        String(
+                            story.category || ""
+                        )
+                        .toLowerCase();
 
 
-                return (
+                    const description =
+                        String(
+                            story.description || ""
+                        )
+                        .toLowerCase();
 
-                    title.includes(text)
 
-                    ||
+                    return (
 
-                    author.includes(text)
+                        title.includes(text)
 
-                    ||
+                        ||
 
-                    category.includes(text)
+                        author.includes(text)
 
-                    ||
+                        ||
 
-                    description.includes(text)
+                        category.includes(text)
 
-                );
+                        ||
 
-            }
-        );
+                        description.includes(text)
+
+                    );
+
+                }
+            );
 
 
     displayStories(
@@ -889,6 +949,7 @@ function searchStories() {
 
         categoryResults.style.display =
             "none";
+
     }
 
 
@@ -905,6 +966,7 @@ function searchStories() {
         });
 
     }
+
 }
 
 
@@ -914,33 +976,24 @@ function searchStories() {
 
 function setupSearch() {
 
-    const searchInput =
+    const input =
         document.getElementById(
             "searchInput"
         );
 
 
-    const searchButton =
+    const button =
         document.getElementById(
             "searchButton"
         );
 
 
-    if (!searchInput) {
-
-        console.error(
-            "searchInput not found"
-        );
-
+    if (!input) {
         return;
     }
 
 
-    // =====================================
-    // TYPING
-    // =====================================
-
-    searchInput.addEventListener(
+    input.addEventListener(
         "input",
         function () {
 
@@ -950,13 +1003,9 @@ function setupSearch() {
     );
 
 
-    // =====================================
-    // BUTTON
-    // =====================================
+    if (button) {
 
-    if (searchButton) {
-
-        searchButton.addEventListener(
+        button.addEventListener(
             "click",
             function (event) {
 
@@ -970,11 +1019,7 @@ function setupSearch() {
     }
 
 
-    // =====================================
-    // ENTER
-    // =====================================
-
-    searchInput.addEventListener(
+    input.addEventListener(
         "keydown",
         function (event) {
 
@@ -988,6 +1033,7 @@ function setupSearch() {
 
         }
     );
+
 }
 
 
@@ -997,28 +1043,21 @@ function setupSearch() {
 
 function getLibrary() {
 
-    let library = [];
-
-
     try {
 
-        library =
-            JSON.parse(
-                localStorage.getItem(
-                    "kathaLibrary"
-                )
-            ) || [];
+        return JSON.parse(
+            localStorage.getItem(
+                "kathaLibrary"
+            )
+        ) || [];
 
     }
-
     catch (error) {
 
-        library = [];
+        return [];
 
     }
 
-
-    return library;
 }
 
 
@@ -1044,83 +1083,39 @@ function displayLibrary() {
 
 
     const savedStories =
-        getPublicStories().filter(
-            function (story) {
+        getPublicStories()
+            .filter(
+                function (story) {
 
-                return saved.some(
-                    function (id) {
+                    return saved.some(
+                        function (id) {
 
-                        return String(id) ===
-                            String(story.id);
+                            return String(id) ===
+                                String(story.id);
 
-                    }
-                );
+                        }
+                    );
 
-            }
-        );
+                }
+            );
 
 
     displayStories(
         savedStories,
         grid
     );
+
 }
 
 
 // =========================================
-// REFRESH STORIES
+// REFRESH
 // =========================================
 
 async function refreshStories() {
 
-    try {
+    await loadStories();
 
-        const result =
-            await supabaseClient
-                .from("stories")
-                .select("*")
-                .order("id", {
-                    ascending: false
-                });
-
-
-        if (result.error) {
-
-            console.error(
-                "Refresh stories error:",
-                result.error
-            );
-
-            return;
-        }
-
-
-        stories =
-            result.data || [];
-
-
-        // REAL RATINGS
-        await loadRatingsForStories(
-            stories
-        );
-
-
-        displayHomeStories();
-
-        displayLatest();
-
-        displayLibrary();
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Refresh stories error:",
-            error
-        );
-
-    }
 }
 
 
@@ -1131,24 +1126,15 @@ async function refreshStories() {
 async function startWebsite() {
 
     console.log(
-        "Katha Arana starting..."
+        "🚀 Katha Arana starting..."
     );
 
 
-    // Initial
-    displayHomeStories();
-
-    displayLatest();
-
-    displayLibrary();
-
-
-    // Search
     setupSearch();
 
 
-    // Supabase
     await loadStories();
+
 }
 
 
