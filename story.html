@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="si">
 
@@ -20,8 +21,7 @@
     <style>
 
         /* =========================================
-           STORY PAGE ONLY
-           HOME BANNER IS NOT AFFECTED
+           STORY PAGE
         ========================================= */
 
         .story-page-header {
@@ -35,9 +35,10 @@
             justify-content: space-between;
             gap: 20px;
 
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0,0,0,0.25);
 
-            border-bottom: 1px solid
+            border-bottom:
+                1px solid
                 rgba(255,255,255,0.08);
         }
 
@@ -77,6 +78,7 @@
             background:
                 rgba(255,255,255,0.12);
         }
+
 
 
         /* =========================================
@@ -181,6 +183,7 @@
         }
 
 
+
         /* =========================================
            CHAPTER LIST
         ========================================= */
@@ -199,7 +202,8 @@
 
             padding: 15px 17px;
 
-            border: 1px solid
+            border:
+                1px solid
                 rgba(255,255,255,0.08);
 
             border-radius: 12px;
@@ -221,8 +225,10 @@
             background:
                 rgba(255,255,255,0.09);
 
-            transform: translateX(3px);
+            transform:
+                translateX(3px);
         }
+
 
 
         /* =========================================
@@ -237,7 +243,8 @@
             background:
                 rgba(255,255,255,0.035);
 
-            border: 1px solid
+            border:
+                1px solid
                 rgba(255,255,255,0.07);
         }
 
@@ -301,30 +308,111 @@
         }
 
 
+
         /* =========================================
-           READING MODE
+           FULL READING MODE
+           HEADER SPACE COMPLETELY REMOVED
         ========================================= */
+
+        body.reading-mode {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
 
         body.reading-mode .story-page-header,
         body.reading-mode footer,
         body.reading-mode #storyInfo,
         body.reading-mode #chapterListSection {
-            display: none;
+            display: none !important;
         }
 
 
         body.reading-mode .section {
-            max-width: 850px;
+            width: 100% !important;
+
+            max-width: 100% !important;
+
+            margin: 0 !important;
+
+            padding:
+                25px
+                6% !important;
         }
 
 
         body.reading-mode .reading-area {
-            border: none;
+            width: 100% !important;
 
-            background: transparent;
+            max-width: 950px !important;
 
-            padding: 20px 0;
+            margin:
+                0 auto !important;
+
+            padding:
+                25px 0 !important;
+
+            border: none !important;
+
+            background: transparent !important;
+
+            box-shadow: none !important;
         }
+
+
+        body.reading-mode .chapter-content {
+            max-width: 900px;
+
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+        /* =========================================
+           WHEN CHAPTER IS OPEN
+           AUTOMATIC READING MODE
+        ========================================= */
+
+        body.auto-reading-mode .story-page-header,
+        body.auto-reading-mode footer,
+        body.auto-reading-mode #storyInfo,
+        body.auto-reading-mode #chapterListSection {
+            display: none !important;
+        }
+
+
+        body.auto-reading-mode .section {
+            width: 100% !important;
+
+            max-width: 100% !important;
+
+            margin: 0 !important;
+
+            padding:
+                25px
+                6% !important;
+        }
+
+
+        body.auto-reading-mode .reading-area {
+            width: 100% !important;
+
+            max-width: 950px !important;
+
+            margin:
+                0 auto !important;
+
+            padding:
+                25px 0 !important;
+
+            border: none !important;
+
+            background: transparent !important;
+
+            box-shadow: none !important;
+        }
+
 
 
         /* =========================================
@@ -355,20 +443,16 @@
 
 
             .story-reader {
-
                 grid-template-columns: 1fr;
 
                 gap: 25px;
-
             }
 
 
             .reader-cover {
-
                 width: 180px;
 
                 margin: 0 auto;
-
             }
 
 
@@ -388,7 +472,8 @@
 
 
             .reading-area {
-                padding: 20px 15px;
+                padding:
+                    20px 15px;
             }
 
 
@@ -396,6 +481,13 @@
                 font-size: 18px;
 
                 line-height: 1.85;
+            }
+
+
+            body.reading-mode .section,
+            body.auto-reading-mode .section {
+                padding:
+                    20px 18px !important;
             }
 
         }
@@ -409,8 +501,7 @@
 
 
 <!-- =====================================================
-     SIMPLE STORY HEADER
-     NO HOME BANNER HERE
+     STORY HEADER
 ===================================================== -->
 
 <header class="story-page-header">
@@ -504,7 +595,7 @@
 
     <!-- =================================================
          READING AREA
-    ================================================== -->
+    ================================================= -->
 
     <article
         class="reading-area"
@@ -596,6 +687,7 @@ const storyId =
     params.get("id");
 
 
+
 // =====================================================
 // ELEMENTS
 // =====================================================
@@ -618,6 +710,7 @@ const chapterArea =
     );
 
 
+
 // =====================================================
 // VARIABLES
 // =====================================================
@@ -627,6 +720,7 @@ let currentStory = null;
 let currentChapters = [];
 
 let readerFontSize = 19;
+
 
 
 // =====================================================
@@ -683,6 +777,7 @@ async function loadStory() {
         }
 
 
+
         // =============================================
         // 18+
         // =============================================
@@ -719,6 +814,7 @@ async function loadStory() {
         }
 
 
+
         currentStory =
             story;
 
@@ -732,9 +828,11 @@ async function loadStory() {
             " | කතා අරණ";
 
 
+
         displayStory(
             story
         );
+
 
 
         // =============================================
@@ -781,6 +879,7 @@ async function loadStory() {
         }
 
 
+
         await loadChapters(
             story.id
         );
@@ -799,6 +898,7 @@ async function loadStory() {
     }
 
 }
+
 
 
 // =====================================================
@@ -987,6 +1087,7 @@ function displayStory(
 }
 
 
+
 // =====================================================
 // LOAD CHAPTERS
 // =====================================================
@@ -1063,6 +1164,7 @@ async function loadChapters(
     }
 
 }
+
 
 
 // =====================================================
@@ -1156,6 +1258,7 @@ function displayChapters(
     );
 
 }
+
 
 
 // =====================================================
@@ -1269,6 +1372,21 @@ function openChapter(
     `;
 
 
+
+    // =============================================
+    // AUTOMATICALLY HIDE HEADER
+    // =============================================
+
+    document.body.classList.add(
+        "auto-reading-mode"
+    );
+
+
+
+    // =============================================
+    // PREVIOUS
+    // =============================================
+
     const previousButton =
         document.getElementById(
             "previousChapterButton"
@@ -1292,6 +1410,11 @@ function openChapter(
 
     }
 
+
+
+    // =============================================
+    // NEXT
+    // =============================================
 
     const nextButton =
         document.getElementById(
@@ -1320,12 +1443,18 @@ function openChapter(
     applyFontSize();
 
 
-    chapterArea.scrollIntoView({
-        behavior:
-            "smooth"
+
+    // =============================================
+    // SCROLL TO TOP OF READING AREA
+    // =============================================
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
     });
 
 }
+
 
 
 // =====================================================
@@ -1363,6 +1492,7 @@ function toggleLike() {
     updateReaderButtons();
 
 }
+
 
 
 // =====================================================
@@ -1406,6 +1536,7 @@ function toggleBookmark() {
     updateReaderButtons();
 
 }
+
 
 
 // =====================================================
@@ -1467,6 +1598,7 @@ function updateLibrary(
     );
 
 }
+
 
 
 // =====================================================
@@ -1532,6 +1664,7 @@ function updateReaderButtons() {
 }
 
 
+
 // =====================================================
 // FONT SIZE
 // =====================================================
@@ -1569,6 +1702,7 @@ function changeFontSize(
 }
 
 
+
 // =====================================================
 // APPLY FONT SIZE
 // =====================================================
@@ -1596,19 +1730,24 @@ function applyFontSize() {
 }
 
 
+
 // =====================================================
 // READING MODE
 // =====================================================
 
 function toggleReadingMode() {
 
-    document.body
-        .classList
-        .toggle(
-            "reading-mode"
-        );
+    document.body.classList.toggle(
+        "reading-mode"
+    );
+
+
+    document.body.classList.remove(
+        "auto-reading-mode"
+    );
 
 }
+
 
 
 // =====================================================
@@ -1671,6 +1810,7 @@ function showStoryNotFound() {
 }
 
 
+
 // =====================================================
 // ESCAPE HTML
 // =====================================================
@@ -1696,6 +1836,7 @@ function escapeHTML(
 }
 
 
+
 // =====================================================
 // START
 // =====================================================
@@ -1715,3 +1856,4 @@ document.addEventListener(
 </body>
 
 </html>
+```
