@@ -1,4 +1,4 @@
-```javascript
+javascript
 // =========================================
 // KATHA ARANA
 // MAIN WEBSITE SCRIPT
@@ -1256,4 +1256,4 @@ else {
     startWebsite();
 
 }
-```
+
