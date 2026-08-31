@@ -18,285 +18,20 @@
         href="style.css"
     >
 
-
-    <!-- =========================================
-         FULL WIDTH BANNER CSS
-    ========================================= -->
-
-    <style>
-
-        /* =========================================
-           HEADER
-        ========================================= */
-
-        .header {
-
-            width: 100% !important;
-
-            padding: 0 !important;
-
-            margin: 0 !important;
-
-            display: flex !important;
-
-            flex-direction: column !important;
-
-            align-items: center !important;
-
-            justify-content: flex-start !important;
-
-            gap: 0 !important;
-
-            background: #09070f !important;
-
-            position: sticky !important;
-
-            top: 0 !important;
-
-            z-index: 1000 !important;
-
-            border-bottom:
-                1px solid
-                rgba(155, 92, 255, 0.18);
-
-        }
-
-
-
-        /* =========================================
-           FULL WEBSITE WIDTH BANNER
-        ========================================= */
-
-        .header .logo {
-
-            display: block !important;
-
-            width: 100% !important;
-
-            max-width: 1200px !important;
-
-            height: auto !important;
-
-            margin: 0 !important;
-
-            padding: 0 !important;
-
-            font-size: 0 !important;
-
-            line-height: 0 !important;
-
-            color: transparent !important;
-
-            background: transparent !important;
-
-            border: none !important;
-
-            text-decoration: none !important;
-
-            overflow: hidden !important;
-
-        }
-
-
-        .header .logo img {
-
-            display: block !important;
-
-            width: 100% !important;
-
-            max-width: 1200px !important;
-
-            height: auto !important;
-
-            margin: 0 auto !important;
-
-            padding: 0 !important;
-
-            object-fit: contain !important;
-
-            object-position: center !important;
-
-            border: none !important;
-
-        }
-
-
-        /* Remove old logo text */
-
-        .header .logo span {
-
-            display: none !important;
-
-        }
-
-
-        .header .logo::before,
-
-        .header .logo::after {
-
-            display: none !important;
-
-            content: none !important;
-
-        }
-
-
-
-        /* =========================================
-           NAVIGATION
-        ========================================= */
-
-        .header nav {
-
-            width: 100% !important;
-
-            display: flex !important;
-
-            justify-content: center !important;
-
-            align-items: center !important;
-
-            flex-wrap: wrap !important;
-
-            gap: 28px;
-
-            padding: 14px 20px;
-
-            margin: 0 !important;
-
-            background:
-                rgba(10, 7, 18, 0.96);
-
-            box-sizing: border-box;
-
-        }
-
-
-        .header nav a {
-
-            text-decoration: none;
-
-            color: #bcb4cc;
-
-            font-size: 15px;
-
-            transition: 0.3s;
-
-        }
-
-
-        .header nav a:hover {
-
-            color: #c084fc;
-
-            text-shadow:
-                0 0 15px
-                rgba(192, 132, 252, 0.6);
-
-        }
-
-
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
-        @media (max-width: 600px) {
-
-            .header {
-
-                width: 100% !important;
-
-                padding: 0 !important;
-
-            }
-
-
-            .header .logo {
-
-                width: 100% !important;
-
-                max-width: 100% !important;
-
-                height: auto !important;
-
-            }
-
-
-            .header .logo img {
-
-                width: 100% !important;
-
-                max-width: 100% !important;
-
-                height: auto !important;
-
-            }
-
-
-            .header nav {
-
-                gap: 12px;
-
-                padding:
-                    12px 8px;
-
-            }
-
-
-            .header nav a {
-
-                font-size: 13px;
-
-            }
-
-        }
-
-
-
-        /* =========================================
-           VERY SMALL PHONES
-        ========================================= */
-
-        @media (max-width: 380px) {
-
-            .header nav {
-
-                gap: 9px;
-
-            }
-
-
-            .header nav a {
-
-                font-size: 12px;
-
-            }
-
-        }
-
-    </style>
-
 </head>
-
 
 
 <body>
 
 
-
 <!-- =========================================
-     HEADER + BANNER
+     HEADER
 ========================================= -->
 
 <header class="header">
 
 
-    <!--
-        IMPORTANT:
-        banner.png must be in the same
-        GitHub folder as index.html
-    -->
+    <!-- FULL WIDTH PNG BANNER -->
 
     <a
         href="index.html"
@@ -320,11 +55,13 @@
             මුල් පිටුව
         </a>
 
-
         <a href="#categories">
             කතා වර්ග
         </a>
 
+        <a href="#stories">
+            කතා
+        </a>
 
         <a href="#about">
             අප ගැන
@@ -434,11 +171,9 @@
                 ❤️
             </span>
 
-
             <h3>
                 ආදර කතා
             </h3>
-
 
             <p>
                 Romance
@@ -457,11 +192,9 @@
                 👻
             </span>
 
-
             <h3>
                 ත්‍රාසජනක
             </h3>
-
 
             <p>
                 Horror
@@ -480,11 +213,9 @@
                 🔎
             </span>
 
-
             <h3>
                 අභිරහස්
             </h3>
-
 
             <p>
                 Mystery
@@ -503,11 +234,9 @@
                 🧙
             </span>
 
-
             <h3>
                 මනඃකල්පිත
             </h3>
-
 
             <p>
                 Fantasy
@@ -526,11 +255,9 @@
                 🔞
             </span>
 
-
             <h3>
                 18+ කතා
             </h3>
-
 
             <p>
                 18+
@@ -601,7 +328,7 @@
         id="storyGrid"
     >
 
-        <p style="color:#888;">
+        <p class="loading">
             📚 කතා load වෙමින් පවතී...
         </p>
 
@@ -637,7 +364,7 @@
         id="latestGrid"
     >
 
-        <p style="color:#888;">
+        <p class="loading">
             📚 කතා load වෙමින් පවතී...
         </p>
 
@@ -698,9 +425,11 @@
     </h2>
 
 
-    <p>
+    <p class="about-text">
+
         හොඳ සිංහල කතා කියවන්නට
         ඔබේම තැනක්.
+
     </p>
 
 
@@ -714,8 +443,9 @@
 
 <footer>
 
+
     <div class="footer-logo">
-        📚 කතා අරණ
+        කතා අරණ
     </div>
 
 
@@ -730,6 +460,7 @@
         All Rights Reserved.
 
     </div>
+
 
 </footer>
 
@@ -752,7 +483,6 @@
 ========================================= -->
 
 <script src="script.js"></script>
-
 
 
 </body>
