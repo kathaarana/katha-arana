@@ -1,3 +1,4 @@
+```javascript
 // =========================================
 // KATHA ARANA
 // MAIN WEBSITE SCRIPT
@@ -85,6 +86,7 @@ async function loadStories() {
 
         console.log("Loading stories...");
 
+
         const result =
             await supabaseClient
                 .from("stories")
@@ -93,8 +95,10 @@ async function loadStories() {
                     ascending: false
                 });
 
+
         const data = result.data;
         const error = result.error;
+
 
         if (error) {
 
@@ -108,12 +112,31 @@ async function loadStories() {
             return;
         }
 
+
         stories = data || [];
+
 
         console.log(
             "Stories loaded:",
             stories
         );
+
+
+        /*
+         * IMPORTANT
+         *
+         * stories table එකෙන්:
+         *
+         * views
+         * likes
+         * rating
+         *
+         * direct ගන්නවා.
+         *
+         * likes column එක "likes"
+         * මිස "liked" නෙවෙයි.
+         */
+
 
         displayHomeStories();
 
@@ -153,20 +176,27 @@ function showLoadingError() {
 
     ];
 
+
     grids.forEach(function (grid) {
 
         if (!grid) {
             return;
         }
 
+
         grid.innerHTML = `
+
             <p style="
                 color:#888;
                 padding:20px;
             ">
+
                 කතා load කරන්න බැරි වුණා. 😔
+
             </p>
+
         `;
+
     });
 }
 
@@ -180,7 +210,9 @@ function createStoryCard(story) {
     const card =
         document.createElement("article");
 
-    card.className = "story-card";
+
+    card.className =
+        "story-card";
 
 
     // =====================================
@@ -189,12 +221,14 @@ function createStoryCard(story) {
 
     let coverHTML = "📖";
 
+
     if (
         story.cover &&
         String(story.cover).trim() !== ""
     ) {
 
         coverHTML = `
+
             <img
                 src="${escapeHTML(story.cover)}"
                 alt="${escapeHTML(
@@ -202,7 +236,9 @@ function createStoryCard(story) {
                 )}"
                 loading="lazy"
             >
+
         `;
+
     }
 
 
@@ -210,14 +246,49 @@ function createStoryCard(story) {
     // STATS
     // =====================================
 
+    /*
+     * DATABASE COLUMNS:
+     *
+     * id       -> bigint
+     * views    -> bigint
+     * likes    -> bigint
+     * rating   -> numeric
+     */
+
+
     const views =
-        Number(story.views || 0);
+        Number(
+            story.views || 0
+        );
+
 
     const likes =
-        Number(story.liked || 0);
+        Number(
+            story.likes || 0
+        );
+
 
     const rating =
-        Number(story.rating || 0);
+        Number(
+            story.rating || 0
+        );
+
+
+    // =====================================
+    // RATING DISPLAY
+    // =====================================
+
+    let ratingText = "0.0";
+
+
+    if (
+        Number.isFinite(rating)
+    ) {
+
+        ratingText =
+            rating.toFixed(1);
+
+    }
 
 
     // =====================================
@@ -230,10 +301,13 @@ function createStoryCard(story) {
 
             ${coverHTML}
 
+
             <div class="cover-label">
+
                 ${escapeHTML(
                     story.category || "Story"
                 )}
+
             </div>
 
         </div>
@@ -241,48 +315,80 @@ function createStoryCard(story) {
 
         <div class="story-info">
 
+
             <p class="label">
+
                 ${escapeHTML(
                     story.category || ""
                 )}
+
             </p>
 
 
             <h3>
+
                 ${escapeHTML(
                     story.title || "Untitled"
                 )}
+
             </h3>
 
 
             <p>
+
                 ✍️
+
                 ${escapeHTML(
                     story.author || "කතා අරණ"
                 )}
+
             </p>
 
 
             <p>
+
                 ${escapeHTML(
                     story.description || ""
                 )}
+
             </p>
 
 
-            <div class="story-meta">
+            <!-- =================================
+                 STORY STATS
+            ================================== -->
+
+            <div
+                class="story-meta"
+                style="
+                    display:flex;
+                    gap:12px;
+                    flex-wrap:wrap;
+                    align-items:center;
+                "
+            >
+
 
                 <span>
+
                     👁️ ${views}
+
                 </span>
 
+
                 <span>
+
                     ❤️ ${likes}
+
                 </span>
 
+
                 <span>
-                    ⭐ ${rating}
+
+                    ⭐ ${ratingText}
+
                 </span>
+
 
             </div>
 
@@ -291,8 +397,11 @@ function createStoryCard(story) {
                 class="read-btn"
                 type="button"
             >
+
                 කියවන්න →
+
             </button>
+
 
         </div>
 
@@ -306,16 +415,20 @@ function createStoryCard(story) {
     const readButton =
         card.querySelector(".read-btn");
 
+
     if (readButton) {
 
         readButton.addEventListener(
             "click",
             function () {
 
-                openStory(story.id);
+                openStory(
+                    story.id
+                );
 
             }
         );
+
     }
 
 
@@ -336,6 +449,7 @@ function displayStories(
         return;
     }
 
+
     element.innerHTML = "";
 
 
@@ -345,12 +459,16 @@ function displayStories(
     ) {
 
         element.innerHTML = `
+
             <p style="
                 color:#888;
                 padding:20px;
             ">
+
                 මේ section එකේ තවම කතා නැහැ. 📚
+
             </p>
+
         `;
 
         return;
@@ -364,6 +482,7 @@ function displayStories(
         );
 
     });
+
 }
 
 
@@ -406,15 +525,18 @@ function openStory(id) {
                 "ඔබට ඉදිරියට යාමට අවශ්‍යද?"
             );
 
+
         if (!confirmed) {
             return;
         }
+
     }
 
 
     window.location.href =
         "story.html?id=" +
         encodeURIComponent(id);
+
 }
 
 
@@ -429,14 +551,17 @@ function displayHomeStories() {
             "storyGrid"
         );
 
+
     if (!grid) {
         return;
     }
+
 
     displayStories(
         getPublicStories(),
         grid
     );
+
 }
 
 
@@ -451,19 +576,24 @@ function displayLatest() {
             "latestGrid"
         );
 
+
     if (!grid) {
         return;
     }
 
 
     const latest =
-        getPublicStories().slice(0, 4);
+        getPublicStories().slice(
+            0,
+            4
+        );
 
 
     displayStories(
         latest,
         grid
     );
+
 }
 
 
@@ -483,7 +613,9 @@ function showCategory(category) {
     // 18+
     // =====================================
 
-    if (categoryName === "18+") {
+    if (
+        categoryName === "18+"
+    ) {
 
         if (!adultCategoryUnlocked) {
 
@@ -494,11 +626,15 @@ function showCategory(category) {
                     "ඔබට 18+ කතා බලන්න අවශ්‍යද?"
                 );
 
+
             if (!confirmed) {
                 return;
             }
 
-            adultCategoryUnlocked = true;
+
+            adultCategoryUnlocked =
+                true;
+
         }
 
 
@@ -507,7 +643,9 @@ function showCategory(category) {
             getAdultStories()
         );
 
+
         return;
+
     }
 
 
@@ -534,6 +672,7 @@ function showCategory(category) {
         category + " කතා",
         filtered
     );
+
 }
 
 
@@ -551,10 +690,12 @@ function showCategoryResults(
             "categoryResults"
         );
 
+
     const title =
         document.getElementById(
             "categoryTitle"
         );
+
 
     const grid =
         document.getElementById(
@@ -588,6 +729,7 @@ function showCategoryResults(
     results.scrollIntoView({
         behavior: "smooth"
     });
+
 }
 
 
@@ -607,6 +749,7 @@ function showAllStories() {
 
         results.style.display =
             "none";
+
     }
 
 
@@ -628,7 +771,9 @@ function showAllStories() {
         storiesSection.scrollIntoView({
             behavior: "smooth"
         });
+
     }
+
 }
 
 
@@ -752,6 +897,7 @@ function searchStories() {
 
         categoryResults.style.display =
             "none";
+
     }
 
 
@@ -766,7 +912,9 @@ function searchStories() {
         storiesSection.scrollIntoView({
             behavior: "smooth"
         });
+
     }
+
 }
 
 
@@ -826,6 +974,7 @@ function setupSearch() {
 
             }
         );
+
     }
 
 
@@ -837,7 +986,9 @@ function setupSearch() {
         "keydown",
         function (event) {
 
-            if (event.key === "Enter") {
+            if (
+                event.key === "Enter"
+            ) {
 
                 event.preventDefault();
 
@@ -847,6 +998,7 @@ function setupSearch() {
 
         }
     );
+
 }
 
 
@@ -873,10 +1025,12 @@ function getLibrary() {
     catch (error) {
 
         library = [];
+
     }
 
 
     return library;
+
 }
 
 
@@ -922,6 +1076,7 @@ function displayLibrary() {
         savedStories,
         grid
     );
+
 }
 
 
@@ -944,6 +1099,7 @@ async function refreshStories() {
 
         const data =
             result.data;
+
 
         const error =
             result.error;
@@ -978,7 +1134,9 @@ async function refreshStories() {
             "Refresh stories error:",
             error
         );
+
     }
+
 }
 
 
@@ -1010,6 +1168,7 @@ async function startWebsite() {
     // Supabase
 
     await loadStories();
+
 }
 
 
@@ -1033,3 +1192,4 @@ else {
     startWebsite();
 
 }
+```
