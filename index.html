@@ -20,7 +20,7 @@
 
 
     <!-- =========================================
-         LARGE PNG LOGO
+         FULL WIDTH BANNER CSS
     ========================================= -->
 
     <style>
@@ -31,39 +31,51 @@
 
         .header {
 
-            width: 100%;
+            width: 100% !important;
 
-            min-height: 330px;
+            padding: 0 !important;
 
-            padding: 15px 4%;
+            margin: 0 !important;
 
-            display: flex;
+            display: flex !important;
 
-            flex-direction: column;
+            flex-direction: column !important;
 
-            align-items: center;
+            align-items: center !important;
 
-            justify-content: center;
+            justify-content: flex-start !important;
 
-            gap: 5px;
+            gap: 0 !important;
+
+            background: #09070f !important;
+
+            position: sticky !important;
+
+            top: 0 !important;
+
+            z-index: 1000 !important;
+
+            border-bottom:
+                1px solid
+                rgba(155, 92, 255, 0.18);
 
         }
 
 
 
         /* =========================================
-           LOGO CONTAINER
+           FULL WEBSITE WIDTH BANNER
         ========================================= */
 
         .header .logo {
 
             display: block !important;
 
-            width: 1200px !important;
+            width: 100% !important;
 
-            height: 300px !important;
+            max-width: 1200px !important;
 
-            max-width: 100% !important;
+            height: auto !important;
 
             margin: 0 !important;
 
@@ -81,27 +93,20 @@
 
             text-decoration: none !important;
 
-            flex-shrink: 0;
-
-            overflow: hidden;
+            overflow: hidden !important;
 
         }
 
-
-
-        /* =========================================
-           LOGO IMAGE
-        ========================================= */
 
         .header .logo img {
 
             display: block !important;
 
-            width: 1200px !important;
+            width: 100% !important;
 
-            height: 300px !important;
+            max-width: 1200px !important;
 
-            max-width: 100% !important;
+            height: auto !important;
 
             margin: 0 auto !important;
 
@@ -109,13 +114,14 @@
 
             object-fit: contain !important;
 
+            object-position: center !important;
+
             border: none !important;
 
         }
 
 
-
-        /* Remove old text */
+        /* Remove old logo text */
 
         .header .logo span {
 
@@ -125,11 +131,12 @@
 
 
         .header .logo::before,
+
         .header .logo::after {
 
-            content: none !important;
-
             display: none !important;
+
+            content: none !important;
 
         }
 
@@ -141,60 +148,50 @@
 
         .header nav {
 
-            display: flex;
+            width: 100% !important;
 
-            justify-content: center;
+            display: flex !important;
 
-            align-items: center;
+            justify-content: center !important;
+
+            align-items: center !important;
+
+            flex-wrap: wrap !important;
 
             gap: 28px;
 
-            flex-wrap: wrap;
+            padding: 14px 20px;
+
+            margin: 0 !important;
+
+            background:
+                rgba(10, 7, 18, 0.96);
+
+            box-sizing: border-box;
 
         }
-
 
 
         .header nav a {
 
             text-decoration: none;
 
+            color: #bcb4cc;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+
         }
 
 
+        .header nav a:hover {
 
-        /* =========================================
-           TABLET
-        ========================================= */
+            color: #c084fc;
 
-        @media (max-width: 1000px) {
-
-            .header {
-
-                min-height: 270px;
-
-                padding:
-                    10px 3%;
-
-            }
-
-
-            .header .logo {
-
-                width: 900px !important;
-
-                height: 225px !important;
-
-            }
-
-
-            .header .logo img {
-
-                width: 900px !important;
-
-                height: 225px !important;
-
-            }
+            text-shadow:
+                0 0 15px
+                rgba(192, 132, 252, 0.6);
 
         }
 
@@ -208,34 +205,31 @@
 
             .header {
 
-                min-height: 210px;
+                width: 100% !important;
 
-                padding:
-                    8px 2%;
-
-                gap: 3px;
+                padding: 0 !important;
 
             }
 
 
             .header .logo {
 
-                width: 700px !important;
-
-                height: 175px !important;
+                width: 100% !important;
 
                 max-width: 100% !important;
+
+                height: auto !important;
 
             }
 
 
             .header .logo img {
 
-                width: 700px !important;
-
-                height: 175px !important;
+                width: 100% !important;
 
                 max-width: 100% !important;
+
+                height: auto !important;
 
             }
 
@@ -243,6 +237,9 @@
             .header nav {
 
                 gap: 12px;
+
+                padding:
+                    12px 8px;
 
             }
 
@@ -258,32 +255,21 @@
 
 
         /* =========================================
-           SMALL PHONE
+           VERY SMALL PHONES
         ========================================= */
 
         @media (max-width: 380px) {
 
-            .header {
+            .header nav {
 
-                min-height: 180px;
-
-            }
-
-
-            .header .logo {
-
-                width: 600px !important;
-
-                height: 150px !important;
+                gap: 9px;
 
             }
 
 
-            .header .logo img {
+            .header nav a {
 
-                width: 600px !important;
-
-                height: 150px !important;
+                font-size: 12px;
 
             }
 
@@ -300,13 +286,17 @@
 
 
 <!-- =========================================
-     HEADER
+     HEADER + BANNER
 ========================================= -->
 
 <header class="header">
 
 
-    <!-- PNG LOGO -->
+    <!--
+        IMPORTANT:
+        banner.png must be in the same
+        GitHub folder as index.html
+    -->
 
     <a
         href="index.html"
@@ -623,7 +613,7 @@
 
 
 <!-- =========================================
-     LATEST
+     LATEST STORIES
 ========================================= -->
 
 <section
@@ -724,7 +714,6 @@
 
 <footer>
 
-
     <div class="footer-logo">
         📚 කතා අරණ
     </div>
@@ -741,7 +730,6 @@
         All Rights Reserved.
 
     </div>
-
 
 </footer>
 
@@ -760,7 +748,7 @@
 
 
 <!-- =========================================
-     MAIN JAVASCRIPT
+     MAIN SCRIPT
 ========================================= -->
 
 <script src="script.js"></script>
