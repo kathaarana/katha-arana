@@ -152,16 +152,12 @@
 <footer>
 
     <div class="footer-logo">
-
         📚 කතා අරණ
-
     </div>
 
 
     <p>
-
         සිංහල කතා කියවන්නට ඔබේම තැන.
-
     </p>
 
 
@@ -184,13 +180,11 @@
     src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
 ></script>
 
-
 <script src="supabase.js"></script>
 
 
 
 <script>
-
 
 // ==========================================
 // GET STORY ID
@@ -204,7 +198,6 @@ const params =
 
 const storyId =
     params.get("id");
-
 
 
 // ==========================================
@@ -229,7 +222,6 @@ const chapterArea =
     );
 
 
-
 // ==========================================
 // CURRENT STORY
 // ==========================================
@@ -251,7 +243,6 @@ let currentChapters = [];
 let readerFontSize = 19;
 
 
-
 // ==========================================
 // LOAD STORY
 // ==========================================
@@ -265,7 +256,6 @@ async function loadStory() {
             showStoryNotFound();
 
             return;
-
         }
 
 
@@ -275,21 +265,21 @@ async function loadStory() {
         );
 
 
+        // ==================================
+        // GET STORY
+        // ==================================
+
         const {
             data: story,
             error: storyError
         } =
             await supabaseClient
-
                 .from("stories")
-
                 .select("*")
-
                 .eq(
                     "id",
                     storyId
                 )
-
                 .single();
 
 
@@ -303,7 +293,6 @@ async function loadStory() {
             showStoryNotFound();
 
             return;
-
         }
 
 
@@ -312,9 +301,7 @@ async function loadStory() {
             showStoryNotFound();
 
             return;
-
         }
-
 
 
         // ==================================
@@ -347,11 +334,8 @@ async function loadStory() {
                     "index.html";
 
                 return;
-
             }
-
         }
-
 
 
         currentStory =
@@ -372,9 +356,8 @@ async function loadStory() {
         );
 
 
-
         // ==================================
-        // INCREMENT VIEWS
+        // INCREMENT VIEW
         // ==================================
 
         const {
@@ -398,7 +381,6 @@ async function loadStory() {
             );
 
         }
-
         else {
 
             const viewsElement =
@@ -414,10 +396,12 @@ async function loadStory() {
                     newViews;
 
             }
-
         }
 
 
+        // ==================================
+        // LOAD CHAPTERS
+        // ==================================
 
         await loadChapters(
             story.id
@@ -433,11 +417,8 @@ async function loadStory() {
         );
 
         showStoryNotFound();
-
     }
-
 }
-
 
 
 // ==========================================
@@ -470,13 +451,18 @@ function displayStory(story) {
             >
 
         `;
-
     }
 
 
     const views =
         Number(
             story.views || 0
+        );
+
+
+    const likes =
+        Number(
+            story.likes || 0
         );
 
 
@@ -541,9 +527,17 @@ function displayStory(story) {
 
             <div class="story-meta">
 
+
                 <span id="storyViews">
 
                     👁️ ${views}
+
+                </span>
+
+
+                <span id="storyLikes">
+
+                    ❤️ ${likes}
 
                 </span>
 
@@ -553,6 +547,7 @@ function displayStory(story) {
                     ⭐ ${rating}
 
                 </span>
+
 
             </div>
 
@@ -571,7 +566,6 @@ function displayStory(story) {
                 </button>
 
 
-
                 <button
                     onclick="toggleBookmark()"
                     id="bookmarkButton"
@@ -581,7 +575,6 @@ function displayStory(story) {
                     🔖 Bookmark
 
                 </button>
-
 
 
                 <button
@@ -594,7 +587,6 @@ function displayStory(story) {
                 </button>
 
 
-
                 <button
                     onclick="changeFontSize(1)"
                     type="button"
@@ -603,7 +595,6 @@ function displayStory(story) {
                     A+
 
                 </button>
-
 
 
                 <button
@@ -624,9 +615,7 @@ function displayStory(story) {
 
 
     updateReaderButtons();
-
 }
-
 
 
 // ==========================================
@@ -642,16 +631,12 @@ async function loadChapters(storyId) {
             error
         } =
             await supabaseClient
-
                 .from("chapters")
-
                 .select("*")
-
                 .eq(
                     "story_id",
                     storyId
                 )
-
                 .order(
                     "number",
                     {
@@ -683,7 +668,6 @@ async function loadChapters(storyId) {
             `;
 
             return;
-
         }
 
 
@@ -703,11 +687,8 @@ async function loadChapters(storyId) {
             "Chapter error:",
             error
         );
-
     }
-
 }
-
 
 
 // ==========================================
@@ -740,7 +721,6 @@ function displayChapters(chapters) {
         `;
 
         return;
-
     }
 
 
@@ -794,12 +774,9 @@ function displayChapters(chapters) {
             chapterList.appendChild(
                 button
             );
-
         }
     );
-
 }
-
 
 
 // ==========================================
@@ -828,7 +805,9 @@ function openChapter(chapter) {
         "";
 
 
-    if (currentIndex > 0) {
+    if (
+        currentIndex > 0
+    ) {
 
         buttonsHTML += `
 
@@ -843,7 +822,6 @@ function openChapter(chapter) {
             </button>
 
         `;
-
     }
 
 
@@ -867,7 +845,6 @@ function openChapter(chapter) {
             </button>
 
         `;
-
     }
 
 
@@ -937,7 +914,6 @@ function openChapter(chapter) {
 
             }
         );
-
     }
 
 
@@ -961,7 +937,6 @@ function openChapter(chapter) {
 
             }
         );
-
     }
 
 
@@ -971,16 +946,14 @@ function openChapter(chapter) {
     chapterArea.scrollIntoView({
         behavior: "smooth"
     });
-
 }
-
 
 
 // ==========================================
 // LIKE
 // ==========================================
 
-function toggleLike() {
+async function toggleLike() {
 
     if (!currentStory) {
         return;
@@ -1000,16 +973,82 @@ function toggleLike() {
         "true";
 
 
-    localStorage.setItem(
-        key,
-        String(!liked)
-    );
+    try {
+
+        const functionName =
+            liked
+                ? "decrement_story_likes"
+                : "increment_story_likes";
 
 
-    updateReaderButtons();
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.rpc(
+                functionName,
+                {
+                    p_story_id:
+                        currentStory.id
+                }
+            );
 
+
+        if (error) {
+
+            console.error(
+                "Like error:",
+                error
+            );
+
+
+            alert(
+                "Like කරන්න බැරි වුණා 😔"
+            );
+
+            return;
+        }
+
+
+        localStorage.setItem(
+            key,
+            String(!liked)
+        );
+
+
+        currentStory.likes =
+            Number(
+                data || 0
+            );
+
+
+        const likesElement =
+            document.getElementById(
+                "storyLikes"
+            );
+
+
+        if (likesElement) {
+
+            likesElement.innerText =
+                "❤️ " +
+                currentStory.likes;
+
+        }
+
+
+        updateReaderButtons();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Like error:",
+            error
+        );
+    }
 }
-
 
 
 // ==========================================
@@ -1038,7 +1077,9 @@ function toggleBookmark() {
 
     localStorage.setItem(
         key,
-        String(!bookmarked)
+        String(
+            !bookmarked
+        )
     );
 
 
@@ -1049,9 +1090,7 @@ function toggleBookmark() {
 
 
     updateReaderButtons();
-
 }
-
 
 
 // ==========================================
@@ -1080,7 +1119,6 @@ function updateLibrary(
     catch (error) {
 
         library = [];
-
     }
 
 
@@ -1098,7 +1136,9 @@ function updateLibrary(
 
     if (add) {
 
-        library.push(id);
+        library.push(
+            id
+        );
 
     }
 
@@ -1109,9 +1149,7 @@ function updateLibrary(
             library
         )
     );
-
 }
-
 
 
 // ==========================================
@@ -1173,9 +1211,7 @@ function updateReaderButtons() {
                 : "🔖 Bookmark";
 
     }
-
 }
-
 
 
 // ==========================================
@@ -1196,7 +1232,6 @@ function changeFontSize(
 
         readerFontSize =
             15;
-
     }
 
 
@@ -1206,14 +1241,11 @@ function changeFontSize(
 
         readerFontSize =
             30;
-
     }
 
 
     applyFontSize();
-
 }
-
 
 
 // ==========================================
@@ -1237,11 +1269,8 @@ function applyFontSize() {
 
         content.style.lineHeight =
             "1.9";
-
     }
-
 }
-
 
 
 // ==========================================
@@ -1255,9 +1284,7 @@ function toggleReadingMode() {
         .toggle(
             "reading-mode"
         );
-
 }
-
 
 
 // ==========================================
@@ -1315,9 +1342,7 @@ function showStoryNotFound() {
 
     chapterArea.innerHTML =
         "";
-
 }
-
 
 
 // ==========================================
@@ -1339,9 +1364,7 @@ function escapeHTML(value) {
 
 
     return div.innerHTML;
-
 }
-
 
 
 // ==========================================
