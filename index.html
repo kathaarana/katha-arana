@@ -18,17 +18,19 @@
         href="style.css"
     >
 
+
     <style>
 
         /* =========================================
-           HEADER PNG LOGO
+           KATHA ARANA PNG LOGO
         ========================================= */
 
         .header .logo {
+
             display: block !important;
 
-            width: 250px !important;
-            height: 62.5px !important;
+            width: 360px !important;
+            height: 90px !important;
 
             margin: 0 !important;
             padding: 0 !important;
@@ -45,26 +47,33 @@
             border: none !important;
 
             flex-shrink: 0;
+
         }
 
 
         .header .logo::before,
         .header .logo::after {
+
             content: none !important;
+
             display: none !important;
+
         }
 
 
         .header .logo span {
+
             display: none !important;
+
         }
 
 
         .header .logo img {
+
             display: block !important;
 
-            width: 250px !important;
-            height: 62.5px !important;
+            width: 360px !important;
+            height: 90px !important;
 
             margin: 0 !important;
             padding: 0 !important;
@@ -72,46 +81,96 @@
             object-fit: contain !important;
 
             border: none !important;
+
         }
+
+
+
+        /* =========================================
+           HEADER SIZE
+        ========================================= */
+
+        .header {
+
+            min-height: 110px;
+
+        }
+
+
+
+        /* =========================================
+           TABLET
+        ========================================= */
+
+        @media (max-width: 850px) {
+
+            .header {
+
+                padding: 15px 5%;
+
+            }
+
+
+            .header .logo {
+
+                width: 320px !important;
+                height: 80px !important;
+
+            }
+
+
+            .header .logo img {
+
+                width: 320px !important;
+                height: 80px !important;
+
+            }
+
+        }
+
 
 
         /* =========================================
            MOBILE
         ========================================= */
 
-        @media (max-width: 850px) {
-
-            .header .logo {
-                width: 220px !important;
-                height: 55px !important;
-            }
-
-            .header .logo img {
-                width: 220px !important;
-                height: 55px !important;
-            }
-
-        }
-
-
         @media (max-width: 550px) {
 
             .header {
+
                 flex-direction: column;
 
-                gap: 12px;
+                gap: 10px;
+
+                min-height: auto;
+
             }
 
 
             .header .logo {
-                width: 210px !important;
-                height: 52.5px !important;
+
+                width: 300px !important;
+                height: 75px !important;
+
             }
 
 
             .header .logo img {
-                width: 210px !important;
-                height: 52.5px !important;
+
+                width: 300px !important;
+                height: 75px !important;
+
+            }
+
+
+            nav {
+
+                width: 100%;
+
+                justify-content: center;
+
+                flex-wrap: wrap;
+
             }
 
         }
@@ -121,7 +180,9 @@
 </head>
 
 
+
 <body>
+
 
 
 <!-- =========================================
@@ -131,7 +192,7 @@
 <header class="header">
 
 
-    <!-- KATHA ARANA PNG -->
+    <!-- PNG LOGO -->
 
     <a
         href="index.html"
@@ -144,6 +205,7 @@
         >
 
     </a>
+
 
 
     <!-- NAVIGATION -->
@@ -176,6 +238,7 @@
 <section class="hero">
 
     <div class="hero-content">
+
 
         <p class="small-title">
             KATHA ARANA
@@ -225,6 +288,7 @@
 
         </div>
 
+
     </div>
 
 </section>
@@ -239,6 +303,7 @@
     class="section"
     id="categories"
 >
+
 
     <p class="label">
         EXPLORE
@@ -263,9 +328,11 @@
                 ❤️
             </span>
 
+
             <h3>
                 ආදර කතා
             </h3>
+
 
             <p>
                 Romance
@@ -284,9 +351,11 @@
                 👻
             </span>
 
+
             <h3>
                 ත්‍රාසජනක
             </h3>
+
 
             <p>
                 Horror
@@ -305,9 +374,11 @@
                 🔎
             </span>
 
+
             <h3>
                 අභිරහස්
             </h3>
+
 
             <p>
                 Mystery
@@ -326,9 +397,11 @@
                 🧙
             </span>
 
+
             <h3>
                 මනඃකල්පිත
             </h3>
+
 
             <p>
                 Fantasy
@@ -337,8 +410,6 @@
         </div>
 
 
-
-        <!-- 18+ -->
 
         <div
             id="adultCategory"
@@ -350,9 +421,11 @@
                 🔞
             </span>
 
+
             <h3>
                 18+ කතා
             </h3>
+
 
             <p>
                 18+
@@ -377,6 +450,7 @@
     style="display:none;"
 >
 
+
     <p class="label">
         CATEGORY
     </p>
@@ -392,6 +466,7 @@
         id="categoryStoryGrid"
     ></div>
 
+
 </section>
 
 
@@ -404,6 +479,7 @@
     class="section"
     id="stories"
 >
+
 
     <p class="label">
         DISCOVER
@@ -426,6 +502,7 @@
 
     </div>
 
+
 </section>
 
 
@@ -438,6 +515,7 @@
     class="section"
     id="latest"
 >
+
 
     <p class="label">
         JUST PUBLISHED
@@ -460,6 +538,7 @@
 
     </div>
 
+
 </section>
 
 
@@ -472,6 +551,7 @@
     class="section"
     id="library"
 >
+
 
     <p class="label">
         MY LIBRARY
@@ -488,6 +568,7 @@
         id="libraryGrid"
     ></div>
 
+
 </section>
 
 
@@ -500,6 +581,7 @@
     class="section"
     id="about"
 >
+
 
     <p class="label">
         ABOUT US
@@ -516,6 +598,7 @@
         ඔබේම තැනක්.
     </p>
 
+
 </section>
 
 
@@ -525,6 +608,7 @@
 ========================================= -->
 
 <footer>
+
 
     <div class="footer-logo">
         📚 කතා අරණ
@@ -542,6 +626,7 @@
         All Rights Reserved.
 
     </div>
+
 
 </footer>
 
@@ -564,6 +649,7 @@
 ========================================= -->
 
 <script src="script.js"></script>
+
 
 
 </body>
