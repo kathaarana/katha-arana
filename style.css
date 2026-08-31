@@ -35,7 +35,9 @@ body {
 .header {
     width: 100%;
 
-    padding: 18px 7%;
+    min-height: 78px;
+
+    padding: 12px 7%;
 
     display: flex;
 
@@ -43,7 +45,7 @@ body {
 
     justify-content: space-between;
 
-    background: rgba(10, 7, 18, 0.88);
+    background: rgba(10, 7, 18, 0.92);
 
     position: sticky;
 
@@ -58,36 +60,84 @@ body {
 }
 
 
-.logo {
-    font-size: 23px;
+/* =========================================
+   PNG LOGO ONLY
+========================================= */
 
-    font-weight: bold;
+.header .logo {
 
-    display: flex;
+    display: block !important;
 
-    align-items: center;
+    width: 180px !important;
 
-    gap: 9px;
+    height: 45px !important;
 
-    color: #ffffff;
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    border: none !important;
+
+    text-decoration: none !important;
+
+    font-size: 0 !important;
+
+    line-height: 0 !important;
+
+    color: transparent !important;
+
+    overflow: hidden;
+
 }
 
 
-.logo span {
-    background:
-        linear-gradient(
-            90deg,
-            #c084fc,
-            #8b5cf6,
-            #a78bfa
-        );
+/* Remove old logo generated content */
 
-    -webkit-background-clip: text;
+.header .logo::before,
+.header .logo::after {
 
-    -webkit-text-fill-color:
-        transparent;
+    content: none !important;
+
+    display: none !important;
+
 }
 
+
+/* Remove old text */
+
+.header .logo span {
+
+    display: none !important;
+
+}
+
+
+/* PNG */
+
+.header .logo img {
+
+    display: block !important;
+
+    width: 180px !important;
+
+    height: 45px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    object-fit: contain !important;
+
+    border: none !important;
+
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
 
 nav {
     display: flex;
@@ -981,6 +1031,24 @@ footer p {
         flex-direction: column;
 
         gap: 12px;
+    }
+
+
+    .header .logo {
+
+        width: 150px !important;
+
+        height: 38px !important;
+
+    }
+
+
+    .header .logo img {
+
+        width: 150px !important;
+
+        height: 38px !important;
+
     }
 
 
