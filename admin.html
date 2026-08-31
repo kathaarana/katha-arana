@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="si">
 
@@ -61,17 +60,10 @@
 
 
         .admin-card {
-            background:
-                rgba(255,255,255,0.04);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
-
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 18px;
-
             padding: 25px;
-
             margin-bottom: 25px;
         }
 
@@ -106,8 +98,7 @@
 
             border-radius: 10px;
 
-            border:
-                1px solid
+            border: 1px solid
                 rgba(255,255,255,0.12);
 
             background:
@@ -276,6 +267,19 @@
         }
 
 
+        .logout-btn {
+            background: #7f1d1d;
+            color: white;
+        }
+
+
+        .admin-user {
+            color: #999;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+
         @media (max-width: 700px) {
 
             .admin-top {
@@ -356,7 +360,23 @@
                     Stories සහ Chapters manage කරන්න.
                 </p>
 
+                <p
+                    id="adminUser"
+                    class="admin-user"
+                >
+                    Checking login...
+                </p>
+
             </div>
+
+
+            <button
+                id="logoutButton"
+                type="button"
+                class="admin-btn logout-btn"
+            >
+                🚪 Logout
+            </button>
 
         </div>
 
@@ -409,8 +429,6 @@
                 </div>
 
 
-
-                <!-- CATEGORY -->
 
                 <div>
 
@@ -480,9 +498,7 @@
                         id="coverPreview"
                         class="cover-preview"
                     >
-
                         🖼️ Preview
-
                     </div>
 
                 </div>
@@ -495,9 +511,7 @@
                         type="submit"
                         class="admin-btn primary"
                     >
-
                         💾 Save Story
-
                     </button>
 
 
@@ -506,9 +520,7 @@
                         id="cancelEdit"
                         class="admin-btn secondary hidden"
                     >
-
                         Cancel
-
                     </button>
 
                 </div>
@@ -537,9 +549,7 @@
 
 
             <div id="storyList">
-
                 Loading...
-
             </div>
 
         </section>
@@ -620,9 +630,7 @@
                         type="submit"
                         class="admin-btn primary"
                     >
-
                         💾 Save Chapter
-
                     </button>
 
 
@@ -631,9 +639,7 @@
                         id="closeChapterEditor"
                         class="admin-btn secondary"
                     >
-
                         Close
-
                     </button>
 
                 </div>
@@ -654,6 +660,150 @@
 
 <script>
 
+// =====================================================
+// ADMIN SESSION SECURITY
+// =====================================================
+
+let currentSession = null;
+
+let currentUser = null;
+
+
+async function checkAdminSession() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !data ||
+            !data.session
+        ) {
+
+            console.log(
+                "No active session."
+            );
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return false;
+
+        }
+
+
+        currentSession =
+            data.session;
+
+
+        currentUser =
+            data.session.user;
+
+
+        const userElement =
+            document.getElementById(
+                "adminUser"
+            );
+
+
+        if (userElement) {
+
+            userElement.innerText =
+                "Logged in: " +
+                (
+                    currentUser.email ||
+                    "Admin"
+                );
+
+        }
+
+
+        console.log(
+            "Admin session verified."
+        );
+
+
+        return true;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Admin security error:",
+            error
+        );
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return false;
+
+    }
+
+}
+
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        async function() {
+
+            try {
+
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+            }
+
+
+            window.location.replace(
+                "login.html"
+            );
+
+        }
+    );
+
+
 
 // =====================================================
 // VARIABLES
@@ -672,23 +822,33 @@ let selectedCoverFile = null;
 // =====================================================
 
 const storyForm =
-    document.getElementById("storyForm");
+    document.getElementById(
+        "storyForm"
+    );
 
 
 const storyList =
-    document.getElementById("storyList");
+    document.getElementById(
+        "storyList"
+    );
 
 
 const storyMessage =
-    document.getElementById("storyMessage");
+    document.getElementById(
+        "storyMessage"
+    );
 
 
 const chapterEditor =
-    document.getElementById("chapterEditor");
+    document.getElementById(
+        "chapterEditor"
+    );
 
 
 const coverPreview =
-    document.getElementById("coverPreview");
+    document.getElementById(
+        "coverPreview"
+    );
 
 
 
@@ -700,6 +860,10 @@ function showMessage(
     element,
     message
 ) {
+
+    if (!element) {
+        return;
+    }
 
     element.style.display =
         "block";
@@ -727,7 +891,8 @@ document
 
             if (!file) {
 
-                selectedCoverFile = null;
+                selectedCoverFile =
+                    null;
 
                 coverPreview.innerHTML =
                     "🖼️ Preview";
@@ -782,11 +947,8 @@ async function loadStories() {
         error
     } =
         await supabaseClient
-
             .from("stories")
-
             .select("*")
-
             .order(
                 "id",
                 {
@@ -806,7 +968,9 @@ async function loadStories() {
             </p>
 
             <small>
-                ${escapeHTML(error.message)}
+                ${escapeHTML(
+                    error.message
+                )}
             </small>
 
         `;
@@ -816,7 +980,10 @@ async function loadStories() {
     }
 
 
-    if (!data || data.length === 0) {
+    if (
+        !data ||
+        data.length === 0
+    ) {
 
         storyList.innerHTML = `
 
@@ -839,7 +1006,9 @@ async function loadStories() {
         function(story) {
 
             const item =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             item.className =
@@ -868,7 +1037,8 @@ async function loadStories() {
                         ·
 
                         ${escapeHTML(
-                            story.author || "Unknown"
+                            story.author ||
+                            "Unknown"
                         )}
 
                     </p>
@@ -881,33 +1051,33 @@ async function loadStories() {
                     <button
                         class="admin-btn secondary"
                         data-action="chapters"
-                        data-id="${story.id}"
+                        data-id="${escapeHTML(
+                            story.id
+                        )}"
                     >
-
                         📖 Chapters
-
                     </button>
 
 
                     <button
                         class="admin-btn secondary"
                         data-action="edit"
-                        data-id="${story.id}"
+                        data-id="${escapeHTML(
+                            story.id
+                        )}"
                     >
-
                         ✏️ Edit
-
                     </button>
 
 
                     <button
                         class="admin-btn danger"
                         data-action="delete"
-                        data-id="${story.id}"
+                        data-id="${escapeHTML(
+                            story.id
+                        )}"
                     >
-
                         🗑️ Delete
-
                     </button>
 
                 </div>
@@ -915,7 +1085,9 @@ async function loadStories() {
             `;
 
 
-            storyList.appendChild(item);
+            storyList.appendChild(
+                item
+            );
 
         }
     );
@@ -931,7 +1103,9 @@ async function loadStories() {
 function escapeHTML(value) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     div.textContent =
@@ -955,7 +1129,9 @@ storyList.addEventListener(
     async function(event) {
 
         const button =
-            event.target.closest("button");
+            event.target.closest(
+                "button"
+            );
 
 
         if (!button) {
@@ -973,21 +1149,21 @@ storyList.addEventListener(
 
         if (action === "edit") {
 
-            editStory(id);
+            await editStory(id);
 
         }
 
 
         if (action === "delete") {
 
-            deleteStory(id);
+            await deleteStory(id);
 
         }
 
 
         if (action === "chapters") {
 
-            openChapterEditor(id);
+            await openChapterEditor(id);
 
         }
 
@@ -1008,27 +1184,38 @@ storyForm.addEventListener(
 
 
         const title =
-            document.getElementById(
-                "storyTitle"
-            ).value.trim();
+            document
+                .getElementById(
+                    "storyTitle"
+                )
+                .value
+                .trim();
 
 
         const author =
-            document.getElementById(
-                "storyAuthor"
-            ).value.trim();
+            document
+                .getElementById(
+                    "storyAuthor"
+                )
+                .value
+                .trim();
 
 
         const category =
-            document.getElementById(
-                "storyCategory"
-            ).value;
+            document
+                .getElementById(
+                    "storyCategory"
+                )
+                .value;
 
 
         const description =
-            document.getElementById(
-                "storyDescription"
-            ).value.trim();
+            document
+                .getElementById(
+                    "storyDescription"
+                )
+                .value
+                .trim();
 
 
         try {
@@ -1044,9 +1231,9 @@ storyForm.addEventListener(
 
 
 
-            // =========================================
+            // =================================================
             // UPLOAD COVER
-            // =========================================
+            // =================================================
 
             if (selectedCoverFile) {
 
@@ -1073,7 +1260,9 @@ storyForm.addEventListener(
                 } =
                     await supabaseClient
                         .storage
-                        .from("story-covers")
+                        .from(
+                            "story-covers"
+                        )
                         .upload(
                             filePath,
                             selectedCoverFile,
@@ -1096,7 +1285,9 @@ storyForm.addEventListener(
                 } =
                     supabaseClient
                         .storage
-                        .from("story-covers")
+                        .from(
+                            "story-covers"
+                        )
                         .getPublicUrl(
                             filePath
                         );
@@ -1109,9 +1300,9 @@ storyForm.addEventListener(
 
 
 
-            // =========================================
+            // =================================================
             // EDIT STORY
-            // =========================================
+            // =================================================
 
             if (editingStoryId) {
 
@@ -1144,13 +1335,10 @@ storyForm.addEventListener(
                     error
                 } =
                     await supabaseClient
-
                         .from("stories")
-
                         .update(
                             updateData
                         )
-
                         .eq(
                             "id",
                             editingStoryId
@@ -1173,9 +1361,9 @@ storyForm.addEventListener(
 
 
 
-            // =========================================
+            // =================================================
             // NEW STORY
-            // =========================================
+            // =================================================
 
             else {
 
@@ -1183,9 +1371,7 @@ storyForm.addEventListener(
                     error
                 } =
                     await supabaseClient
-
                         .from("stories")
-
                         .insert({
 
                             title:
@@ -1207,6 +1393,9 @@ storyForm.addEventListener(
                                 0,
 
                             rating:
+                                0,
+
+                            liked:
                                 0
 
                         });
@@ -1263,16 +1452,12 @@ async function editStory(id) {
         error
     } =
         await supabaseClient
-
             .from("stories")
-
             .select("*")
-
             .eq(
                 "id",
                 id
             )
-
             .single();
 
 
@@ -1306,13 +1491,15 @@ async function editStory(id) {
     document.getElementById(
         "storyCategory"
     ).value =
-        data.category || "Romance";
+        data.category ||
+        "Romance";
 
 
     document.getElementById(
         "storyDescription"
     ).value =
-        data.description || "";
+        data.description ||
+        "";
 
 
     if (data.cover) {
@@ -1320,7 +1507,9 @@ async function editStory(id) {
         coverPreview.innerHTML = `
 
             <img
-                src="${escapeHTML(data.cover)}"
+                src="${escapeHTML(
+                    data.cover
+                )}"
                 alt="Cover"
             >
 
@@ -1331,14 +1520,17 @@ async function editStory(id) {
 
     document.getElementById(
         "cancelEdit"
-    ).classList.remove(
-        "hidden"
-    );
+    )
+    .classList
+    .remove("hidden");
 
 
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
 
 }
@@ -1367,11 +1559,8 @@ async function deleteStory(id) {
             chapterError
     } =
         await supabaseClient
-
             .from("chapters")
-
             .delete()
-
             .eq(
                 "story_id",
                 id
@@ -1393,11 +1582,8 @@ async function deleteStory(id) {
         error
     } =
         await supabaseClient
-
             .from("stories")
-
             .delete()
-
             .eq(
                 "id",
                 id
@@ -1449,9 +1635,9 @@ function resetStoryForm() {
 
     document.getElementById(
         "cancelEdit"
-    ).classList.add(
-        "hidden"
-    );
+    )
+    .classList
+    .add("hidden");
 
 }
 
@@ -1474,7 +1660,9 @@ document.getElementById(
 // CHAPTER EDITOR
 // =====================================================
 
-async function openChapterEditor(storyId) {
+async function openChapterEditor(
+    storyId
+) {
 
     selectedStoryId =
         storyId;
@@ -1485,16 +1673,12 @@ async function openChapterEditor(storyId) {
         error
     } =
         await supabaseClient
-
             .from("stories")
-
             .select("title")
-
             .eq(
                 "id",
                 storyId
             )
-
             .single();
 
 
@@ -1568,35 +1752,47 @@ document.getElementById(
         const title =
             document.getElementById(
                 "chapterTitle"
-            ).value.trim();
+            )
+            .value
+            .trim();
 
 
         const content =
             document.getElementById(
                 "chapterContent"
-            ).value.trim();
+            )
+            .value
+            .trim();
 
 
         const {
-            data: existing
+            data: existing,
+            error:
+                findError
         } =
             await supabaseClient
-
                 .from("chapters")
-
                 .select("id")
-
                 .eq(
                     "story_id",
                     selectedStoryId
                 )
-
                 .eq(
                     "number",
                     number
                 )
-
                 .maybeSingle();
+
+
+        if (findError) {
+
+            alert(
+                findError.message
+            );
+
+            return;
+
+        }
 
 
         let error;
@@ -1606,9 +1802,7 @@ document.getElementById(
 
             const result =
                 await supabaseClient
-
                     .from("chapters")
-
                     .update({
 
                         title:
@@ -1618,7 +1812,6 @@ document.getElementById(
                             content
 
                     })
-
                     .eq(
                         "id",
                         existing.id
@@ -1634,9 +1827,7 @@ document.getElementById(
 
             const result =
                 await supabaseClient
-
                     .from("chapters")
-
                     .insert({
 
                         story_id:
@@ -1705,16 +1896,12 @@ async function loadChapters() {
         error
     } =
         await supabaseClient
-
             .from("chapters")
-
             .select("*")
-
             .eq(
                 "story_id",
                 selectedStoryId
             )
-
             .order(
                 "number",
                 {
@@ -1748,9 +1935,7 @@ async function loadChapters() {
         list.innerHTML = `
 
             <p style="color:#888;">
-
                 තවම Chapters නැහැ.
-
             </p>
 
         `;
@@ -1795,9 +1980,7 @@ async function loadChapters() {
 
                 <button
                     class="admin-btn danger"
-                    data-chapter-id="${escapeHTML(
-                        chapter.id
-                    )}"
+                    type="button"
                 >
 
                     🗑️ Delete
@@ -1821,7 +2004,9 @@ async function loadChapters() {
                 );
 
 
-            list.appendChild(item);
+            list.appendChild(
+                item
+            );
 
         }
     );
@@ -1851,11 +2036,8 @@ async function deleteChapter(id) {
         error
     } =
         await supabaseClient
-
             .from("chapters")
-
             .delete()
-
             .eq(
                 "id",
                 id
@@ -1903,10 +2085,23 @@ document.getElementById(
 
 
 // =====================================================
-// START
+// START ADMIN
 // =====================================================
 
-loadStories();
+(async function startAdmin() {
+
+    const loggedIn =
+        await checkAdminSession();
+
+
+    if (!loggedIn) {
+        return;
+    }
+
+
+    await loadStories();
+
+})();
 
 </script>
 
@@ -1914,4 +2109,3 @@ loadStories();
 </body>
 
 </html>
-```
