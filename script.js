@@ -5,6 +5,7 @@
 // =========================================
 
 let stories = [];
+
 let adultCategoryUnlocked = false;
 
 
@@ -23,9 +24,11 @@ function getStories() {
 
 function isAdultStory(story) {
 
-    return String(story?.category || "")
-        .trim()
-        .toLowerCase() === "18+";
+    return String(
+        story?.category || ""
+    )
+    .trim()
+    .toLowerCase() === "18+";
 }
 
 
@@ -44,7 +47,7 @@ function getPublicStories() {
 
 
 // =========================================
-// GET 18+ STORIES
+// GET ADULT STORIES
 // =========================================
 
 function getAdultStories() {
@@ -80,7 +83,7 @@ async function loadStories() {
 
     try {
 
-        console.log("Loading stories from Supabase...");
+        console.log("Loading stories...");
 
         const result =
             await supabaseClient
@@ -113,10 +116,13 @@ async function loadStories() {
         );
 
         displayHomeStories();
+
         displayLatest();
+
         displayLibrary();
 
     }
+
     catch (error) {
 
         console.error(
@@ -161,7 +167,6 @@ function showLoadingError() {
                 කතා load කරන්න බැරි වුණා. 😔
             </p>
         `;
-
     });
 }
 
@@ -216,7 +221,7 @@ function createStoryCard(story) {
 
 
     // =====================================
-    // STORY CARD
+    // CARD HTML
     // =====================================
 
     card.innerHTML = `
@@ -226,11 +231,9 @@ function createStoryCard(story) {
             ${coverHTML}
 
             <div class="cover-label">
-
                 ${escapeHTML(
                     story.category || "Story"
                 )}
-
             </div>
 
         </div>
@@ -239,54 +242,35 @@ function createStoryCard(story) {
         <div class="story-info">
 
             <p class="label">
-
                 ${escapeHTML(
                     story.category || ""
                 )}
-
             </p>
 
 
             <h3>
-
                 ${escapeHTML(
                     story.title || "Untitled"
                 )}
-
             </h3>
 
 
             <p>
-
                 ✍️
-
                 ${escapeHTML(
                     story.author || "කතා අරණ"
                 )}
-
             </p>
 
 
             <p>
-
                 ${escapeHTML(
                     story.description || ""
                 )}
-
             </p>
 
 
-            <div
-                class="story-meta"
-                style="
-                    display:flex;
-                    gap:15px;
-                    margin-bottom:18px;
-                    color:#777;
-                    font-size:13px;
-                    flex-wrap:wrap;
-                "
-            >
+            <div class="story-meta">
 
                 <span>
                     👁️ ${views}
@@ -307,9 +291,7 @@ function createStoryCard(story) {
                 class="read-btn"
                 type="button"
             >
-
                 කියවන්න →
-
             </button>
 
         </div>
@@ -323,7 +305,6 @@ function createStoryCard(story) {
 
     const readButton =
         card.querySelector(".read-btn");
-
 
     if (readButton) {
 
@@ -413,7 +394,7 @@ function openStory(id) {
 
 
     // =====================================
-    // 18+ PROTECTION
+    // 18+ CHECK
     // =====================================
 
     if (isAdultStory(story)) {
@@ -424,7 +405,6 @@ function openStory(id) {
                 "මෙම කතාව වැඩිහිටියන් සඳහා පමණි.\n\n" +
                 "ඔබට ඉදිරියට යාමට අවශ්‍යද?"
             );
-
 
         if (!confirmed) {
             return;
@@ -439,7 +419,7 @@ function openStory(id) {
 
 
 // =========================================
-// DISPLAY HOME STORIES
+// DISPLAY HOME
 // =========================================
 
 function displayHomeStories() {
@@ -449,11 +429,9 @@ function displayHomeStories() {
             "storyGrid"
         );
 
-
     if (!grid) {
         return;
     }
-
 
     displayStories(
         getPublicStories(),
@@ -472,7 +450,6 @@ function displayLatest() {
         document.getElementById(
             "latestGrid"
         );
-
 
     if (!grid) {
         return;
@@ -503,7 +480,7 @@ function showCategory(category) {
 
 
     // =====================================
-    // 18+ CATEGORY
+    // 18+
     // =====================================
 
     if (categoryName === "18+") {
@@ -514,17 +491,14 @@ function showCategory(category) {
                 confirm(
                     "🔞 18+ Content\n\n" +
                     "මෙම කොටස වැඩිහිටියන් සඳහා පමණි.\n\n" +
-                    "ඔබට ඉදිරියට යාමට අවශ්‍යද?"
+                    "ඔබට 18+ කතා බලන්න අවශ්‍යද?"
                 );
-
 
             if (!confirmed) {
                 return;
             }
 
-
-            adultCategoryUnlocked =
-                true;
+            adultCategoryUnlocked = true;
         }
 
 
@@ -532,7 +506,6 @@ function showCategory(category) {
             "🔞 18+ කතා",
             getAdultStories()
         );
-
 
         return;
     }
@@ -549,9 +522,9 @@ function showCategory(category) {
                 return String(
                     story.category || ""
                 )
-                    .trim()
-                    .toLowerCase()
-                    === categoryName;
+                .trim()
+                .toLowerCase() ===
+                categoryName;
 
             }
         );
@@ -578,12 +551,10 @@ function showCategoryResults(
             "categoryResults"
         );
 
-
     const title =
         document.getElementById(
             "categoryTitle"
         );
-
 
     const grid =
         document.getElementById(
@@ -708,7 +679,7 @@ function searchStories() {
 
 
     // =====================================
-    // SEARCH PUBLIC STORIES
+    // SEARCH
     // =====================================
 
     const results =
@@ -719,28 +690,28 @@ function searchStories() {
                     String(
                         story.title || ""
                     )
-                        .toLowerCase();
+                    .toLowerCase();
 
 
                 const author =
                     String(
                         story.author || ""
                     )
-                        .toLowerCase();
+                    .toLowerCase();
 
 
                 const category =
                     String(
                         story.category || ""
                     )
-                        .toLowerCase();
+                    .toLowerCase();
 
 
                 const description =
                     String(
                         story.description || ""
                     )
-                        .toLowerCase();
+                    .toLowerCase();
 
 
                 return (
@@ -760,6 +731,7 @@ function searchStories() {
                     description.includes(text)
 
                 );
+
             }
         );
 
@@ -769,10 +741,6 @@ function searchStories() {
         grid
     );
 
-
-    // =====================================
-    // HIDE CATEGORY RESULTS
-    // =====================================
 
     const categoryResults =
         document.getElementById(
@@ -786,10 +754,6 @@ function searchStories() {
             "none";
     }
 
-
-    // =====================================
-    // SCROLL TO STORIES
-    // =====================================
 
     const storiesSection =
         document.getElementById(
@@ -905,10 +869,10 @@ function getLibrary() {
             ) || [];
 
     }
+
     catch (error) {
 
         library = [];
-
     }
 
 
@@ -981,7 +945,6 @@ async function refreshStories() {
         const data =
             result.data;
 
-
         const error =
             result.error;
 
@@ -1008,6 +971,7 @@ async function refreshStories() {
         displayLibrary();
 
     }
+
     catch (error) {
 
         console.error(
@@ -1043,7 +1007,7 @@ async function startWebsite() {
     setupSearch();
 
 
-    // Load Supabase stories
+    // Supabase
 
     await loadStories();
 }
