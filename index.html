@@ -1,490 +1,564 @@
+```html
 <!DOCTYPE html>
-
 <html lang="si">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>කතා අරණ | Sinhala Stories</title>
+    <title>කතා අරණ | Sinhala Stories</title>
 
-<link
-    rel="stylesheet"
-    href="style.css"
->
-
-<style>
-    .whatsapp-btn {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 13px 22px;
-        border-radius: 12px;
-        background: #25D366;
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.2s;
-    }
-
-    .whatsapp-btn:hover {
-        transform: translateY(-2px);
-        opacity: 0.9;
-    }
-</style>
-
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
+
 <body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header class="header">
 
-<div class="logo">
+    <div class="logo">
 
-    📚
+        📚
 
-    <span>
-        කතා අරණ
-    </span>
+        <span>
+            කතා අරණ
+        </span>
 
-</div>
+    </div>
 
 
-<nav>
+    <nav>
 
-    <a href="index.html">
-        මුල් පිටුව
-    </a>
+        <a href="index.html">
+            මුල් පිටුව
+        </a>
 
-    <a href="#stories">
-        කතා
-    </a>
+        <a href="#stories">
+            කතා
+        </a>
 
-    <a href="#categories">
-        වර්ග
-    </a>
+        <a href="#categories">
+            වර්ග
+        </a>
 
-    <a href="#about">
-        අප ගැන
-    </a>
+        <a href="#about">
+            අප ගැන
+        </a>
 
-</nav>
-
+    </nav>
 
 </header>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
 
 <main>
 
 
-<section class="hero">
+    <!-- =====================================
+         HERO
+    ====================================== -->
 
-    <div class="hero-content">
+    <section class="hero">
 
-        <p class="small-title">
-            WELCOME TO KATHA ARANA
+        <div class="hero-content">
+
+            <p class="small-title">
+                WELCOME TO KATHA ARANA
+            </p>
+
+
+            <h1>
+
+                ඔබේ මීළඟ
+
+                <span>
+                    කතාව සොයාගන්න.
+                </span>
+
+            </h1>
+
+
+            <p class="hero-text">
+
+                ආදරය, ත්‍රාසය, අභිරහස් සහ අපූරු
+                සිංහල කතා එකම තැනකින් කියවන්න.
+
+            </p>
+
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                <input
+                    id="searchBox"
+                    type="text"
+                    placeholder="🔍 කතාවක් සොයන්න..."
+                >
+
+
+                <button
+                    type="button"
+                    onclick="searchStories()"
+                >
+
+                    සොයන්න
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         CATEGORIES
+    ====================================== -->
+
+    <section
+        class="section"
+        id="categories"
+    >
+
+        <p class="label">
+            EXPLORE
         </p>
 
 
-        <h1>
-
-            ඔබේ මීළඟ
-
-            <span>
-                කතාව සොයාගන්න.
-            </span>
-
-        </h1>
+        <h2>
+            කතා වර්ග
+        </h2>
 
 
-        <p class="hero-text">
-
-            ආදරය, ත්‍රාසය, අභිරහස් සහ අපූරු
-            සිංහල කතා එකම තැනකින් කියවන්න.
-
-        </p>
+        <div class="category-grid">
 
 
-        <div class="search-box">
+            <!-- ROMANCE -->
 
-            <input
-                id="searchBox"
-                type="text"
-                placeholder="🔍 කතාවක් සොයන්න..."
+            <div
+                class="category"
+                onclick="showCategory('Romance')"
             >
+
+                <span>
+                    ❤️
+                </span>
+
+
+                <h3>
+                    ආදර කතා
+                </h3>
+
+
+                <p>
+                    Romance
+                </p>
+
+            </div>
+
+
+
+            <!-- HORROR -->
+
+            <div
+                class="category"
+                onclick="showCategory('Horror')"
+            >
+
+                <span>
+                    👻
+                </span>
+
+
+                <h3>
+                    ත්‍රාසජනක
+                </h3>
+
+
+                <p>
+                    Horror
+                </p>
+
+            </div>
+
+
+
+            <!-- MYSTERY -->
+
+            <div
+                class="category"
+                onclick="showCategory('Mystery')"
+            >
+
+                <span>
+                    🔎
+                </span>
+
+
+                <h3>
+                    අභිරහස්
+                </h3>
+
+
+                <p>
+                    Mystery
+                </p>
+
+            </div>
+
+
+
+            <!-- FANTASY -->
+
+            <div
+                class="category"
+                onclick="showCategory('Fantasy')"
+            >
+
+                <span>
+                    🧙
+                </span>
+
+
+                <h3>
+                    මනඃකල්පිත
+                </h3>
+
+
+                <p>
+                    Fantasy
+                </p>
+
+            </div>
+
+
+
+            <!-- 18+ -->
+
+            <div
+                class="category"
+                onclick="showCategory('18+')"
+            >
+
+                <span>
+                    🔞
+                </span>
+
+
+                <h3>
+                    18+ කතා
+                </h3>
+
+
+                <p>
+                    18+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         CATEGORY RESULTS
+    ====================================== -->
+
+    <section
+        class="section"
+        id="categoryResults"
+        style="display:none;"
+    >
+
+        <div class="section-heading">
+
+
+            <div>
+
+                <p class="label">
+                    CATEGORY
+                </p>
+
+
+                <h2 id="categoryTitle">
+                    කතා
+                </h2>
+
+            </div>
 
 
             <button
+                class="read-btn"
                 type="button"
-                onclick="searchStories()"
+                onclick="showAllStories()"
             >
 
-                සොයන්න
+                ← සියලු කතා
 
             </button>
 
+
         </div>
-
-    </div>
-
-</section>
-
-
-
-<section
-    class="section"
-    id="categories"
->
-
-    <p class="label">
-        EXPLORE
-    </p>
-
-
-    <h2>
-        කතා වර්ග
-    </h2>
-
-
-    <div class="category-grid">
 
 
         <div
-            class="category"
-            onclick="showCategory('Romance')"
-        >
+            class="story-grid"
+            id="categoryStoryGrid"
+        ></div>
 
-            <span>
-                ❤️
-            </span>
 
+    </section>
 
-            <h3>
-                ආදර කතා
-            </h3>
 
 
-            <p>
-                Romance
-            </p>
+    <!-- =====================================
+         STORIES
+    ====================================== -->
 
-        </div>
-
-
-
-        <div
-            class="category"
-            onclick="showCategory('Horror')"
-        >
-
-            <span>
-                👻
-            </span>
-
-
-            <h3>
-                ත්‍රාසජනක
-            </h3>
-
-
-            <p>
-                Horror
-            </p>
-
-        </div>
-
-
-
-        <div
-            class="category"
-            onclick="showCategory('Mystery')"
-        >
-
-            <span>
-                🔎
-            </span>
-
-
-            <h3>
-                අභිරහස්
-            </h3>
-
-
-            <p>
-                Mystery
-            </p>
-
-        </div>
-
-
-
-        <div
-            class="category"
-            onclick="showCategory('Fantasy')"
-        >
-
-            <span>
-                🧙
-            </span>
-
-
-            <h3>
-                මනඃකල්පිත
-            </h3>
-
-
-            <p>
-                Fantasy
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<section
-    class="section"
-    id="categoryResults"
-    style="display:none;"
->
-
-    <div class="section-heading">
-
-        <div>
-
-            <p class="label">
-                CATEGORY
-            </p>
-
-
-            <h2 id="categoryTitle">
-                කතා
-            </h2>
-
-        </div>
-
-
-        <button
-            class="read-btn"
-            type="button"
-            onclick="showAllStories()"
-        >
-
-            ← සියලු කතා
-
-        </button>
-
-    </div>
-
-
-    <div
-        class="story-grid"
-        id="categoryStoryGrid"
-    ></div>
-
-</section>
-
-
-
-<section
-    class="section"
-    id="stories"
->
-
-    <div class="section-heading">
-
-        <div>
-
-            <p class="label">
-                DISCOVER
-            </p>
-
-
-            <h2>
-                📚 ජනප්‍රිය කතා
-            </h2>
-
-        </div>
-
-    </div>
-
-
-    <div
-        class="story-grid"
-        id="storyGrid"
+    <section
+        class="section"
+        id="stories"
     >
 
-        <p style="
-            color:#888;
-            padding:20px;
-        ">
+        <div class="section-heading">
 
-            📚 කතා load වෙමින් පවතී...
+
+            <div>
+
+                <p class="label">
+                    DISCOVER
+                </p>
+
+
+                <h2>
+                    📚 ජනප්‍රිය කතා
+                </h2>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="story-grid"
+            id="storyGrid"
+        >
+
+            <p style="
+                color:#888;
+                padding:20px;
+            ">
+
+                📚 කතා load වෙමින් පවතී...
+
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         LATEST STORIES
+    ====================================== -->
+
+    <section
+        class="section"
+        id="latest"
+    >
+
+        <div class="section-heading">
+
+
+            <div>
+
+                <p class="label">
+                    JUST PUBLISHED
+                </p>
+
+
+                <h2>
+                    🆕 අලුත්ම කතා
+                </h2>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="story-grid"
+            id="latestGrid"
+        >
+
+            <p style="
+                color:#888;
+                padding:20px;
+            ">
+
+                📚 කතා load වෙමින් පවතී...
+
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         MY LIBRARY
+    ====================================== -->
+
+    <section
+        class="section"
+        id="library"
+    >
+
+        <div class="section-heading">
+
+
+            <div>
+
+                <p class="label">
+                    MY LIBRARY
+                </p>
+
+
+                <h2>
+                    🔖 My Library
+                </h2>
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="story-grid"
+            id="libraryGrid"
+        ></div>
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         ABOUT
+    ====================================== -->
+
+    <section
+        class="section about"
+        id="about"
+    >
+
+        <p class="label">
+            KATHA ARANA
+        </p>
+
+
+        <h2>
+            ඔබේම කතා අරණයට සාදරයෙන් පිළිගනිමු. 📖
+        </h2>
+
+
+        <p>
+
+            හොඳ සිංහල කතාවක් කියවන්න,
+            අලුත් ලෝකයකට යන්න,
+            අලුත් චරිත හඳුනාගන්න.
 
         </p>
 
-    </div>
-
-</section>
-
-
-
-<section
-    class="section"
-    id="latest"
->
-
-    <div class="section-heading">
-
-        <div>
-
-            <p class="label">
-                JUST PUBLISHED
-            </p>
-
-
-            <h2>
-                🆕 අලුත්ම කතා
-            </h2>
-
-        </div>
-
-    </div>
-
-
-    <div
-        class="story-grid"
-        id="latestGrid"
-    >
-
-        <p style="
-            color:#888;
-            padding:20px;
-        ">
-
-            📚 කතා load වෙමින් පවතී...
-
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<section
-    class="section"
-    id="library"
->
-
-    <div class="section-heading">
-
-        <div>
-
-            <p class="label">
-                MY LIBRARY
-            </p>
-
-
-            <h2>
-                🔖 My Library
-            </h2>
-
-        </div>
-
-    </div>
-
-
-    <div
-        class="story-grid"
-        id="libraryGrid"
-    ></div>
-
-</section>
-
-
-
-<section
-    class="section about"
-    id="about"
->
-
-    <p class="label">
-        KATHA ARANA
-    </p>
-
-
-    <h2>
-        ඔබේම කතා අරණයට සාදරයෙන් පිළිගනිමු. 📖
-    </h2>
-
-
-    <p>
-
-        හොඳ සිංහල කතාවක් කියවන්න,
-        අලුත් ලෝකයකට යන්න,
-        අලුත් චරිත හඳුනාගන්න.
-
-    </p>
-
-
-    <a
-        href="https://wa.me/94725192813"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="whatsapp-btn"
-    >
-
-        💬 WhatsApp අපිට
-
-    </a>
-
-</section>
+    </section>
 
 
 </main>
 
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
 <footer>
 
 
-<div class="footer-logo">
+    <div class="footer-logo">
 
-    📚 කතා අරණ
+        📚 කතා අරණ
 
-</div>
-
-
-<p>
-
-    සිංහල කතා කියවන්නට ඔබේම තැන.
-
-</p>
+    </div>
 
 
-<div class="footer-bottom">
+    <p>
 
-    © 2026 KATHA ARANA.
-    All Rights Reserved.
+        සිංහල කතා කියවන්නට ඔබේම තැන.
 
-</div>
+    </p>
+
+
+    <div class="footer-bottom">
+
+        © 2026 KATHA ARANA.
+        All Rights Reserved.
+
+    </div>
 
 
 </footer>
+
+
+
+<!-- =========================================
+     SUPABASE
+========================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
 
+
+<!-- =========================================
+     MAIN WEBSITE SCRIPT
+========================================= -->
+
 <script src="script.js"></script>
+
 
 </body>
 
 </html>
+```
