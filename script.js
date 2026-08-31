@@ -1,4 +1,3 @@
-```javascript
 // =========================================
 // KATHA ARANA
 // MAIN WEBSITE SCRIPT
@@ -6,7 +5,6 @@
 // =========================================
 
 let stories = [];
-
 let adultCategoryUnlocked = false;
 
 
@@ -71,7 +69,7 @@ function escapeHTML(value) {
 
 
 // =========================================
-// LOAD STORIES FROM SUPABASE
+// LOAD STORIES
 // =========================================
 
 async function loadStories() {
@@ -82,9 +80,7 @@ async function loadStories() {
 
         if (typeof supabaseClient === "undefined") {
 
-            console.error(
-                "❌ supabaseClient is not defined"
-            );
+            console.error("❌ supabaseClient is not defined");
 
             showLoadingError(
                 "Supabase connection එක හම්බ වුණේ නැහැ."
@@ -132,9 +128,7 @@ async function loadStories() {
 
 
         displayHomeStories();
-
         displayLatest();
-
         displayLibrary();
 
     }
@@ -162,11 +156,8 @@ function showLoadingError(message) {
     const grids = [
 
         document.getElementById("storyGrid"),
-
         document.getElementById("latestGrid"),
-
         document.getElementById("libraryGrid"),
-
         document.getElementById("categoryStoryGrid")
 
     ];
@@ -180,17 +171,14 @@ function showLoadingError(message) {
 
 
         grid.innerHTML = `
-
             <p style="
                 color:#888;
                 padding:20px;
             ">
-
                 😔 ${escapeHTML(message)}
-
             </p>
-
         `;
+
     });
 }
 
@@ -222,7 +210,6 @@ function createStoryCard(story) {
     ) {
 
         coverHTML = `
-
             <img
                 src="${escapeHTML(story.cover)}"
                 alt="${escapeHTML(
@@ -230,17 +217,12 @@ function createStoryCard(story) {
                 )}"
                 loading="lazy"
             >
-
         `;
     }
 
 
     // =====================================
     // DATABASE STATS
-    // IMPORTANT:
-    // views  = views
-    // likes  = likes
-    // rating = rating
     // =====================================
 
     const views =
@@ -310,7 +292,6 @@ function createStoryCard(story) {
             <p>
 
                 ✍️
-
                 ${escapeHTML(
                     story.author || "කතා අරණ"
                 )}
@@ -330,23 +311,17 @@ function createStoryCard(story) {
             <div class="story-meta">
 
                 <span>
-
                     👁️ ${views}
-
                 </span>
 
 
                 <span>
-
                     ❤️ ${likes}
-
                 </span>
 
 
                 <span>
-
                     ⭐ ${rating.toFixed(1)}
-
                 </span>
 
             </div>
@@ -602,9 +577,9 @@ function showCategory(category) {
                 return String(
                     story.category || ""
                 )
-                .trim()
-                .toLowerCase() ===
-                categoryName;
+                    .trim()
+                    .toLowerCase() ===
+                    categoryName;
 
             }
         );
@@ -749,7 +724,7 @@ function searchStories() {
 
 
     // =====================================
-    // EMPTY
+    // EMPTY SEARCH
     // =====================================
 
     if (text === "") {
@@ -772,28 +747,28 @@ function searchStories() {
                     String(
                         story.title || ""
                     )
-                    .toLowerCase();
+                        .toLowerCase();
 
 
                 const author =
                     String(
                         story.author || ""
                     )
-                    .toLowerCase();
+                        .toLowerCase();
 
 
                 const category =
                     String(
                         story.category || ""
                     )
-                    .toLowerCase();
+                        .toLowerCase();
 
 
                 const description =
                     String(
                         story.description || ""
                     )
-                    .toLowerCase();
+                        .toLowerCase();
 
 
                 return (
@@ -1021,9 +996,7 @@ async function refreshStories() {
 
 
         displayHomeStories();
-
         displayLatest();
-
         displayLibrary();
 
     }
@@ -1049,12 +1022,10 @@ async function startWebsite() {
     );
 
 
-    // Initial empty display
+    // Initial display
 
     displayHomeStories();
-
     displayLatest();
-
     displayLibrary();
 
 
@@ -1094,4 +1065,3 @@ else {
     startWebsite();
 
 }
-```
