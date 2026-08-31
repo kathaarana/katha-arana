@@ -1,6 +1,5 @@
 ```html
 <!DOCTYPE html>
-
 <html lang="si">
 
 <head>
@@ -31,7 +30,6 @@ body{
 .story-page-header{
     width:100%;
     min-height:65px;
-
     padding:12px 5%;
 
     display:flex;
@@ -65,7 +63,6 @@ body{
 
 .story-page-header nav a{
     text-decoration:none;
-
     color:#ddd5e8;
 
     padding:9px 15px;
@@ -84,46 +81,22 @@ body{
 
 
 /* =====================================================
-   STORY INFORMATION
+   STORY INFO
 ===================================================== */
 
 .story-reader{
 
     display:grid;
 
-    grid-template-columns:280px 1fr;
+    grid-template-columns:240px 1fr;
 
-    gap:45px;
+    gap:40px;
 
-    align-items:center;
+    align-items:start;
 
     max-width:1100px;
 
-    margin:0 auto;
-
-    padding:45px;
-
-    background:
-        radial-gradient(
-            circle at 0% 50%,
-            rgba(139,92,246,.10),
-            transparent 35%
-        ),
-
-        linear-gradient(
-            145deg,
-            rgba(25,18,36,.98),
-            rgba(12,9,18,.98)
-        );
-
-    border:1px solid
-        rgba(167,139,250,.14);
-
-    border-radius:28px;
-
-    box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.40);
+    margin:auto;
 }
 
 
@@ -133,9 +106,8 @@ body{
 
 .reader-cover{
 
-    width:280px;
-
-    height:420px;
+    width:240px;
+    height:360px;
 
     border-radius:18px;
 
@@ -145,42 +117,21 @@ body{
         linear-gradient(
             145deg,
             #241536,
-            #100b18
+            #0e0a15
         );
 
-    display:flex;
+    border:1px solid
+        rgba(192,132,252,.18);
 
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.55),
+        0 0 40px rgba(124,58,237,.08);
+
+    display:flex;
     align-items:center;
     justify-content:center;
 
     font-size:60px;
-
-    box-shadow:
-        0 20px 45px
-        rgba(0,0,0,.5),
-
-        0 0 0 1px
-        rgba(192,132,252,.10);
-
-    position:relative;
-}
-
-.reader-cover::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            180deg,
-            transparent 60%,
-            rgba(0,0,0,.35)
-        );
-
-    pointer-events:none;
 }
 
 .reader-cover img{
@@ -199,17 +150,17 @@ body{
 ===================================================== */
 
 .reader-info{
-    max-width:720px;
+    padding-top:5px;
 }
 
 .reader-info h1{
 
     font-size:
-        clamp(35px,5vw,58px);
+        clamp(36px,5vw,58px);
 
-    line-height:1.12;
+    line-height:1.1;
 
-    margin:5px 0 14px;
+    margin:8px 0 15px;
 
     color:#fff;
 
@@ -220,22 +171,20 @@ body{
 
     color:#aaa2b7;
 
-    margin-bottom:18px;
-
     font-size:15px;
+
+    margin-bottom:18px;
 }
 
 .reader-info .description{
 
-    color:#91889c;
+    max-width:800px;
+
+    color:#aaa2b7;
 
     line-height:1.9;
 
-    max-width:680px;
-
     font-size:16px;
-
-    margin-bottom:20px;
 }
 
 
@@ -253,7 +202,7 @@ body{
 
     flex-wrap:wrap;
 
-    margin:20px 0;
+    margin-top:22px;
 }
 
 .story-meta span{
@@ -262,32 +211,30 @@ body{
 
     align-items:center;
 
-    gap:5px;
+    gap:6px;
 
     padding:7px 11px;
 
     border-radius:9px;
 
-    background:
-        rgba(255,255,255,.045);
-
-    border:
-        1px solid
-        rgba(255,255,255,.06);
-
     color:#aaa2b7;
 
-    font-size:13px;
+    font-size:14px;
+
+    background:rgba(255,255,255,.045);
+
+    border:1px solid
+        rgba(255,255,255,.06);
 }
 
 .story-meta .rating{
 
-    color:#f3c969;
+    color:#ffd166;
 }
 
 
 /* =====================================================
-   READER CONTROLS
+   CONTROLS
 ===================================================== */
 
 .reader-controls{
@@ -296,55 +243,49 @@ body{
 
     flex-wrap:wrap;
 
-    gap:9px;
+    gap:10px;
 
-    margin-top:24px;
+    margin-top:20px;
 }
 
 .reader-controls button{
 
-    border:
-        1px solid
+    border:1px solid
         rgba(255,255,255,.08);
 
-    padding:10px 14px;
+    padding:11px 16px;
 
-    border-radius:10px;
+    border-radius:11px;
 
     cursor:pointer;
 
     background:
-        rgba(255,255,255,.055);
+        rgba(255,255,255,.045);
 
-    color:#ddd6e5;
+    color:#e9e3ef;
+
+    font-size:14px;
 
     transition:.25s;
 
-    font-size:14px;
+    backdrop-filter:blur(10px);
 }
 
 .reader-controls button:hover{
 
+    transform:translateY(-2px);
+
     background:
-        rgba(139,92,246,.18);
+        rgba(192,132,252,.12);
 
     border-color:
-        rgba(192,132,252,.3);
-
-    transform:translateY(-2px);
+        rgba(192,132,252,.35);
 }
 
-.reader-controls button:disabled{
 
-    opacity:.6;
-
-    cursor:not-allowed;
-
-    transform:none;
-}
+/* LIKE */
 
 #likeButton{
-
     color:#ffb8c4;
 }
 
@@ -356,11 +297,13 @@ body{
         rgba(255,107,129,.35);
 
     background:
-        rgba(255,107,129,.10);
+        rgba(255,107,129,.08);
 }
 
-#bookmarkButton{
 
+/* BOOKMARK */
+
+#bookmarkButton{
     color:#d8b4fe;
 }
 
@@ -377,7 +320,7 @@ body{
 
 
 /* =====================================================
-   CHAPTER SECTION
+   CHAPTERS
 ===================================================== */
 
 #chapterListSection{
@@ -386,21 +329,7 @@ body{
 
     margin-left:auto;
     margin-right:auto;
-
-    margin-top:50px !important;
 }
-
-#chapterListSection h2{
-
-    font-size:32px;
-
-    margin-bottom:22px;
-}
-
-
-/* =====================================================
-   CHAPTER LIST
-===================================================== */
 
 #chapterList{
 
@@ -418,22 +347,21 @@ body{
 
     text-align:left;
 
-    padding:17px 18px;
+    padding:17px 20px;
 
-    border:
-        1px solid
-        rgba(167,139,250,.13);
+    border:1px solid
+        rgba(167,139,250,.12);
 
     border-radius:13px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(24,17,33,.95),
-            rgba(15,11,22,.95)
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.018)
         );
 
-    color:#d8d0df;
+    color:#dcd5e5;
 
     cursor:pointer;
 
@@ -444,23 +372,19 @@ body{
 
 .chapter-button:hover{
 
+    transform:translateX(5px);
+
     background:
         linear-gradient(
             135deg,
-            rgba(47,28,70,.95),
-            rgba(25,15,39,.95)
+            rgba(139,92,246,.16),
+            rgba(255,255,255,.035)
         );
 
     border-color:
-        rgba(192,132,252,.45);
-
-    transform:translateX(5px);
+        rgba(192,132,252,.4);
 
     color:#fff;
-
-    box-shadow:
-        0 10px 30px
-        rgba(124,58,237,.14);
 }
 
 
@@ -470,6 +394,15 @@ body{
 
 .reading-area{
 
+    max-width:950px;
+
+    margin-left:auto;
+    margin-right:auto;
+
+    padding:42px;
+
+    border-radius:22px;
+
     background:
         linear-gradient(
             145deg,
@@ -477,33 +410,23 @@ body{
             #0d0a14
         );
 
-    border:
-        1px solid
+    border:1px solid
         rgba(167,139,250,.14);
 
-    border-radius:25px;
-
-    padding:45px;
-
-    max-width:950px;
-
-    margin-left:auto;
-    margin-right:auto;
-
     box-shadow:
-        0 20px 55px
-        rgba(0,0,0,.38);
+        0 20px 60px
+        rgba(0,0,0,.4);
 }
 
 .reading-area h2{
 
-    font-size:35px;
+    font-size:36px;
 
     color:#fff;
 
-    margin-bottom:30px;
-
     line-height:1.3;
+
+    margin-bottom:10px;
 }
 
 .chapter-content{
@@ -512,13 +435,11 @@ body{
 
     line-height:2;
 
-    color:#d2cad9;
+    color:#d5cedd;
 
-    white-space:normal;
+    margin-top:28px;
 
     overflow-wrap:anywhere;
-
-    margin-top:25px;
 }
 
 .chapter-content p{
@@ -535,6 +456,11 @@ body{
     margin:20px 0;
 }
 
+
+/* =====================================================
+   CHAPTER NAVIGATION
+===================================================== */
+
 .chapter-buttons{
 
     display:flex;
@@ -545,36 +471,44 @@ body{
 
     padding-top:25px;
 
-    border-top:
-        1px solid
+    border-top:1px solid
         rgba(255,255,255,.06);
 
     flex-wrap:wrap;
 }
 
+.read-btn{
 
-/* =====================================================
-   FOOTER
-===================================================== */
+    display:inline-block;
 
-footer{
+    border:1px solid
+        rgba(192,132,252,.18);
+
+    padding:11px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
 
     background:
-        linear-gradient(
-            180deg,
-            #0b0810,
-            #050408
-        );
+        rgba(139,92,246,.08);
 
-    color:white;
+    color:#eee;
 
-    text-align:center;
+    text-decoration:none;
 
-    padding:55px 7% 25px;
+    transition:.25s;
+}
 
-    border-top:
-        1px solid
-        rgba(139,92,246,.12);
+.read-btn:hover{
+
+    background:
+        rgba(139,92,246,.2);
+
+    border-color:
+        rgba(192,132,252,.4);
+
+    transform:translateY(-2px);
 }
 
 
@@ -597,24 +531,22 @@ body.reading-mode #chapterListSection{
 
 body.reading-mode .section{
 
-    max-width:850px;
-
-    margin:0 auto;
+    max-width:1000px;
 
     padding-top:35px;
 }
 
 body.reading-mode .reading-area{
 
-    max-width:850px;
+    max-width:900px;
 
-    border:none;
+    padding:20px 0;
 
     background:transparent;
 
-    box-shadow:none;
+    border:none;
 
-    padding:20px 0;
+    box-shadow:none;
 }
 
 body.reading-mode .chapter-content{
@@ -622,6 +554,8 @@ body.reading-mode .chapter-content{
     font-size:21px;
 
     line-height:2.05;
+
+    color:#e4e4e4;
 }
 
 
@@ -629,34 +563,38 @@ body.reading-mode .chapter-content{
    MOBILE
 ===================================================== */
 
-@media(max-width:850px){
+@media(max-width:700px){
 
     .story-reader{
 
         grid-template-columns:1fr;
 
-        gap:30px;
-
-        padding:30px;
-
-        text-align:center;
+        gap:28px;
     }
 
     .reader-cover{
 
-        width:210px;
+        width:190px;
+        height:285px;
 
-        height:315px;
-
-        margin:0 auto;
+        margin:auto;
     }
 
     .reader-info{
 
-        max-width:none;
+        text-align:center;
     }
 
-    .story-meta,
+    .reader-info h1{
+
+        font-size:36px;
+    }
+
+    .story-meta{
+
+        justify-content:center;
+    }
+
     .reader-controls{
 
         justify-content:center;
@@ -669,78 +607,7 @@ body.reading-mode .chapter-content{
 
     .reading-area{
 
-        padding:30px 22px;
-    }
-
-}
-
-@media(max-width:550px){
-
-    .story-page-header{
-
-        min-height:58px;
-
-        padding:9px 12px;
-    }
-
-    .story-page-logo{
-
-        font-size:16px;
-    }
-
-    .story-page-header nav a{
-
-        font-size:12px;
-
-        padding:7px 10px;
-    }
-
-    .story-reader{
-
         padding:25px 18px;
-
-        border-radius:20px;
-    }
-
-    .reader-cover{
-
-        width:180px;
-
-        height:270px;
-    }
-
-    .reader-info h1{
-
-        font-size:34px;
-    }
-
-    .reader-info .description{
-
-        font-size:15px;
-    }
-
-    .reader-controls button{
-
-        padding:9px 11px;
-
-        font-size:13px;
-    }
-
-    #chapterListSection{
-
-        margin-top:35px !important;
-    }
-
-    #chapterListSection h2{
-
-        font-size:27px;
-    }
-
-    .reading-area{
-
-        padding:25px 18px;
-
-        border-radius:20px;
     }
 
     .reading-area h2{
@@ -754,28 +621,28 @@ body.reading-mode .chapter-content{
 
         line-height:1.9;
     }
-
 }
 
 
-/* =====================================================
-   SMALL PHONES
-===================================================== */
-
-@media(max-width:400px){
+@media(max-width:450px){
 
     .reader-cover{
 
         width:165px;
-
         height:248px;
     }
 
     .reader-info h1{
 
-        font-size:30px;
+        font-size:31px;
     }
 
+    .reader-controls button{
+
+        padding:10px 12px;
+
+        font-size:13px;
+    }
 }
 
 </style>
@@ -802,7 +669,6 @@ body.reading-mode .chapter-content{
 
     </div>
 
-
     <nav>
 
         <a href="index.html">
@@ -814,84 +680,84 @@ body.reading-mode .chapter-content{
 </header>
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
 <main class="section">
 
 
-    <!-- STORY INFO -->
+<!-- =====================================================
+     STORY INFO
+===================================================== -->
 
-    <div
-        class="story-reader"
-        id="storyInfo"
-    >
+<div
+    class="story-reader"
+    id="storyInfo"
+>
 
-        <p style="
-            color:#888;
-            text-align:center;
-            padding:40px;
-            grid-column:1/-1;
-        ">
+    <p style="
+        color:#888;
+        text-align:center;
+        padding:40px;
+        grid-column:1/-1;
+    ">
 
-            ⏳ කතාව load වෙමින්...
+        ⏳ කතාව load වෙමින්...
 
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     CHAPTERS
+===================================================== -->
+
+<section
+    id="chapterListSection"
+    style="margin-top:55px;"
+>
+
+    <p class="label">
+        CHAPTERS
+    </p>
+
+    <h2>
+        📚 පරිච්ඡේද
+    </h2>
+
+    <div id="chapterList">
+
+        <p style="color:#888;">
+            ⏳ Chapters load වෙමින්...
         </p>
 
     </div>
 
+</section>
 
 
-    <!-- CHAPTERS -->
+<!-- =====================================================
+     READING AREA
+===================================================== -->
 
-    <section
-        id="chapterListSection"
-        style="margin-top:55px;"
-    >
+<article
+    class="reading-area"
+    id="chapterArea"
+    style="margin-top:45px;"
+>
 
-        <p class="label">
-            CHAPTERS
-        </p>
+    <p class="label">
+        STORY
+    </p>
 
-        <h2>
-            📚 පරිච්ඡේද
-        </h2>
+    <h2>
+        Chapter එකක් තෝරන්න
+    </h2>
 
-        <div id="chapterList">
+    <p>
+        ඉහළින් Chapter එකක් තෝරලා
+        කතාව කියවීම ආරම්භ කරන්න. 📖
+    </p>
 
-            <p style="color:#888;">
-                ⏳ Chapters load වෙමින්...
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- READING AREA -->
-
-    <article
-        class="reading-area"
-        id="chapterArea"
-        style="margin-top:45px;"
-    >
-
-        <p class="label">
-            STORY
-        </p>
-
-        <h2>
-            Chapter එකක් තෝරන්න
-        </h2>
-
-        <p>
-            ඉහළින් Chapter එකක් තෝරලා
-            කතාව කියවීම ආරම්භ කරන්න. 📖
-        </p>
-
-    </article>
+</article>
 
 
 </main>
@@ -919,7 +785,6 @@ body.reading-mode .chapter-content{
 </footer>
 
 
-
 <!-- =====================================================
      SUPABASE
 ===================================================== -->
@@ -927,7 +792,6 @@ body.reading-mode .chapter-content{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
-
 
 
 <script>
@@ -989,7 +853,6 @@ async function loadStory(){
             showStoryNotFound();
 
             return;
-
         }
 
 
@@ -1018,7 +881,6 @@ async function loadStory(){
             showStoryNotFound();
 
             return;
-
         }
 
 
@@ -1027,14 +889,12 @@ async function loadStory(){
             showStoryNotFound();
 
             return;
-
         }
 
 
-        /* 18+ CHECK */
+        /* 18+ */
 
         const isAdultStory =
-
             String(
                 story.category || ""
             )
@@ -1060,9 +920,7 @@ async function loadStory(){
                     "index.html";
 
                 return;
-
             }
-
         }
 
 
@@ -1109,22 +967,15 @@ async function loadStory(){
 
                 viewsElement.innerText =
                     "👁️ " +
-                    Number(newViews || 0);
+                    newViews;
 
             }
-
-        }
-        else{
-
-            console.error(
-                "View error:",
-                viewError
-            );
-
         }
 
 
-        /* LOAD CHAPTERS */
+        /* =================================================
+           LOAD CHAPTERS
+        ================================================= */
 
         await loadChapters(
             story.id
@@ -1176,15 +1027,21 @@ function displayStory(story){
 
 
     const views =
-        Number(story.views || 0);
+        Number(
+            story.views || 0
+        );
 
 
     const likes =
-        Number(story.likes || 0);
+        Number(
+            story.likes || 0
+        );
 
 
     const rating =
-        Number(story.rating || 0);
+        Number(
+            story.rating || 0
+        );
 
 
     storyInfo.innerHTML = `
@@ -1240,7 +1097,6 @@ function displayStory(story){
 
             <div class="story-meta">
 
-
                 <span id="storyViews">
 
                     👁️ ${views}
@@ -1261,12 +1117,13 @@ function displayStory(story){
 
                 </span>
 
-
             </div>
 
 
             <div class="reader-controls">
 
+
+                <!-- LIKE -->
 
                 <button
                     onclick="toggleLike()"
@@ -1274,10 +1131,12 @@ function displayStory(story){
                     type="button"
                 >
 
-                    🤍 Like
+                    🤍 Like ${likes}
 
                 </button>
 
+
+                <!-- BOOKMARK -->
 
                 <button
                     onclick="toggleBookmark()"
@@ -1289,6 +1148,8 @@ function displayStory(story){
 
                 </button>
 
+
+                <!-- FONT -->
 
                 <button
                     onclick="changeFontSize(-1)"
@@ -1310,6 +1171,8 @@ function displayStory(story){
                 </button>
 
 
+                <!-- READING MODE -->
+
                 <button
                     onclick="toggleReadingMode()"
                     type="button"
@@ -1321,7 +1184,6 @@ function displayStory(story){
 
 
             </div>
-
 
         </div>
 
@@ -1381,7 +1243,6 @@ async function loadChapters(storyId){
             `;
 
             return;
-
         }
 
 
@@ -1429,7 +1290,6 @@ function displayChapters(chapters){
         `;
 
         return;
-
     }
 
 
@@ -1655,20 +1515,10 @@ function openChapter(chapter){
 
 async function toggleLike(){
 
-    if(!currentStory)
+    if(!currentStory){
+
         return;
-
-
-    const likeButton =
-        document.getElementById(
-            "likeButton"
-        );
-
-
-    const likeCount =
-        document.getElementById(
-            "storyLikes"
-        );
+    }
 
 
     const key =
@@ -1682,34 +1532,19 @@ async function toggleLike(){
         "true";
 
 
-    /* ALREADY LIKED */
+    /* Already liked */
 
     if(liked){
 
         alert(
-            "ඔයා මේ story එකට Like කරලා තියෙන්නේ ❤️"
+            "ඔයා මේ story එකට දැනටමත් Like කරලා තියෙනවා ❤️"
         );
 
         return;
-
-    }
-
-
-    /* DISABLE */
-
-    if(likeButton){
-
-        likeButton.disabled =
-            true;
-
-        likeButton.innerText =
-            "⏳ Like වෙමින්...";
-
     }
 
 
     try{
-
 
         const {
             data,
@@ -1727,48 +1562,31 @@ async function toggleLike(){
         if(error){
 
             console.error(
-                "Like error:",
-                error
-            );
-
-            console.error(
-                "Like message:",
+                "LIKE ERROR MESSAGE:",
                 error.message
             );
 
             console.error(
-                "Like details:",
+                "LIKE ERROR DETAILS:",
                 error.details
             );
 
             console.error(
-                "Like hint:",
+                "LIKE ERROR HINT:",
                 error.hint
             );
 
 
-            if(likeButton){
-
-                likeButton.disabled =
-                    false;
-
-                likeButton.innerText =
-                    "🤍 Like";
-
-            }
-
-
             alert(
-                "Like update කරන්න බැරි වුණා.\n\n" +
-                "Supabase SQL function / permission එක check කරන්න."
+                "Like update කරන්න බැරි උනා.\n\n" +
+                error.message
             );
 
             return;
-
         }
 
 
-        /* SAVE LOCAL LIKE */
+        /* Save like */
 
         localStorage.setItem(
             key,
@@ -1776,62 +1594,42 @@ async function toggleLike(){
         );
 
 
-        /* UPDATE STORY */
+        /* Update current story */
 
         currentStory.likes =
             Number(data || 0);
 
 
-        /* UPDATE COUNT */
+        /* Update UI */
+
+        updateReaderButtons();
+
+
+        const likeCount =
+            document.getElementById(
+                "storyLikes"
+            );
+
 
         if(likeCount){
 
             likeCount.innerText =
                 "❤️ " +
-                Number(data || 0);
+                currentStory.likes;
 
         }
-
-
-        /* UPDATE BUTTON */
-
-        if(likeButton){
-
-            likeButton.innerText =
-                "❤️ Liked";
-
-            likeButton.classList.add(
-                "liked"
-            );
-
-            likeButton.disabled =
-                false;
-
-        }
-
 
     }
     catch(error){
 
         console.error(
-            "Unexpected Like error:",
+            "Unexpected LIKE error:",
             error
         );
 
 
-        if(likeButton){
-
-            likeButton.disabled =
-                false;
-
-            likeButton.innerText =
-                "🤍 Like";
-
-        }
-
-
         alert(
-            "Like update කිරීමේදී error එකක් ආවා."
+            "Like update කරන්න බැරි උනා."
         );
 
     }
@@ -1845,8 +1643,10 @@ async function toggleLike(){
 
 function toggleBookmark(){
 
-    if(!currentStory)
+    if(!currentStory){
+
         return;
+    }
 
 
     const key =
@@ -1937,8 +1737,10 @@ function updateLibrary(id,add){
 
 function updateReaderButtons(){
 
-    if(!currentStory)
+    if(!currentStory){
+
         return;
+    }
 
 
     const likeButton =
@@ -1971,12 +1773,20 @@ function updateReaderButtons(){
         "true";
 
 
+    const likes =
+        Number(
+            currentStory.likes || 0
+        );
+
+
+    /* LIKE BUTTON */
+
     if(likeButton){
 
         likeButton.innerText =
             liked
-            ? "❤️ Liked"
-            : "🤍 Like";
+            ? "❤️ Liked " + likes
+            : "🤍 Like " + likes;
 
 
         likeButton.classList.toggle(
@@ -1986,6 +1796,25 @@ function updateReaderButtons(){
 
     }
 
+
+    /* LIKE META */
+
+    const likeCount =
+        document.getElementById(
+            "storyLikes"
+        );
+
+
+    if(likeCount){
+
+        likeCount.innerText =
+            "❤️ " +
+            likes;
+
+    }
+
+
+    /* BOOKMARK */
 
     if(bookmarkButton){
 
@@ -2014,12 +1843,18 @@ function changeFontSize(amount){
     readerFontSize += amount;
 
 
-    if(readerFontSize < 15)
+    if(readerFontSize < 15){
+
         readerFontSize = 15;
 
+    }
 
-    if(readerFontSize > 30)
+
+    if(readerFontSize > 30){
+
         readerFontSize = 30;
+
+    }
 
 
     applyFontSize();
@@ -2111,12 +1946,10 @@ function showStoryNotFound(){
     `;
 
 
-    chapterList.innerHTML =
-        "";
+    chapterList.innerHTML = "";
 
 
-    chapterArea.innerHTML =
-        "";
+    chapterArea.innerHTML = "";
 
 }
 
