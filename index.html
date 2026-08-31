@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="si">
 
@@ -10,7 +11,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>කතා අරණ | Sinhala Stories</title>
+    <title>කතා අරණ</title>
 
     <link
         rel="stylesheet"
@@ -19,157 +20,43 @@
 
     <style>
 
-        /* =========================================
-           KATHA ARANA BANNER
-        ========================================= */
+        /* ================================
+           HEADER LOGO IMAGE
+        ================================= */
 
-        .site-banner {
-            width: 100%;
-            background: #080808;
-            overflow: hidden;
-        }
-
-        .site-banner img {
+        .header .logo img {
+            width: 180px;
+            height: 45px;
+            object-fit: contain;
             display: block;
-            width: 100%;
-            height: auto;
-            max-height: 300px;
-            object-fit: cover;
         }
 
+        /* Keep header logo area neat */
 
-        /* =========================================
-           NAVIGATION
-        ========================================= */
-
-        .main-navigation {
-            width: 100%;
-
+        .header .logo {
             display: flex;
-
-            justify-content: center;
-
             align-items: center;
-
-            gap: 28px;
-
-            padding: 15px 20px;
-
-            background:
-                rgba(10,10,10,0.96);
-
-            border-bottom:
-                1px solid
-                rgba(255,255,255,0.08);
-
-            box-sizing: border-box;
         }
 
 
-        .main-navigation a {
+        /* ================================
+           18+ CARD
+        ================================= */
 
-            color: #aaa;
-
-            text-decoration: none;
-
-            font-size: 14px;
-
-            transition: 0.2s;
-
-        }
-
-
-        .main-navigation a:hover {
-
-            color: white;
-
-        }
-
-
-        /* =========================================
-           HIDDEN 18+
-        ========================================= */
-
-        #adultCategory {
-
+        #adultCard {
             display: none;
-
         }
 
 
-        /* =========================================
-           18+ TRIGGER
-        ========================================= */
-
-        .adult-trigger {
-
-            display: inline-block;
-
-            margin-top: 12px;
-
-            padding: 7px 12px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
-
-            border-radius: 8px;
-
-            background:
-                rgba(255,255,255,0.03);
-
-            color: #777;
-
-            font-size: 12px;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-
-        }
-
-
-        .adult-trigger:hover {
-
-            color: white;
-
-            background:
-                rgba(255,255,255,0.08);
-
-        }
-
-
-        /* =========================================
+        /* ================================
            MOBILE
-        ========================================= */
+        ================================= */
 
         @media (max-width: 600px) {
 
-            .site-banner img {
-
-                width: 100%;
-
-                height: auto;
-
-            }
-
-
-            .main-navigation {
-
-                gap: 15px;
-
-                padding:
-                    12px 10px;
-
-                flex-wrap: wrap;
-
-            }
-
-
-            .main-navigation a {
-
-                font-size: 13px;
-
+            .header .logo img {
+                width: 140px;
+                height: 38px;
             }
 
         }
@@ -182,40 +69,44 @@
 <body>
 
 
-<!-- =========================================
-     TOP BANNER
-========================================= -->
-
-<div class="site-banner">
-
-    <img
-        src="./banner.png"
-        alt="කතා අරණ"
-    >
-
-</div>
-
-
-
-<!-- =========================================
-     NAVIGATION
-========================================= -->
+<!-- =====================================
+     HEADER
+===================================== -->
 
 <header class="header">
 
-    <nav class="main-navigation">
+
+    <!-- LOGO -->
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        <!-- YOUR PHOTOSHOP PNG -->
+
+        <img
+            src="./banner.png"
+            alt="කතා අරණ"
+        >
+
+    </a>
+
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
 
         <a href="index.html">
             මුල් පිටුව
         </a>
 
-        <a href="#stories">
-            කතා
-        </a>
 
         <a href="#categories">
-            වර්ග
+            කතා වර්ග
         </a>
+
 
         <a href="#about">
             අප ගැන
@@ -223,70 +114,46 @@
 
     </nav>
 
+
 </header>
 
 
 
-<!-- =========================================
+<!-- =====================================
      MAIN
-========================================= -->
+===================================== -->
 
 <main>
 
 
-    <!-- =====================================
+    <!-- =================================
          HERO
-    ====================================== -->
+    ================================== -->
 
     <section class="hero">
 
         <div class="hero-content">
 
-            <p class="small-title">
-                WELCOME TO KATHA ARANA
+
+            <p class="label">
+                KATHA ARANA
             </p>
 
 
             <h1>
-
                 ඔබේ මීළඟ
-
                 <span>
                     කතාව සොයාගන්න.
                 </span>
-
             </h1>
 
 
-            <p class="hero-text">
-
-                ආදරය, ත්‍රාසය, අභිරහස් සහ අපූරු
-                සිංහල කතා එකම තැනකින් කියවන්න.
-
+            <p>
+                ආදරය, ත්‍රාසය, අභිරහස් සහ
+                අපූරු සිංහල කතා එකම තැනකින්
+                කියවන්න.
             </p>
 
-
-            <!-- SEARCH -->
-
-            <div class="search-box">
-
-                <input
-                    id="searchBox"
-                    type="text"
-                    placeholder="🔍 කතාවක් සොයන්න..."
-                >
-
-
-                <button
-                    type="button"
-                    onclick="searchStories()"
-                >
-
-                    සොයන්න
-
-                </button>
-
-            </div>
 
         </div>
 
@@ -294,14 +161,15 @@
 
 
 
-    <!-- =====================================
+    <!-- =================================
          CATEGORIES
-    ====================================== -->
+    ================================== -->
 
     <section
         class="section"
         id="categories"
     >
+
 
         <p class="label">
             EXPLORE
@@ -419,7 +287,7 @@
             <!-- 18+ -->
 
             <div
-                id="adultCategory"
+                id="adultCard"
                 class="category"
                 onclick="showCategory('18+')"
             >
@@ -447,9 +315,45 @@
 
 
 
-    <!-- =====================================
+    <!-- =================================
+         STORIES
+    ================================== -->
+
+    <section
+        class="section"
+        id="stories"
+    >
+
+
+        <p class="label">
+            DISCOVER
+        </p>
+
+
+        <h2>
+            📚 කතා
+        </h2>
+
+
+        <div
+            class="story-grid"
+            id="storyGrid"
+        >
+
+            <p>
+                කතා load වෙමින් පවතී...
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================
          CATEGORY RESULTS
-    ====================================== -->
+    ================================== -->
 
     <section
         class="section"
@@ -457,35 +361,15 @@
         style="display:none;"
     >
 
-        <div class="section-heading">
+
+        <p class="label">
+            CATEGORY
+        </p>
 
 
-            <div>
-
-                <p class="label">
-                    CATEGORY
-                </p>
-
-
-                <h2 id="categoryTitle">
-                    කතා
-                </h2>
-
-            </div>
-
-
-            <button
-                class="read-btn"
-                type="button"
-                onclick="showAllStories()"
-            >
-
-                ← සියලු කතා
-
-            </button>
-
-
-        </div>
+        <h2 id="categoryTitle">
+            කතා
+        </h2>
 
 
         <div
@@ -498,171 +382,31 @@
 
 
 
-    <!-- =====================================
-         POPULAR STORIES
-    ====================================== -->
-
-    <section
-        class="section"
-        id="stories"
-    >
-
-        <div class="section-heading">
-
-
-            <div>
-
-                <p class="label">
-                    DISCOVER
-                </p>
-
-
-                <h2>
-                    📚 ජනප්‍රිය කතා
-                </h2>
-
-            </div>
-
-
-        </div>
-
-
-        <div
-            class="story-grid"
-            id="storyGrid"
-        >
-
-            <p style="
-                color:#888;
-                padding:20px;
-            ">
-
-                📚 කතා load වෙමින් පවතී...
-
-            </p>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =====================================
-         LATEST STORIES
-    ====================================== -->
-
-    <section
-        class="section"
-        id="latest"
-    >
-
-        <div class="section-heading">
-
-
-            <div>
-
-                <p class="label">
-                    JUST PUBLISHED
-                </p>
-
-
-                <h2>
-                    🆕 අලුත්ම කතා
-                </h2>
-
-            </div>
-
-
-        </div>
-
-
-        <div
-            class="story-grid"
-            id="latestGrid"
-        >
-
-            <p style="
-                color:#888;
-                padding:20px;
-            ">
-
-                📚 කතා load වෙමින් පවතී...
-
-            </p>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =====================================
-         MY LIBRARY
-    ====================================== -->
-
-    <section
-        class="section"
-        id="library"
-    >
-
-        <div class="section-heading">
-
-
-            <div>
-
-                <p class="label">
-                    MY LIBRARY
-                </p>
-
-
-                <h2>
-                    🔖 My Library
-                </h2>
-
-            </div>
-
-
-        </div>
-
-
-        <div
-            class="story-grid"
-            id="libraryGrid"
-        ></div>
-
-
-    </section>
-
-
-
-    <!-- =====================================
+    <!-- =================================
          ABOUT
-    ====================================== -->
+    ================================== -->
 
     <section
-        class="section about"
+        class="section"
         id="about"
     >
 
+
         <p class="label">
-            KATHA ARANA
+            ABOUT US
         </p>
 
 
         <h2>
-            ඔබේම කතා අරණයට සාදරයෙන් පිළිගනිමු. 📖
+            කතා අරණ ගැන
         </h2>
 
 
         <p>
-
-            හොඳ සිංහල කතාවක් කියවන්න,
-            අලුත් ලෝකයකට යන්න,
-            අලුත් චරිත හඳුනාගන්න.
-
+            හොඳ සිංහල කතා කියවන්නට
+            ඔබේම තැනක්.
         </p>
+
 
     </section>
 
@@ -671,43 +415,26 @@
 
 
 
-<!-- =========================================
+<!-- =====================================
      FOOTER
-========================================= -->
+===================================== -->
 
 <footer>
 
 
     <div class="footer-logo">
-
         📚 කතා අරණ
-
     </div>
 
 
     <p>
-
         සිංහල කතා කියවන්නට ඔබේම තැන.
-
     </p>
-
-
-    <!-- 18+ -->
-
-    <button
-        type="button"
-        class="adult-trigger"
-        onclick="openAdultCategory()"
-    >
-
-        🔞 18+
-
-    </button>
 
 
     <div class="footer-bottom">
 
-        © 2026 KATHA ARANA.
+        © 2026 කතා අරණ.
         All Rights Reserved.
 
     </div>
@@ -717,13 +444,11 @@
 
 
 
-<!-- =========================================
+<!-- =====================================
      SUPABASE
-========================================= -->
+===================================== -->
 
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <script src="supabase.js"></script>
@@ -735,3 +460,4 @@
 </body>
 
 </html>
+```
